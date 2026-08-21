@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="お引っ越し先のSoftBank 光・インターネット回線のご相談受付ページです。">
+  <title>お引っ越し先のインターネット回線受付｜SoftBank 光</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/refined.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="ページ上部へ">
+        <span class="brand-main">SoftBank <b>光</b></span>
+        <span class="brand-sub">お引っ越し受付窓口</span>
+      </a>
+      <a class="header-phone" href="tel:0120000000"><span>ご相談無料</span>0120-000-000</a>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="eyebrow">お引っ越し予定の方へ</div>
+        <h1>新居のネット、<br><em>お早めに。</em></h1>
+        <p class="hero-copy">引っ越し・新規のお申し込みを<br>かんたんに受付できます。</p>
+
+        <figure class="hero-visual"><img src="img/moving-home-hero.png" alt="明るい新居に置かれた引っ越し用の段ボールとWi-Fiルーター"></figure>
+
+        <a class="cta primary" href="#address">新居の回線を確認する <span>›</span></a>
+        <p class="cta-note"><span>✓</span> かんたん入力　<span>✓</span> WEB24時間受付</p>
+        <p class="disclaimer">※本ページはSoftBank公式サイトではなく、回線受付窓口のモックです。</p>
+      </section>
+
+      <section class="section usage" id="status">
+        <p class="section-kicker">まずはここから</p>
+        <h2>現在の利用状況を<br>教えてください</h2>
+        <p class="lead">「移転」か「新規」か、わからなくても大丈夫。いまの状況を選ぶだけです。</p>
+        <fieldset class="choice-list">
+          <legend class="sr-only">現在のインターネット利用状況</legend>
+          <label class="choice"><input type="radio" name="usage" value="softbank"><span class="radio"></span><span><b>SoftBank 光を利用中</b><small>新居への移転・継続をご案内</small></span><i>›</i></label>
+          <label class="choice"><input type="radio" name="usage" value="other"><span class="radio"></span><span><b>他社インターネットを利用中</b><small>新居での新規お申し込みをご案内</small></span><i>›</i></label>
+          <label class="choice"><input type="radio" name="usage" value="none"><span class="radio"></span><span><b>現在利用していない</b><small>新居での新規お申し込みをご案内</small></span><i>›</i></label>
+        </fieldset>
+        <p class="selection-message" id="selection-message" role="status">上の3つから選択してください</p>
+      </section>
+
+      <section class="section address" id="address">
+        <p class="section-kicker">新居の住所確認</p>
+        <h2>新居で使えるか、<br>まずは確認。</h2>
+        <p class="lead">提供エリアや必要な手続きを確認し、担当者からわかりやすくご案内します。</p>
+
+        <form id="address-form" novalidate>
+          <div class="form-step"><span>1</span><p><b>郵便番号</b><small>ハイフンなし・半角数字</small></p></div>
+          <label class="field-label" for="postal">郵便番号 <b>必須</b></label>
+          <div class="postal-row"><input id="postal" name="postal" inputmode="numeric" autocomplete="postal-code" maxlength="7" placeholder="例）1000001" required><button type="button" id="postal-search">住所を検索</button></div>
+          <p class="field-error" id="postal-error"></p>
+
+          <div class="form-divider"></div>
+          <div class="form-step"><span>2</span><p><b>住所</b><small>新居の住所をご入力ください</small></p></div>
+          <label class="field-label" for="prefecture">都道府県 <b>必須</b></label>
+          <div class="select-wrap"><select id="prefecture" name="prefecture" required><option value="">選択してください</option><option>北海道</option><option>東京都</option><option>神奈川県</option><option>愛知県</option><option>大阪府</option><option>福岡県</option><option>その他</option></select></div>
+          <label class="field-label" for="city">市区町村 <b>必須</b></label>
+          <input id="city" name="city" autocomplete="address-level2" placeholder="例）千代田区" required>
+          <label class="field-label" for="street">町名・番地 <b>必須</b></label>
+          <input id="street" name="street" autocomplete="street-address" placeholder="例）丸の内1-1-1" required>
+          <label class="field-label" for="building">建物名・部屋番号 <span>任意</span></label>
+          <input id="building" name="building" placeholder="例）○○マンション 101号室">
+          <p class="form-error" id="form-error" role="alert"></p>
+          <button class="cta primary form-submit" type="submit">新居の回線を確認する <span>›</span></button>
+          <p class="privacy-note">入力いただいた内容は、回線確認・ご案内のために使用します。</p>
+        </form>
+      </section>
+
+      <section class="section steps">
+        <p class="section-kicker">お申し込みはかんたん</p><h2>新居のネット準備<br>3STEP</h2>
+        <div class="step-list">
+          <article><strong>01</strong><div class="step-icon">⌨</div><h3>WEBから受付</h3><p>新居の住所と現在の状況を入力します。</p></article>
+          <article><strong>02</strong><div class="step-icon">♬</div><h3>内容を確認・ご案内</h3><p>担当者が必要な手続きをわかりやすくご案内します。</p></article>
+          <article><strong>03</strong><div class="step-icon">⌂</div><h3>新居で利用開始</h3><p>開通準備が整ったら、新居でインターネットをご利用いただけます。</p></article>
+        </div>
+      </section>
+
+      <section class="section both">
+        <div class="big-number">02</div><p class="section-kicker">どちらも受付できます</p><h2>移転も、新規も。<br>迷わずご相談ください。</h2>
+        <div class="path"><span>ご利用中の方</span><b>新居への移転・継続</b><p>現在の契約状況を確認して、必要なお手続きをご案内します。</p></div>
+        <div class="path"><span>他社利用中・回線なしの方</span><b>新居で新規お申し込み</b><p>新居で使える回線を確認して、ご希望に合わせてご案内します。</p></div>
+        <p class="reassurance">どちらかわからなくても<br><b>現在の状況からご案内します。</b></p>
+      </section>
+
+      <section class="mid-cta">
+        <div class="mini-house">⌂</div><h2>新居の住所が決まったら<br>まずは回線を確認。</h2><p>WEBなら24時間受付</p><a class="cta dark" href="#address">新居の回線を確認する <span>›</span></a>
+      </section>
+
+      <section class="section early">
+        <p class="section-kicker">引っ越し日が決まったら</p><h2>ネットの準備も、<br><em>お早めに。</em></h2>
+        <div class="calendar" aria-hidden="true"><div class="cal-head"></div><b>引越</b><span>01</span><span>02</span><span>03</span><span>04</span><span class="marked">05</span><span>06</span><span>07</span></div>
+        <p class="lead">ご利用場所や設備の状況により、工事や開通準備に時間がかかる場合があります。</p>
+        <div class="notice"><b>POINT</b><p>新居の住所が決まったタイミングで確認しておくと安心です。</p></div>
+      </section>
+
+      <section class="section consult">
+        <p class="section-kicker">こんな場合もご相談ください</p><h2>新居のネットのこと、<br>まとめてご案内。</h2>
+        <ul class="check-list"><li>今の回線を新居でも使いたい</li><li>引っ越しを機に回線を変えたい</li><li>新居で何が使えるかわからない</li><li>工事や開通までの日数が気になる</li><li>手続きの違いがよくわからない</li></ul>
+        <p class="support-copy">ひとつでも当てはまったら、<br><b>まずは新居の回線確認から。</b></p>
+      </section>
+
+      <section class="section prepare">
+        <p class="section-kicker">入力前にチェック</p><h2>準備するもの</h2>
+        <div class="prepare-item"><span>〒</span><div><b>新居の住所</b><p>郵便番号・番地・建物名までわかるとスムーズです。</p></div></div>
+        <div class="prepare-item"><span>▣</span><div><b>引っ越し予定日</b><p>おおよその日程でもご相談いただけます。</p></div></div>
+        <div class="prepare-item"><span>✓</span><div><b>現在の利用状況</b><p>SoftBank 光・他社回線・利用なしのいずれかをご確認ください。</p></div></div>
+      </section>
+
+      <section class="section faq">
+        <p class="section-kicker">よくあるご質問</p><h2>FAQ</h2>
+        <div class="accordion">
+          <details><summary><span>Q</span><b>引っ越し先の住所が完全に決まっていなくても相談できますか？</b><i></i></summary><div class="answer"><span>A</span><p>ご相談いただけます。提供エリアの正確な確認には番地や建物名が必要になる場合があります。</p></div></details>
+          <details><summary><span>Q</span><b>現在、他社回線を使っていますが申し込めますか？</b><i></i></summary><div class="answer"><span>A</span><p>はい。お引っ越し先での新規お申し込みとしてご案内します。</p></div></details>
+          <details><summary><span>Q</span><b>今のSoftBank 光を新居でも使えますか？</b><i></i></summary><div class="answer"><span>A</span><p>新居の提供状況などを確認し、移転に必要なお手続きをご案内します。</p></div></details>
+          <details><summary><span>Q</span><b>申し込みから開通までどのくらいかかりますか？</b><i></i></summary><div class="answer"><span>A</span><p>住所や設備、工事の混雑状況により異なります。余裕をもって早めにご相談ください。</p></div></details>
+          <details><summary><span>Q</span><b>WEB受付だけで契約は完了しますか？</b><i></i></summary><div class="answer"><span>A</span><p>受付内容を確認後、担当者より詳細や必要なお手続きをご案内します。</p></div></details>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <p>お引っ越し予定の方へ</p><h2>新居のネット、<br>いま確認しておくと安心です。</h2><div class="final-visual">⌂ <span>⌁</span></div><a class="cta primary" href="#address">新居の回線を確認する <span>›</span></a><div class="or"><span>または</span></div><a class="phone-cta" href="tel:0120000000"><small>お電話でのご相談・受付</small><b>0120-000-000</b><span>受付時間 10:00〜20:00</span></a><p class="cta-note"><span>✓</span> 相談無料　<span>✓</span> 通話料無料</p>
+      </section>
+
+      <section class="legal">
+        <h2>ご確認ください</h2>
+        <ul><li>本ページはSoftBank公式サイトではなく、インターネット回線の取次窓口が運営する受付ページです。</li><li>サービスの提供可否は、地域・建物・設備状況などにより異なります。</li><li>お申し込み内容の確認後、担当者からご連絡する場合があります。</li><li>掲載内容・受付時間は予告なく変更となる場合があります。</li></ul>
+        <div class="company"><b>運営会社</b><dl><div><dt>会社名</dt><dd>○○○○株式会社</dd></div><div><dt>所在地</dt><dd>東京都○○区○○ 0-0-0</dd></div><div><dt>連絡先</dt><dd>0120-000-000</dd></div></dl></div>
+      </section>
+    </main>
+
+    <footer><a href="#">プライバシーポリシー</a><a href="#">会社概要</a><p>© 2026 ○○○○ Inc.</p></footer>
+    <div class="sticky"><a href="#address">新居の回線を確認する <span>›</span></a></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+  <script src="js/script.js"></script>
+</body>
+</html>
