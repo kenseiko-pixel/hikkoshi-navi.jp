@@ -372,10 +372,26 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 .compare .col-keep{background:#eaf3fd;color:var(--c-blue);border-radius:8px 8px 0 0;}
 .compare .col-switch{background:#fff1e7;color:var(--c-orange);border-radius:8px 8px 0 0;}
 .compare tbody th{
-  display:flex;align-items:center;gap:5px;
   padding-left:2px;
-  color:var(--c-navy);font-size:11px;font-weight:700;text-align:left;
-  min-height:44px;
+  color:var(--c-navy);
+  font-size:11px;
+  font-weight:700;
+  text-align:left;
+  vertical-align:middle;
+}
+
+.compare tbody th svg{
+  display:inline-block;
+  vertical-align:middle;
+  margin-right:5px;
+  color:var(--c-blue);
+  opacity:.75;
+}
+
+.compare tbody th .lbl{
+  display:inline-block;
+  vertical-align:middle;
+  white-space:nowrap;
 }
 .compare tbody th svg{flex:0 0 auto;color:var(--c-blue);opacity:.75;}
 .compare tbody th .lbl{white-space:nowrap;}   /* <br>の位置でのみ改行 */
