@@ -1,68 +1,10 @@
-const choices = document.querySelectorAll('input[name="usage"]');
-const selectionMessage = document.getElementById('selection-message');
-const address = document.getElementById('address');
-const labels = {
-  softbank: '移転・継続のお手続きをご案内します',
-  other: '新居での新規お申し込みをご案内します',
-  none: '新居での新規お申し込みをご案内します'
-};
-
-choices.forEach(choice => choice.addEventListener('change', () => {
-  selectionMessage.textContent = `✓ ${labels[choice.value]}`;
-  selectionMessage.style.color = '#111';
-  setTimeout(() => address.scrollIntoView({ behavior: 'smooth', block: 'start' }), 280);
-}));
-
-const form = document.getElementById('address-form');
-const postal = document.getElementById('postal');
-const postalError = document.getElementById('postal-error');
-const toast = document.getElementById('toast');
-
-postal.addEventListener('input', () => {
-  postal.value = postal.value.replace(/\D/g, '').slice(0, 7);
-  postal.classList.remove('invalid');
-  postalError.textContent = '';
-});
-
-document.getElementById('postal-search').addEventListener('click', () => {
-  if (!/^\d{7}$/.test(postal.value)) {
-    postal.classList.add('invalid');
-    postalError.textContent = '郵便番号を7桁で入力してください。';
-    postal.focus();
-    return;
-  }
-  showToast('郵便番号を確認しました。続けて住所をご入力ください。');
-  document.getElementById('prefecture').focus();
-});
-
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  const required = [...form.querySelectorAll('[required]')];
-  required.forEach(el => el.classList.remove('invalid'));
-  const invalid = required.filter(el => !el.value.trim() || (el === postal && !/^\d{7}$/.test(el.value)));
-  if (invalid.length) {
-    invalid.forEach(el => el.classList.add('invalid'));
-    document.getElementById('form-error').textContent = '必須項目をご確認ください。';
-    invalid[0].focus();
-    return;
-  }
-  document.getElementById('form-error').textContent = '';
-  showToast('入力内容を確認できました（モック画面のため送信されません）');
-});
-
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add('show');
-  clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => toast.classList.remove('show'), 3200);
-}
-
-const sticky = document.querySelector('.sticky');
-const finalCta = document.querySelector('.final-cta');
-const hero = document.querySelector('.hero');
-let heroVisible = true;
-let finalVisible = false;
-const updateSticky = () => sticky.classList.toggle('hidden', heroVisible || finalVisible);
-new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; updateSticky(); }, { threshold: .08 }).observe(hero);
-new IntersectionObserver(([entry]) => { finalVisible = entry.isIntersecting; updateSticky(); }, { threshold: .1 }).observe(finalCta);
-updateSticky();
+const LP_CONFIG={lpName:'softbank-hikari-entry',carrier:'SoftBank 光',device:matchMedia('(max-width:767px)').matches?'mobile':'desktop'};
+const KEYS=['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','yclid','msclkid','fbclid'];
+const form=document.querySelector('#application-form'),panels=[...form.querySelectorAll('.form-panel')],progress=[...form.querySelectorAll('.form-progress span')],storeKey=LP_CONFIG.lpName+':attribution';
+function attribution(){const q=new URLSearchParams(location.search);let d={};try{d=JSON.parse(sessionStorage.getItem(storeKey)||'{}')}catch{}KEYS.forEach(k=>{if(q.has(k))d[k]=q.get(k)||''});if(!d.entry_url)d.entry_url=location.href;if(!d.entry_time)d.entry_time=new Date().toISOString();if(!d.referrer)d.referrer=document.referrer;Object.assign(d,{submit_url:location.href,lp_name:LP_CONFIG.lpName,carrier:LP_CONFIG.carrier,device:LP_CONFIG.device});try{sessionStorage.setItem(storeKey,JSON.stringify(d))}catch{}return d}
+function tracking(){const h=document.querySelector('#tracking-fields');h.innerHTML='';Object.entries(attribution()).forEach(([n,v])=>{const i=document.createElement('input');i.type='hidden';i.name=n;i.value=v;i.setAttribute('value',String(v));h.append(i)})}
+function val(n){return form.querySelector(`[name="${n}"]:checked`)?.value||''}function show(n){panels.forEach(p=>{const a=p.dataset.formStep==String(n);p.hidden=!a;p.classList.toggle('active',a)});const s=n==='review'?1:n==='complete'?2:0;progress.forEach((p,i)=>p.classList.toggle('active',i<=s));form.scrollIntoView({behavior:'smooth',block:'start'})}
+document.querySelectorAll('[data-procedure]').forEach(b=>b.onclick=()=>{const t=form.querySelector(`[name="procedure"][value="${b.dataset.procedure}"]`);if(t)t.checked=true;document.querySelectorAll('[data-procedure]').forEach(x=>x.classList.toggle('selected',x===b));form.scrollIntoView({behavior:'smooth'})});
+form.querySelector('.next-step').onclick=()=>{const ok=val('procedure')&&form.elements.current_line.value&&val('moving');document.querySelector('#step1-error').textContent=ok?'':'必須項目を選択してください。';if(ok)show(2)};form.querySelector('.back-step').onclick=()=>show(1);form.querySelector('.back-to-edit').onclick=()=>show(2);form.querySelector('#postal').oninput=e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,7);
+form.querySelector('.review-step').onclick=()=>{const name=form.elements.customer_name.value.trim(),phone=form.elements.phone.value.replace(/\D/g,''),time=form.elements.contact_time.value,ok=name&&/^0\d{9,10}$/.test(phone)&&time;document.querySelector('#step2-error').textContent=ok?'':'お名前・電話番号・希望連絡時間をご確認ください。';if(!ok)return;const rows=[['希望する手続き',val('procedure')],['現在利用中の回線',form.elements.current_line.value],['引っ越し予定',val('moving')],['お名前',name],['電話番号',phone],['希望連絡時間',time],['郵便番号',form.elements.postal.value||'未入力']];document.querySelector('#review-list').innerHTML=rows.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');tracking();show('review')};form.onsubmit=e=>{e.preventDefault();tracking();show('complete')};
+const sticky=document.querySelector('.sticky'),visible={hero:true,form:false,final:false,footer:false},update=()=>sticky.classList.toggle('hidden',visible.hero||visible.form||visible.final||visible.footer);[['hero','.hero'],['form','#application'],['final','#final-cta'],['footer','#footer']].forEach(([k,s])=>new IntersectionObserver(([e])=>{visible[k]=e.isIntersecting;update()},{threshold:.08}).observe(document.querySelector(s)));tracking();update();
