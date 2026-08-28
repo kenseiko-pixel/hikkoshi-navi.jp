@@ -22,3 +22,7 @@ h1,h2,h3,.hero h1,.section h2,.final-cta h2{font-weight:800}
 .form-panel legend,.field,.panel-count,.segmented span,.form-actions>button:first-child{font-weight:700}
 .accordion summary b{font-weight:700}
 .accordion details>div p,.support-note,.scope{font-weight:500;color:#333}
+.field-error{display:block;min-height:17px;margin:-8px 0 7px;color:#c62828;font-size:10px;font-weight:700;line-height:1.5}
+input.invalid,select.invalid,.segmented.invalid{border-color:#c62828!important;background-color:#fff7f7!important;outline:2px solid #c6282826}
+.segmented.invalid{padding:3px;border:1px solid #c62828;border-radius:6px}
+.postal-status{min-height:17px;margin:-8px 0 7px;color:#555;font-size:10px;font-weight:600}.postal-status.success{color:#237a3b}.postal-status.error{color:#c62828}
