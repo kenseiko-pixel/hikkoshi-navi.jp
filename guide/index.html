@@ -195,8 +195,8 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
    キャッシュバック帯 ＋ ファーストCTA
    ============================================================ */
 .offer-panel{
-  margin:0 var(--pad);
-  padding:22px 18px 20px;
+  margin:36px var(--pad) 0;
+  padding:30px 18px 28px;
   border-radius:var(--radius-l);
   background:
     radial-gradient(120% 90% at 50% 0%,#fff 0%,rgba(255,255,255,0) 60%),
@@ -204,7 +204,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 }
 .offer{
   position:relative;
-  display:grid;grid-template-columns:auto 1fr;gap:0 12px;align-items:center;
+  display:grid;grid-template-columns:auto 1fr;column-gap:12px;row-gap:4px;align-items:center;
 }
 .offer__tag{
   grid-row:1 / span 2;
@@ -223,25 +223,40 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 .offer__price{
   grid-column:1 / -1;
   display:flex;align-items:baseline;justify-content:center;gap:2px;
-  margin-top:2px;
+  margin-top:10px;
   color:var(--c-orange);
   font-size:52px;font-weight:900;line-height:1.05;letter-spacing:-.02em;
 }
 .offer__price .yen{font-size:24px;font-weight:900;}
 .offer__cb{
   grid-column:1 / -1;
-  margin-top:10px;padding:7px;
+  margin-top:16px;padding:9px 7px;
   background:#fff;border-radius:999px;
   color:var(--c-navy);font-size:15px;font-weight:900;text-align:center;
   box-shadow:0 2px 6px rgba(18,39,94,.07);
 }
 .offer__note{
   grid-column:1 / -1;
-  margin-top:10px;
+  margin-top:14px;
   color:var(--c-text-sub);font-size:10px;line-height:1.6;text-align:center;
 }
-.offer-panel .cta-stack{margin-top:16px;}
-.offer-panel--inset{margin:26px 0 0;}
+.offer-panel .cta-stack{margin-top:22px;}
+.offer-panel--inset{margin:32px 0 0;}
+
+/* 選択肢セクション内は、無料診断 → 特典の順に見せる */
+.choice-section{
+  display:flex;
+  flex-direction:column;
+}
+.choice-section .diagnose{
+  order:10;
+  margin-top:36px;
+  padding-top:28px;
+}
+.choice-section .offer-panel--inset{
+  order:11;
+  margin-top:32px;
+}
 
 /* 区切り */
 .divider-dots{
@@ -529,8 +544,8 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
    最終CTA
    ============================================================ */
 .final{
-  margin:0 var(--pad);
-  padding:22px 18px;
+  margin:36px var(--pad) 0;
+  padding:28px 18px 30px;
   border-radius:var(--radius-l);
   background:
     radial-gradient(90% 70% at 50% 0%,#fff 0%,rgba(255,255,255,0) 65%),
@@ -540,12 +555,13 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 .final__cond{color:var(--c-navy);font-size:13px;font-weight:700;}
 .final__price{
   display:flex;align-items:baseline;justify-content:center;gap:2px;
+  margin-top:8px;
   color:var(--c-navy);font-size:17px;font-weight:900;line-height:1.3;
 }
 .final__price .num{color:var(--c-orange);font-size:34px;letter-spacing:-.02em;}
 .final__price .yen{color:var(--c-orange);font-size:18px;}
-.final__cb{color:var(--c-navy);font-size:17px;font-weight:900;}
-.final__gift{margin:8px auto 16px;width:fit-content;}
+.final__cb{margin-top:5px;color:var(--c-navy);font-size:17px;font-weight:900;}
+.final__gift{margin:14px auto 20px;width:fit-content;}
 .final .cta-stack{text-align:left;}
 
 /* ============================================================
@@ -661,6 +677,9 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   padding:3px 10px;border-radius:999px;
   background:var(--c-blue-tint);color:var(--c-blue);font-weight:900;
 }
+.form-progress{display:grid;grid-template-columns:auto 1fr auto 1fr auto;align-items:center;margin-bottom:22px}.form-progress span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e8edf4;color:#8490a3;font-size:11px;font-weight:900}.form-progress span.active{background:var(--c-blue);color:#fff;box-shadow:0 3px 9px rgba(26,111,212,.25)}.form-progress i{height:2px;background:#e1e7ef}.form-progress i.active{background:var(--c-blue)}
+.form-progress-label{display:flex;justify-content:space-between;margin:-15px 0 20px;color:var(--c-text-sub);font-size:9px;font-weight:700}.form-panel[hidden]{display:none}.panel-title{margin:0 0 15px;color:var(--c-navy);font-size:16px;font-weight:900;text-align:center}.procedure-options{display:grid;gap:9px;margin-bottom:18px}.procedure-option input,.radio-row input,.priority-grid input{position:absolute;opacity:0;width:1px;height:1px}.procedure-option span{display:flex;align-items:center;gap:10px;min-height:62px;padding:11px 13px;border:1.5px solid var(--c-line);border-radius:13px;background:#f9fbfd;color:var(--c-navy);font-size:13px;font-weight:800;cursor:pointer}.procedure-option span:before{content:"";flex:0 0 auto;width:18px;height:18px;border:2px solid #c4cedb;border-radius:50%;background:#fff}.procedure-option input:checked+span{border-color:var(--c-blue);background:#edf6ff;box-shadow:0 0 0 2px rgba(26,111,212,.08)}.procedure-option input:checked+span:before{border:5px solid var(--c-blue)}
+.field select{width:100%;height:52px;padding:0 38px 0 14px;background:#f7f9fc;border:1.5px solid var(--c-line);border-radius:12px;color:var(--c-navy);font-size:16px}.field select:focus{outline:none;background:#fff;border-color:var(--c-blue);box-shadow:0 0 0 3px rgba(26,111,212,.12)}.conditional-fields{padding:15px 13px 1px;border-radius:14px;background:var(--c-blue-tint2);margin-bottom:17px}.conditional-fields[hidden]{display:none}.radio-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.radio-row span,.priority-grid span{display:grid;place-items:center;min-height:43px;padding:7px 4px;border:1px solid var(--c-line);border-radius:9px;background:#fff;color:var(--c-text-sub);font-size:11px;font-weight:700;text-align:center;cursor:pointer}.radio-row input:checked+span,.priority-grid input:checked+span{border-color:var(--c-blue);background:#e8f3fd;color:var(--c-blue);box-shadow:inset 0 0 0 1px var(--c-blue)}.priority-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.form-actions{display:flex;flex-direction:column;gap:8px}.form-back{order:2;align-self:center;padding:7px 15px;color:var(--c-text-sub);font-size:12px;font-weight:700;text-decoration:underline}.review-list{margin:0 0 18px}.review-list div{display:grid;grid-template-columns:105px 1fr;gap:8px;padding:9px 4px;border-bottom:1px solid var(--c-line);font-size:11px}.review-list dt{color:var(--c-text-sub);font-weight:700}.review-list dd{margin:0;color:var(--c-navy);font-weight:700;word-break:break-all}.panel-error{display:none;margin:-6px 0 12px;color:#e02020;font-size:11.5px;font-weight:700;text-align:center}.panel-error.is-shown{display:block}
 
 .field{margin-bottom:16px;}
 .field__label{
@@ -816,7 +835,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   </figure>
 
   <!-- ========== 引越しの選択肢 ========== -->
-  <section class="section section--tint">
+  <section class="section section--tint choice-section">
     <h2 class="section-title" style="margin-top:4px;">お引越しの選択肢は<span class="em-orange em-lg">2つ</span>！</h2>
     <p class="section-lead">あなたに合った方法を選びましょう</p>
 
@@ -1030,7 +1049,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
           </svg>
         </a>
 
-        <a class="cta cta--tel" href="tel:0120000000">
+        <a class="cta cta--tel" href="tel:05052918061">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
           </svg>
@@ -1106,7 +1125,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
           </svg>
         </a>
 
-        <a class="cta cta--tel" href="tel:0120000000">
+        <a class="cta cta--tel" href="tel:05052918061">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
           </svg>
@@ -1209,7 +1228,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
         </svg>
       </a>
 
-      <a class="cta cta--tel" href="tel:0120000000">
+      <a class="cta cta--tel" href="tel:05052918061">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
         </svg>
@@ -1229,56 +1248,83 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
       <details class="faq__item">
         <summary class="faq__q">
           <span class="q">Q.</span>
-          <span class="txt">住所変更だけでも相談できますか？</span>
+          <span class="txt">SoftBank Airなど、ホームルーターの住所変更や引越しも相談できますか？</span>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </summary>
-        <p class="faq__a">はい、住所変更や移転手続きのご相談だけでも承ります。乗り換えを前提にしたご案内はいたしませんので、安心してご相談ください。</p>
+        <p class="faq__a">はい。SoftBank Airなどのホームルーターを新居で継続する住所変更・引越しのご相談に対応しています。新居の提供状況を確認し、継続利用と光回線への乗り換えのどちらが合うかもご案内します。</p>
       </details>
 
       <details class="faq__item">
         <summary class="faq__q">
           <span class="q">Q.</span>
-          <span class="txt">工事は必ず必要ですか？</span>
+          <span class="txt">引越し先でインターネットはいつから使えますか？</span>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </summary>
-        <p class="faq__a">お引越し先の設備状況によって異なります。既存の配線が使える場合は工事不要になることもあります。診断時に工事の有無と費用の目安をお伝えします。</p>
+        <p class="faq__a">利用開始日は回線、地域、建物設備、工事枠によって異なります。ホームルーターは住所変更後すぐ利用できる場合があり、光回線は開通工事が必要になることがあります。新居の住所が決まり次第、早めの確認がおすすめです。</p>
       </details>
 
       <details class="faq__item">
         <summary class="faq__q">
           <span class="q">Q.</span>
-          <span class="txt">違約金はかかりますか？</span>
+          <span class="txt">今の回線を移転するのと、他社へ乗り換えるのはどちらがお得ですか？</span>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </summary>
-        <p class="faq__a">契約期間の途中で解約する場合、回線によっては解約金が発生します。乗り換え先の還元で負担を抑えられるケースもあるため、金額を含めて比較してご案内します。</p>
+        <p class="faq__a">現在の月額料金、移転工事費、解約金、新しい回線の料金や特典によって異なります。今の回線をそのまま移転する場合と他社へ乗り換える場合を総額で比較してご案内します。</p>
       </details>
 
       <details class="faq__item">
         <summary class="faq__q">
           <span class="q">Q.</span>
-          <span class="txt">キャッシュバックはいつ受け取れますか？</span>
+          <span class="txt">どのインターネット回線の引越しを相談できますか？</span>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </summary>
-        <p class="faq__a">受け取り時期は回線・申込窓口により異なります。開通の翌月以降となるものが多く、申請手続きが必要な場合もあります。詳細は診断時にご説明します。</p>
+        <p class="faq__a">SoftBank 光、ドコモ光、フレッツ光、auひかり、BIGLOBE光、So-net光、eo光、コミュファ光、J:COMなど、主要な光回線やホームルーターについてご相談いただけます。提供エリアや建物によってご案内できる回線は異なります。</p>
       </details>
 
       <details class="faq__item">
         <summary class="faq__q">
           <span class="q">Q.</span>
-          <span class="txt">土日や夜でも相談できますか？</span>
+          <span class="txt">電話で引越し手続きや回線の相談はできますか？</span>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </summary>
-        <p class="faq__a">お電話は年中無休 9:00〜20:00で受付しています。WEBフォームは24時間いつでも送信でき、翌営業日にご連絡します。</p>
+        <p class="faq__a">はい。050-5291-8061で、年中無休9:00〜20:00まで受け付けています。WEBフォームは24時間受付です。現在の回線名と引越し先住所が分かると、確認がスムーズです。</p>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span class="q">Q.</span>
+          <span class="txt">インターネットと電気・ガスをまとめて相談できますか？</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <p class="faq__a">はい。引越し先のインターネット回線とあわせて、電気・ガスの手続きやセット利用についてもご相談いただけます。ご案内できるサービスや割引は、地域・回線・契約条件によって異なります。</p>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span class="q">Q.</span>
+          <span class="txt">光回線の開通工事や工事日の変更も依頼できますか？</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <p class="faq__a">新規・乗り換え・移転に伴う工事の有無や開通までの流れはご案内できます。すでに確定している工事日の変更や既存契約のサポートは、ご契約中の回線事業者の公式窓口へお問い合わせください。</p>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span class="q">Q.</span>
+          <span class="txt">引越し先の住所が未定でも相談できますか？</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <p class="faq__a">はい。引越し時期や現在利用中のインターネット回線が分かれば、必要な手続きや準備の目安をご案内できます。住所が決まった後に、提供エリアや工事の有無を確認します。</p>
       </details>
     </div>
   </section>
@@ -1386,7 +1432,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
         </svg>
       </a>
 
-      <a class="cta cta--tel" href="tel:0120000000">
+      <a class="cta cta--tel" href="tel:05052918061">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
         </svg>
@@ -1403,9 +1449,8 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
     <h2 class="section-title section-title--rule">無料で相談・診断する</h2>
 
     <div class="form-card">
-      <p class="form-steps">
-        <b>入力</b> ▶ 送信 ▶ 専門スタッフからご連絡
-      </p>
+      <div class="form-progress" aria-label="入力ステップ"><span class="active">1</span><i></i><span>2</span><i></i><span>3</span></div>
+      <div class="form-progress-label"><span>手続き内容</span><span>お客様情報</span><span>確認・送信</span></div>
 
       <!--
         送信先（環境に応じて action を切り替えてください）
@@ -1418,6 +1463,26 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
         <div class="hp" aria-hidden="true">
           <label>会社名<input type="text" name="company" tabindex="-1" autocomplete="off"></label>
         </div>
+        <div id="tracking-fields"></div>
+
+        <section class="form-panel" data-form-step="1">
+          <h3 class="panel-title">引っ越しのタイプを選択してください</h3>
+          <div class="procedure-options">
+            <label class="procedure-option"><input type="radio" name="procedure" value="そのまま移転"><span>今の回線をそのまま移転したい</span></label>
+            <label class="procedure-option"><input type="radio" name="procedure" value="他社へ乗り換え"><span>他社へお得に乗り換えたい</span></label>
+            <label class="procedure-option"><input type="radio" name="procedure" value="相談して決めたい"><span>比較・相談してから決めたい</span></label>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="current-line">現在利用中の回線 <span class="req">必須</span></label>
+            <select id="current-line" name="current_line"><option value="">選択してください</option><option>ドコモ光</option><option>SoftBank 光</option><option>auひかり</option><option>フレッツ光</option><option>その他の光回線</option><option>ホームルーター・WiMAX</option><option>利用していない</option><option>分からない</option></select>
+          </div>
+
+          <p class="panel-error" id="step1-error">引っ越しのタイプと現在の回線を選択してください</p>
+          <button class="submit next-step" type="button"><span class="submit__txt">お客様情報の入力へ</span> ›</button>
+        </section>
+
+        <section class="form-panel" data-form-step="2" hidden>
 
         <div class="field">
           <label class="field__label" for="name">お名前 <span class="req">必須</span></label>
@@ -1435,38 +1500,37 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
         </div>
 
         <div class="field">
+          <label class="field__label" for="postal">郵便番号 <span class="req">必須</span></label>
+          <input type="text" id="postal" name="postal" autocomplete="postal-code" inputmode="numeric"
+                 maxlength="8" placeholder="450-0001" required aria-describedby="postal-error">
+          <p class="field__error" id="postal-error">郵便番号を正しく入力してください</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="address">住所 <span class="req">必須</span></label>
+          <input type="text" id="address" name="address" autocomplete="street-address"
+                 placeholder="愛知県名古屋市中村区" required aria-describedby="address-error">
+          <p class="field__error" id="address-error">住所を入力してください</p>
+        </div>
+
+        <div class="field">
           <label class="field__label" for="email">メールアドレス <span class="req">必須</span></label>
           <input type="email" id="email" name="email" autocomplete="email" inputmode="email"
                  placeholder="example@mail.com" required aria-describedby="email-error">
           <p class="field__error" id="email-error">メールアドレスを正しく入力してください</p>
         </div>
 
-        <label class="consent" for="agree">
-          <input type="checkbox" id="agree" name="agree" required aria-describedby="agree-error">
-          <span><a href="https://shinseikatsu-portal.jp/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意して送信します</span>
-        </label>
-        <p class="field__error" id="agree-error" style="margin:-10px 0 14px;">同意にチェックしてください</p>
+        <div class="form-actions"><button class="submit review-step" type="button"><span class="submit__txt">入力内容を確認する</span> ›</button><button class="form-back back-to-step1" type="button">前の画面に戻る</button></div>
+        </section>
 
-        <p class="form-alert" id="formAlert" role="alert"></p>
+        <section class="form-panel" data-form-step="3" hidden>
+          <h3 class="panel-title">入力内容をご確認ください</h3>
+          <dl class="review-list" id="review-list"></dl>
+          <p class="form-alert" id="formAlert" role="alert"></p>
+          <div class="form-actions"><button class="submit" type="submit" id="submitBtn"><span class="submit__txt">無料で相談・診断する</span> ›</button><button class="form-back back-to-step2" type="button">入力内容を修正する</button></div>
+        </section>
 
-        <button class="submit" type="submit" id="submitBtn">
-          <span class="submit__txt">無料で相談・診断する</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-
-        <p class="form-note">
-          ご相談・お見積りは完全無料です。<br>
-          しつこい営業のご連絡はいたしません。
-        </p>
-
-        <a class="form-tel" href="tel:0120000000">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
-          </svg>
-          電話で相談する（9:00〜20:00）
-        </a>
+        <a class="form-tel" href="tel:05052918061">電話で相談する（9:00〜20:00）</a>
       </form>
 
       <!-- 送信完了 -->
@@ -1525,7 +1589,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
       このフォームからお申し込みで最大<span class="num">70,000円</span>キャッシュバック
     </p>
     <div class="sticky__row">
-      <a class="sticky__tel" href="tel:0120000000">
+      <a class="sticky__tel" href="tel:05052918061">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
         </svg>
@@ -1558,9 +1622,62 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
   var form = document.getElementById('entryForm');
   if (!form) return;
 
+  var trackingKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gad_source','gad_campaignid','gclid','gbraid','wbraid','yclid','msclkid','fbclid'];
+  var blockedQueryKey = /(?:password|passwd|pwd|token|secret|email|mail|phone|tel|name|address|postal|zipcode|session|auth|cookie)/i;
+  var trackingStoreKey = 'internet-hikkoshi-entry:attribution';
+
+  function safeUrl(value) {
+    try {
+      var url = new URL(value, location.href);
+      return url.origin + url.pathname + url.hash;
+    } catch (e) { return ''; }
+  }
+
+  function collectAttribution() {
+    var query = new URLSearchParams(location.search);
+    var data = {};
+    try { data = JSON.parse(sessionStorage.getItem(trackingStoreKey) || '{}'); } catch (e) {}
+    trackingKeys.forEach(function (key) {
+      if (query.has(key)) data[key] = (query.get(key) || '').slice(0, 500);
+    });
+    var extra = {}, count = 0;
+    query.forEach(function (value, key) {
+      if (count >= 30 || trackingKeys.indexOf(key) !== -1 || blockedQueryKey.test(key) || !/^[A-Za-z0-9_.-]{1,64}$/.test(key)) return;
+      extra[key] = value.slice(0, 500);
+      count++;
+    });
+    if (Object.keys(extra).length) data.other_query_params = JSON.stringify(extra);
+    if (!data.entry_url) data.entry_url = safeUrl(location.href);
+    if (!data.entry_time) data.entry_time = new Date().toISOString();
+    if (!data.referrer) data.referrer = safeUrl(document.referrer);
+    data.submit_url = safeUrl(location.href);
+    data.lp_name = 'internet-hikkoshi-entry';
+    data.carrier = 'general';
+    data.device = matchMedia('(max-width:767px)').matches ? 'mobile' : 'desktop';
+    try { sessionStorage.setItem(trackingStoreKey, JSON.stringify(data)); } catch (e) {}
+    return data;
+  }
+
+  function setTrackingFields() {
+    var holder = document.getElementById('tracking-fields');
+    var data = collectAttribution();
+    holder.innerHTML = '';
+    Object.keys(data).forEach(function (name) {
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = data[name];
+      holder.appendChild(input);
+    });
+  }
+
+  setTrackingFields();
+
   var rules = {
     name:  { test: function (v) { return v.trim().length > 0; },              error: 'name-error' },
     tel:   { test: function (v) { return /^0\d{9,10}$/.test(v.replace(/[-\s]/g, '')); }, error: 'tel-error' },
+    postal:{ test: function (v) { return /^\d{3}-?\d{4}$/.test(v.trim()); }, error: 'postal-error' },
+    address:{ test: function (v) { return v.trim().length > 0; }, error: 'address-error' },
     email: { test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, error: 'email-error' }
   };
 
@@ -1581,28 +1698,99 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
     });
   });
 
+  var panels = Array.prototype.slice.call(form.querySelectorAll('[data-form-step]'));
+  var progressDots = Array.prototype.slice.call(document.querySelectorAll('.form-progress span'));
+  var progressLines = Array.prototype.slice.call(document.querySelectorAll('.form-progress i'));
+
+  function showStep(stepNumber) {
+    panels.forEach(function (panel) {
+      var active = panel.getAttribute('data-form-step') === String(stepNumber);
+      panel.hidden = !active;
+    });
+    progressDots.forEach(function (dot, index) { dot.classList.toggle('active', index < stepNumber); });
+    progressLines.forEach(function (line, index) { line.classList.toggle('active', index < stepNumber - 1); });
+    document.getElementById('entry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function selectedValue(name) {
+    var selected = form.querySelector('[name="' + name + '"]:checked');
+    return selected ? selected.value : '';
+  }
+
+  function updateConditionalFields() {
+    document.getElementById('step1-error').classList.remove('is-shown');
+  }
+
+  form.querySelectorAll('[name="procedure"]').forEach(function (radio) {
+    radio.addEventListener('change', updateConditionalFields);
+  });
+
+  [['.plan--keep .plan__cta','そのまま移転'],['.plan--switch .plan__cta','他社へ乗り換え']].forEach(function (setting) {
+    var link = document.querySelector(setting[0]);
+    if (!link) return;
+    link.addEventListener('click', function () {
+      var radio = form.querySelector('[name="procedure"][value="' + setting[1] + '"]');
+      if (radio) { radio.checked = true; updateConditionalFields(); }
+    });
+  });
+
+  form.querySelector('.next-step').addEventListener('click', function () {
+    var ok = selectedValue('procedure') !== '' && form.elements.current_line.value !== '';
+    document.getElementById('step1-error').classList.toggle('is-shown', !ok);
+    if (ok) showStep(2);
+  });
+
+  form.querySelector('.back-to-step1').addEventListener('click', function () { showStep(1); });
+  form.querySelector('.back-to-step2').addEventListener('click', function () { showStep(2); });
+
+  function validateCustomerStep() {
+    var ok = true;
+    Object.keys(rules).forEach(function (id) { if (!validateField(id)) ok = false; });
+    if (!ok) {
+      var first = form.querySelector('[aria-invalid="true"]');
+      if (first) first.focus({ preventScroll: false });
+    }
+    return ok;
+  }
+
+  function addReviewRow(list, label, value) {
+    if (!value) return;
+    var row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
+    dt.textContent = label; dd.textContent = value; row.appendChild(dt); row.appendChild(dd); list.appendChild(row);
+  }
+
+  form.querySelector('.review-step').addEventListener('click', function () {
+    if (!validateCustomerStep()) return;
+    var list = document.getElementById('review-list');
+    var procedure = selectedValue('procedure');
+    list.innerHTML = '';
+    addReviewRow(list, '希望する手続き', procedure);
+    addReviewRow(list, '現在の回線', form.elements.current_line.value);
+    addReviewRow(list, 'お名前', form.elements.name.value.trim());
+    addReviewRow(list, '電話番号', form.elements.tel.value.trim());
+    addReviewRow(list, '郵便番号', form.elements.postal.value.trim());
+    addReviewRow(list, '住所', form.elements.address.value.trim());
+    addReviewRow(list, 'メールアドレス', form.elements.email.value.trim());
+    showStep(3);
+  });
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    var ok = true;
-    Object.keys(rules).forEach(function (id) { if (!validateField(id)) ok = false; });
-
-    var agree = document.getElementById('agree');
-    var agreeErr = document.getElementById('agree-error');
-    agreeErr.classList.toggle('is-shown', !agree.checked);
-    if (!agree.checked) ok = false;
+    var ok = validateCustomerStep();
 
     var alertBox = document.getElementById('formAlert');
     var btn = document.getElementById('submitBtn');
     var btnTxt = btn.querySelector('.submit__txt');
 
     if (!ok) {
-      var first = form.querySelector('[aria-invalid="true"]') || (!agree.checked ? agree : null);
+      var first = form.querySelector('[aria-invalid="true"]');
       if (first) first.focus({ preventScroll: false });
       return;
     }
 
     // 送信
+    setTrackingFields();
     alertBox.classList.remove('is-shown');
     btn.disabled = true;
     btnTxt.textContent = '送信中…';
@@ -1616,9 +1804,7 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
       })
       .then(function (data) {
         if (!data.ok) throw new Error(data.message || '送信に失敗しました。時間をおいて再度お試しください。');
-        form.classList.add('is-hidden');
-        document.getElementById('formDone').classList.add('is-shown');
-        document.getElementById('entry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.location.replace('thanks.html');
       })
       .catch(function (err) {
         alertBox.textContent = err.message || '送信に失敗しました。時間をおいて再度お試しください。';
