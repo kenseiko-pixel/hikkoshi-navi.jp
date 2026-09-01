@@ -35,7 +35,7 @@ $address = clean('address', 200);
 $email = clean('email', 254);
 
 $errors = [];
-if (!in_array($procedure, ['そのまま移転', '他社へ乗り換え', '相談して決めたい'], true)) $errors[] = '希望する手続き';
+if (!in_array($procedure, ['引越し・移転', '引越しに伴う他社乗り換え', '新居で新規申し込み'], true)) $errors[] = '希望する手続き';
 if ($currentLine === '') $errors[] = '現在利用中の回線';
 if ($name === '') $errors[] = 'お名前';
 if (!preg_match('/^0\d{9,10}$/', $tel)) $errors[] = '電話番号';
