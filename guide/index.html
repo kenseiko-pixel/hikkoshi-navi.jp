@@ -241,7 +241,9 @@ body.existing-user a[href^="tel:"]{display:none!important;}
 .service-scope{position:relative;margin-top:0;padding:0 0 30px;}
 .service-scope__visual{margin:0 calc(0px - var(--pad));padding:16px var(--pad) 20px;background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(241,248,254,.46) 35%,rgba(235,245,253,.62) 100%),url("img/moving-support-soft-home.png") center 72%/100% auto no-repeat;}
 .service-scope__list{display:grid;gap:9px;margin:0;padding:0;list-style:none;border:0;}
-.service-scope__item{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:11px;padding:13px 10px;border:0;border-radius:12px;background:rgba(255,255,255,.7);box-shadow:0 3px 12px rgba(29,84,139,.07);color:var(--c-navy);text-shadow:0 1px 5px rgba(255,255,255,.98);}
+.service-scope__item{position:relative;display:grid;grid-template-columns:34px 1fr;align-items:center;gap:11px;padding:13px 10px;border:0;border-radius:12px;background:rgba(255,255,255,.7);box-shadow:0 3px 12px rgba(29,84,139,.07);color:var(--c-navy);text-shadow:0 1px 5px rgba(255,255,255,.98);}
+.service-scope__link{position:absolute;inset:0;border-radius:inherit;}
+.service-scope__link:focus-visible{outline:3px solid var(--c-blue);outline-offset:2px;}
 .service-scope__icon{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#e4f0fc;color:var(--c-blue);font-size:15px;font-weight:900;}
 .service-scope__item b{display:block;font-size:14px;font-weight:900;line-height:1.45;}
 .service-scope__item small{display:block;margin-top:2px;color:var(--c-text-sub);font-size:11px;line-height:1.55;}
@@ -517,8 +519,7 @@ body.modal-open{overflow:hidden;}
   padding:26px 18px 20px;border:1px solid var(--c-line);border-radius:22px;
   background:#fff;box-shadow:0 20px 54px rgba(0,18,55,.32);
 }
-.route-modal__close{position:absolute;right:12px;top:12px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--c-blue-tint2);color:var(--c-text-sub);font-size:23px;line-height:1;}
-.route-modal__brand{margin:0 42px 15px 0;color:var(--c-blue);font-size:11px;font-weight:900;}
+.route-modal__brand{margin:0 0 15px;color:var(--c-blue);font-size:11px;font-weight:900;}
 .route-modal__title{margin:0;color:var(--c-navy);font-size:21px;font-weight:900;line-height:1.5;text-align:left;}
 .route-modal__title em{color:var(--c-orange);font-style:normal;}
 .route-modal__lead{margin:7px 0 19px;color:var(--c-text-sub);font-size:12px;text-align:left;}
@@ -604,7 +605,7 @@ body.modal-open{overflow:hidden;}
       <a class="cta cta--primary" href="#entry">
         <span class="cta__label">無料</span>
         <span class="cta__body">
-          <span class="cta__main">おトクにお引越しする</span>
+          <span class="cta__main">今すぐお引越し</span>
           <span class="cta__sub">WEBから24時間受付</span>
         </span>
         <svg class="cta__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -636,20 +637,23 @@ body.modal-open{overflow:hidden;}
           <li class="service-scope__item">
             <span class="service-scope__icon" aria-hidden="true">✓</span>
             <span><b>新居で新しくインターネットを始める</b><small>新居に合うおトクな回線をご案内</small></span>
+            <a class="service-scope__link" href="#entry" aria-label="新居で新しくインターネットを始める申込フォームへ"></a>
           </li>
           <li class="service-scope__item">
             <span class="service-scope__icon" aria-hidden="true">✓</span>
             <span><b>引越しを機に他社回線へ乗り換える</b><small>料金・速度・特典をまとめて見直し</small></span>
+            <a class="service-scope__link" href="#entry" aria-label="他社回線へ乗り換える申込フォームへ"></a>
           </li>
           <li class="service-scope__item">
             <span class="service-scope__icon" aria-hidden="true">✓</span>
             <span><b>今の回線を新居へ引越し・移転する</b><small>現在の契約を確認して手続きをサポート</small></span>
+            <a class="service-scope__link" href="#entry" aria-label="今の回線を引越し・移転する申込フォームへ"></a>
           </li>
         </ul>
       </div>
       <p class="service-scope__all">
         <strong>すべてOK！</strong>
-        <span>新規・乗り換え・移転、どのケースでも<br>専門のスタッフがお客様がスムーズにご対応させていただきます</span>
+        <span>新規・乗り換え・移転、どのケースでも<br>専門のスタッフがスムーズにご対応させていただきます</span>
       </p>
     </div>
 
@@ -662,7 +666,7 @@ body.modal-open{overflow:hidden;}
         <a class="cta cta--primary" href="#entry">
           <span class="cta__label">無料</span>
           <span class="cta__body">
-            <span class="cta__main">おトクにお引越しする</span>
+            <span class="cta__main">おトクにお引越し</span>
             <span class="cta__sub">乗り換えをご希望の方も受付中</span>
           </span>
           <svg class="cta__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -682,9 +686,9 @@ body.modal-open{overflow:hidden;}
     </section>
   </section>
 
-  <!-- ========== ご相談から開通までの流れ ========== -->
+  <!-- ========== 引越しの流れ ========== -->
   <section class="section section--tint">
-    <h2 class="section-title" style="margin:4px 0 24px;">ご相談から開通までの流れ</h2>
+    <h2 class="section-title" style="margin:4px 0 24px;">引越しの流れ</h2>
 
     <ol class="flow">
       <li class="flow__item">
@@ -696,8 +700,8 @@ body.modal-open{overflow:hidden;}
         </span>
         <div>
           <span class="flow__num">01</span>
-          <span class="flow__title">無料相談</span>
-          <span class="flow__desc">お電話またはWEBで<br>お気軽にご相談</span>
+          <span class="flow__title">引越しの申込</span>
+          <span class="flow__desc">お電話またはWEBで引越申込</span>
         </div>
       </li>
       <li class="flow__item">
@@ -709,21 +713,8 @@ body.modal-open{overflow:hidden;}
         </span>
         <div>
           <span class="flow__num">02</span>
-          <span class="flow__title">お見積り・ご提案</span>
-          <span class="flow__desc">最適なプランや特典を<br>ご案内</span>
-        </div>
-      </li>
-      <li class="flow__item">
-        <span class="flow__icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5 4.5h10l4 4V20a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 20V4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-            <path d="m8.6 13.6 2.2 2.2 4.4-4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <div>
-          <span class="flow__num">03</span>
-          <span class="flow__title">お申し込み</span>
-          <span class="flow__desc">ご希望の手続きを<br>サポート</span>
+          <span class="flow__title">引越先・引越日のご確認</span>
+          <span class="flow__desc">引越先の提供状況とご希望日を確認</span>
         </div>
       </li>
       <li class="flow__item">
@@ -734,9 +725,9 @@ body.modal-open{overflow:hidden;}
           </svg>
         </span>
         <div>
-          <span class="flow__num">04</span>
-          <span class="flow__title">開通・ご利用開始</span>
-          <span class="flow__desc">開通後も安心の<br>アフターサポート</span>
+          <span class="flow__num">03</span>
+          <span class="flow__title">引越し完了</span>
+          <span class="flow__desc">インターネット開通後も安心のアフターサポート</span>
         </div>
       </li>
     </ol>
@@ -745,7 +736,7 @@ body.modal-open{overflow:hidden;}
       <svg width="14" height="14" viewBox="0 0 24 24" fill="#ff6a13" aria-hidden="true">
         <path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/>
       </svg>
-      最短で当日中にお見積り可能です！
+      最短で当日中に引越し受付が可能です！
     </p>
   </section>
 
@@ -762,7 +753,7 @@ body.modal-open{overflow:hidden;}
             <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </summary>
-        <p class="faq__a">はい。SoftBank Airなどのホームルーターを新居で継続する住所変更・引越しのご相談に対応しています。新居の提供状況を確認し、継続利用と光回線への乗り換えのどちらが合うかもご案内します。</p>
+        <p class="faq__a">はい。SoftBank Airなど、ホームルーターの住所変更や引越しに伴う手続きをご相談いただけます。引越し先の提供エリアや利用条件を確認したうえで、必要な手続きをご案内します。</p>
       </details>
 
       <details class="faq__item">
@@ -773,7 +764,7 @@ body.modal-open{overflow:hidden;}
             <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </summary>
-        <p class="faq__a">利用開始日は回線、地域、建物設備、工事枠によって異なります。ホームルーターは住所変更後すぐ利用できる場合があり、光回線は開通工事が必要になることがあります。新居の住所が決まり次第、早めの確認がおすすめです。</p>
+        <p class="faq__a">利用開始日は回線の種類、地域、建物設備、工事状況によって異なります。光回線は開通工事が必要になる場合があるため、引越し日の1か月前を目安にご相談いただくと安心です。</p>
       </details>
 
       <details class="faq__item">
@@ -790,15 +781,42 @@ body.modal-open{overflow:hidden;}
       <details class="faq__item">
         <summary class="faq__q">
           <span class="q">Q.</span>
-          <span class="txt">どのインターネット回線の引越しを相談できますか？</span>
+          <span class="txt">どのインターネット回線を選べばよいか分かりません。</span>
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </summary>
-        <p class="faq__a">SoftBank 光、ドコモ光、フレッツ光、auひかり、BIGLOBE光、So-net光、eo光、コミュファ光、J:COMなど、主要な光回線やホームルーターについてご相談いただけます。提供エリアや建物によってご案内できる回線は異なります。</p>
+        <p class="faq__a">ご利用人数やインターネットの使い方、引越し先の提供状況を確認し、お客様に合う回線をご案内します。回線が決まっていない方もお気軽にご相談ください。</p>
       </details>
 
       <div class="faq__more" id="faq-more" hidden>
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span class="q">Q.</span>
+          <span class="txt">引越し先でWi-Fi（ワイファイ）を使うには何が必要ですか？</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <p class="faq__a">Wi-Fi（ワイファイ）を利用するには、光回線やホームルーターなどのインターネット回線と、無線で接続するためのWi-Fiルーターが必要です。引越し先の住所や建物設備を確認し、新居に合う回線と利用開始までの手続きをご案内します。</p>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span class="q">Q.</span>
+          <span class="txt">引越し先で光回線やWi-Fiはいつから使えますか？</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <p class="faq__a">利用開始日は回線、地域、建物設備、工事枠によって異なります。ホームルーター型のWi-Fiは住所変更後すぐ利用できる場合があり、光回線は開通工事が必要になることがあります。新居の住所が決まり次第、早めの確認がおすすめです。</p>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span class="q">Q.</span>
+          <span class="txt">どの光回線・Wi-Fiサービスの引越しを相談できますか？</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <p class="faq__a">SoftBank 光、ドコモ光、フレッツ光、auひかり、BIGLOBE光、So-net光、eo光、コミュファ光、J:COMなど、主要な光回線やホームルーターについてご相談いただけます。提供エリアや建物によってご案内できる回線は異なります。</p>
+      </details>
+
       <details class="faq__item">
         <summary class="faq__q">
           <span class="q">Q.</span>
@@ -922,7 +940,7 @@ body.modal-open{overflow:hidden;}
     <div class="sticky__row">
       <div class="sticky__remaining" id="remainingFields" aria-live="polite"><span>あと</span><strong id="remainingCount">6</strong><span>項目</span></div>
       <a class="sticky__main" href="#entry">
-        おトクにお引越しする
+        今すぐお引越し
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -934,7 +952,6 @@ body.modal-open{overflow:hidden;}
 
 <div class="route-modal" id="routeModal" role="dialog" aria-modal="true" aria-labelledby="routeModalTitle" hidden>
   <div class="route-modal__panel">
-    <button class="route-modal__close" type="button" id="routeModalClose" aria-label="案内を閉じる">×</button>
     <p class="route-modal__brand">インターネット引越し受付.com</p>
     <h2 class="route-modal__title" id="routeModalTitle">ご希望に合った<br><em>受付窓口</em>をお選びください</h2>
     <p class="route-modal__lead">該当する内容を選択してください</p>
@@ -962,7 +979,6 @@ body.modal-open{overflow:hidden;}
 // 初回流入時の窓口振り分け
 (function () {
   var modal = document.getElementById('routeModal');
-  var closeButton = document.getElementById('routeModalClose');
   var newButton = document.getElementById('routeModalNew');
   var storageKey = 'internet-hikkoshi-entry:route-modal-seen';
   var existingUserKey = 'internet-hikkoshi-entry:existing-user';
@@ -984,10 +1000,8 @@ body.modal-open{overflow:hidden;}
   if (!seen) {
     modal.hidden = false;
     document.body.classList.add('modal-open');
-    setTimeout(function () { closeButton.focus(); }, 0);
   }
 
-  closeButton.addEventListener('click', closeRouteModal);
   newButton.addEventListener('click', closeRouteModal);
   modal.querySelectorAll('a').forEach(function (link) {
     link.addEventListener('click', function () {
@@ -999,12 +1013,6 @@ body.modal-open{overflow:hidden;}
   });
   window.addEventListener('pageshow', syncExistingUserState);
   syncExistingUserState();
-  modal.addEventListener('click', function (event) {
-    if (event.target === modal) closeRouteModal();
-  });
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && !modal.hidden) closeRouteModal();
-  });
 })();
 
 // FAQ：5件目以降を開閉
