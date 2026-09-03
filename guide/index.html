@@ -129,7 +129,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   font-size:12px;font-weight:900;
 }
 .cta__body{flex:1 1 auto;min-width:0;}
-.cta__main{display:block;font-size:17px;font-weight:900;line-height:1.35;}
+.cta__main{display:block;font-size:clamp(15px,4.2vw,17px);font-weight:900;line-height:1.35;white-space:nowrap;}
 .cta__sub{display:block;font-size:11px;font-weight:500;opacity:.9;margin-top:1px;}
 .cta__arrow{flex:0 0 auto;}
 
@@ -138,15 +138,18 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   color:#fff;box-shadow:var(--shadow-cta);
   transition:transform .18s ease,box-shadow .18s ease;
 }
+.cta--primary .cta__body{text-align:center;}
 .cta--primary:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(239,86,0,.34);}
 .cta--primary:active{transform:translateY(0);}
 
 .cta--tel{
+  display:grid;grid-template-columns:44px 1fr 18px;align-items:center;gap:10px;
   background:#fff;color:var(--c-blue);
   border:2px solid #cfe2f8;box-shadow:var(--shadow-cta-b);
-  justify-content:center;gap:12px;text-align:center;
+  text-align:center;
   transition:border-color .18s ease,transform .18s ease;
 }
+.cta--tel>svg{justify-self:center;}
 .cta--tel:hover{border-color:var(--c-blue);transform:translateY(-2px);}
 .cta--tel .cta__main{font-size:17px;}
 .cta--tel .cta__sub{color:var(--c-text-sub);font-weight:500;}
@@ -175,7 +178,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
    サイトヘッダー（ロゴ）
    ============================================================ */
 .site-header{
-  display:flex;align-items:center;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
   padding:7px var(--pad);
   background:#fff;
 }
@@ -188,6 +191,16 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   font-style:italic;
 }
 .logo__text .dotcom{font-size:.92em;}
+.header-tel{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:6px;
+  width:98px;min-width:98px;height:36px;padding:0 10px;
+  border:1.5px solid #cfe2f8;border-radius:999px;
+  background:#fff;color:var(--c-blue);box-shadow:0 2px 8px rgba(26,111,212,.12);
+  font-size:12px;font-weight:900;line-height:1;white-space:nowrap;
+  overflow:hidden;
+}
+.header-tel svg{flex:0 0 auto;}
+body.existing-user a[href^="tel:"]{display:none!important;}
 
 /* ============================================================
    FV（画像差し替え：hikkoshi_FV.png）
@@ -195,78 +208,64 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 .fv{margin:0;position:relative;background:var(--c-blue-tint2);}
 .fv img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;}
 .fv--fallback{aspect-ratio:2/3;background:linear-gradient(160deg,#eaf3fd,#dbe9fa);}
+.fv-entry{padding:19px calc(var(--pad) + 14px) 15px;background:#fff;}
+.fv-entry__guide{margin-bottom:7px;color:var(--c-blue);font-size:13px;font-weight:900;letter-spacing:.04em;text-align:center;}
+.fv-entry .cta--primary{animation:fvCtaFloat 3s ease-in-out infinite;will-change:transform,box-shadow;}
+@keyframes fvCtaFloat{
+  0%,62%,100%{transform:translateY(0);box-shadow:var(--shadow-cta);}
+  72%{transform:translateY(-5px);box-shadow:0 12px 24px rgba(239,86,0,.36);}
+  82%{transform:translateY(0);box-shadow:var(--shadow-cta);}
+  90%{transform:translateY(-2px);box-shadow:0 8px 18px rgba(239,86,0,.3);}
+}
 .visually-hidden{
   position:absolute;width:1px;height:1px;margin:-1px;padding:0;
   overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
 }
 
 /* ============================================================
-   キャッシュバック帯 ＋ ファーストCTA
+   引越し対応範囲 ＋ 特典訴求
    ============================================================ */
-.offer-panel{
-  margin:36px var(--pad) 0;
-  padding:30px 18px 28px;
-  border-radius:var(--radius-l);
-  background:
-    radial-gradient(120% 90% at 50% 0%,#fff 0%,rgba(255,255,255,0) 60%),
-    var(--c-blue-tint);
-}
-.offer{
-  position:relative;
-  display:grid;grid-template-columns:auto 1fr;column-gap:12px;row-gap:4px;align-items:center;
-}
-.offer__tag{
-  grid-row:1 / span 2;
-  display:grid;place-items:center;
-  width:54px;height:54px;border-radius:50%;
-  background:var(--c-blue);color:#fff;
-  font-size:12px;font-weight:900;line-height:1.2;text-align:center;
-  box-shadow:0 4px 10px rgba(26,111,212,.3);
-}
-.offer__cond{
-  color:var(--c-navy);font-size:14px;font-weight:700;
-}
-.offer__max{
-  color:var(--c-navy);font-size:15px;font-weight:900;
-}
-.offer__price{
-  grid-column:1 / -1;
-  display:flex;align-items:baseline;justify-content:center;gap:2px;
-  margin-top:10px;
-  color:var(--c-orange);
-  font-size:52px;font-weight:900;line-height:1.05;letter-spacing:-.02em;
-}
-.offer__price .yen{font-size:24px;font-weight:900;}
-.offer__cb{
-  grid-column:1 / -1;
-  margin-top:16px;padding:9px 7px;
-  background:#fff;border-radius:999px;
-  color:var(--c-navy);font-size:15px;font-weight:900;text-align:center;
-  box-shadow:0 2px 6px rgba(18,39,94,.07);
-}
-.offer__note{
-  grid-column:1 / -1;
-  margin-top:14px;
-  color:var(--c-text-sub);font-size:10px;line-height:1.6;text-align:center;
-}
-.offer-panel .cta-stack{margin-top:22px;}
-.offer-panel--inset{margin:32px 0 0;}
-
-/* 選択肢セクション内は、無料診断 → 特典の順に見せる */
 .choice-section{
-  display:flex;
-  flex-direction:column;
-  padding-top:36px;
+  padding-top:0;
+  background:linear-gradient(180deg,#fff 0%,#f7fbff 44%,#eef7ff 100%);
 }
-.choice-section .diagnose{
-  order:10;
-  margin-top:36px;
-  padding-top:28px;
+.choice-intro{
+  position:relative;display:flex;flex-direction:column;justify-content:flex-start;
+  min-height:202px;margin:0 calc(0px - var(--pad));padding:26px var(--pad) 6px;
+  background:transparent;
 }
-.choice-section .offer-panel--inset{
-  order:11;
-  margin-top:32px;
-}
+.choice-intro .section-title{position:relative;margin:35px auto 8px;padding-bottom:10px;font-size:25px;text-shadow:0 1px 0 #fff,0 2px 10px rgba(255,255,255,.95);}
+.choice-intro .section-title::before{content:"引越し × インターネット";position:absolute;left:50%;bottom:100%;transform:translateX(-50%);width:max-content;margin-bottom:8px;padding:4px 12px;border-radius:999px;background:#e5f2ff;color:var(--c-blue);font-size:10px;font-weight:900;letter-spacing:.08em;box-shadow:0 2px 8px rgba(20,92,170,.1);}
+.choice-intro .section-title::after{content:"";position:absolute;left:50%;bottom:0;width:52px;height:4px;transform:translateX(-50%);border-radius:99px;background:linear-gradient(90deg,#1a6fd4,#ffd82e);}
+.choice-intro .section-lead{max-width:340px;margin:0 auto;color:#344968;font-size:12px;font-weight:800;line-height:1.7;text-align:center;text-shadow:0 1px 0 #fff,0 1px 8px rgba(255,255,255,.98);}
+.service-scope{position:relative;margin-top:0;padding:0 0 30px;}
+.service-scope__visual{margin:0 calc(0px - var(--pad));padding:16px var(--pad) 20px;background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(241,248,254,.46) 35%,rgba(235,245,253,.62) 100%),url("img/moving-support-soft-home.png") center 72%/100% auto no-repeat;}
+.service-scope__list{display:grid;gap:9px;margin:0;padding:0;list-style:none;border:0;}
+.service-scope__item{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:11px;padding:13px 10px;border:0;border-radius:12px;background:rgba(255,255,255,.7);box-shadow:0 3px 12px rgba(29,84,139,.07);color:var(--c-navy);text-shadow:0 1px 5px rgba(255,255,255,.98);}
+.service-scope__icon{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#e4f0fc;color:var(--c-blue);font-size:15px;font-weight:900;}
+.service-scope__item b{display:block;font-size:14px;font-weight:900;line-height:1.45;}
+.service-scope__item small{display:block;margin-top:2px;color:var(--c-text-sub);font-size:11px;line-height:1.55;}
+.service-scope__all{position:relative;margin:20px 0 0;padding:20px 16px 18px;background:#fff8cf;border:1px solid #f0d357;border-radius:16px;color:var(--c-navy);text-align:center;box-shadow:0 8px 20px rgba(18,39,94,.08);}
+.service-scope__all::before{content:"";position:absolute;top:-9px;left:50%;width:16px;height:16px;transform:translateX(-50%) rotate(45deg);background:#fff8cf;border-top:1px solid #f0d357;border-left:1px solid #f0d357;}
+.service-scope__all strong{display:block;color:#e65e00;font-size:25px;font-weight:900;letter-spacing:.02em;line-height:1.25;}
+.service-scope__all span{display:block;margin-top:5px;font-size:12px;font-weight:700;line-height:1.65;}
+.campaign-feature{position:relative;overflow:hidden;margin:0 calc(0px - var(--pad));padding:54px calc(var(--pad) + 14px) 38px;background:#06265e url("img/campaign-premium-bg.png") center/cover no-repeat;color:#fff;text-align:center;}
+.campaign-feature::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,22,61,.12),rgba(2,28,77,.24));pointer-events:none;}
+.campaign-feature>*{position:relative;z-index:1;}
+.campaign-feature__eyebrow{font-size:15px;font-weight:900;letter-spacing:.04em;}
+.campaign-feature__title{margin-top:8px;font-size:27px;font-weight:900;line-height:1.35;}
+.campaign-feature__title em{color:#ffe34d;font-style:normal;}
+.campaign-feature__offer{display:grid;grid-template-columns:36px minmax(0,1fr) 28px;align-items:end;gap:6px;margin:18px 0 8px;}
+.campaign-feature__offer small{display:grid;place-items:center;width:36px;height:36px;margin-bottom:4px;border-radius:50%;background:#fff;color:#0d4f9f;font-size:10px;font-weight:900;}
+.campaign-feature__price{display:flex;align-items:flex-end;justify-content:center;min-width:0;white-space:nowrap;}
+.campaign-feature__offer strong{position:relative;color:#ffe629;font-family:"Arial Black",Arial,sans-serif;font-size:clamp(42px,12.5vw,56px);font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:.02em;line-height:.92;text-shadow:0 0 10px rgba(255,230,41,.38),0 5px 14px rgba(0,0,0,.26);}
+.campaign-feature__offer strong::before,.campaign-feature__offer strong::after{position:absolute;color:#fff7a6;font-size:22px;line-height:1;letter-spacing:0;text-shadow:0 0 9px rgba(255,235,75,.9);}
+.campaign-feature__offer strong::before{content:"✦";left:-8px;top:-17px;}
+.campaign-feature__offer strong::after{content:"✧";right:-5px;top:-18px;}
+.campaign-feature__price i{margin:0 0 3px 4px;color:#ffe629;font-size:21px;font-style:normal;font-weight:900;line-height:1;}
+.campaign-feature__offer b{margin-bottom:5px;font-size:12px;white-space:nowrap;}
+.campaign-feature__caption{display:inline-block;margin-bottom:20px;padding:5px 16px;background:#ffe629;color:#073d87;font-size:13px;font-weight:900;clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%);}
+.campaign-feature .cta-stack{margin-top:0;text-align:left;}
 
 /* 区切り */
 .divider-dots{
@@ -275,220 +274,6 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   background-size:10px 10px;background-position:center;background-repeat:repeat-x;
 }
 
-/* ============================================================
-   ご希望の手続き（迷いにくい3択）
-   ============================================================ */
-.entry-paths{display:grid;gap:10px;margin-top:22px;}
-.section-kicker{margin-bottom:7px;color:var(--c-blue);font-size:11px;font-weight:900;letter-spacing:.12em;text-align:center;}
-.entry-path{
-  display:grid;grid-template-columns:38px 1fr 20px;align-items:center;gap:10px;
-  min-height:76px;padding:13px 12px;
-  background:#fff;border:1.5px solid #d4e2f1;border-radius:14px;
-  box-shadow:0 4px 12px rgba(18,39,94,.07);
-  color:var(--c-navy);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
-}
-.entry-path:hover{transform:translateY(-1px);border-color:var(--c-blue);box-shadow:0 7px 16px rgba(26,111,212,.13);}
-.entry-path__num{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--c-blue);color:#fff;font-size:11px;font-weight:900;}
-.entry-path__copy{display:grid;gap:3px;line-height:1.45;}
-.entry-path__copy b{font-size:15px;font-weight:900;}
-.entry-path__copy small{color:var(--c-text-sub);font-size:10.5px;font-weight:500;}
-.entry-path__arrow{color:var(--c-blue);font-size:24px;font-weight:700;text-align:center;}
-.entry-paths-note{margin-top:13px;color:var(--c-text-sub);font-size:11px;line-height:1.7;text-align:center;}
-
-/* 旧比較カードは3択導線への刷新に伴い非表示 */
-.choices,.choices-note,.compare{display:none;}
-
-.or{
-  position:relative;z-index:2;
-  display:grid;place-items:center;
-  width:44px;height:44px;margin:-14px auto;
-  border-radius:50%;
-  background:#fff;border:1px solid var(--c-line);
-  box-shadow:0 2px 8px rgba(18,39,94,.1);
-  color:var(--c-text-sub);font-size:13px;font-weight:900;
-}
-
-.plan{
-  padding:20px 14px 14px;
-  border-radius:var(--radius-l);
-  text-align:center;
-  background:#fff;
-  box-shadow:var(--shadow-card);
-}
-.plan--keep{border:1.5px solid #cfe3f8;}
-.plan--switch{border:1.5px solid #ffd0ad;}
-
-.plan__icon{
-  display:grid;place-items:center;
-  width:62px;height:62px;margin:0 auto 12px;
-  border-radius:50%;color:#fff;
-}
-.plan--keep .plan__icon{background:var(--c-blue);box-shadow:0 4px 12px rgba(26,111,212,.28);}
-.plan--switch .plan__icon{background:var(--c-orange);box-shadow:0 4px 12px rgba(239,86,0,.26);}
-
-.plan__title{margin:0;font-size:19px;font-weight:900;line-height:1.45;}
-.plan--keep .plan__title{color:var(--c-blue);}
-.plan--switch .plan__title{color:var(--c-orange);}
-
-.plan__sub{margin-top:6px;color:var(--c-navy);font-size:12.5px;font-weight:700;}
-
-.plan__list{
-  margin-top:14px;padding:12px 12px 12px 14px;
-  border-radius:12px;text-align:left;
-}
-.plan--keep .plan__list{background:#f1f6fb;}
-.plan--switch .plan__list{background:#fff1e7;}
-
-/* 説明文（折りたたみ） */
-.plan__more{margin-top:12px;}
-.plan__more summary{
-  display:inline-flex;align-items:center;gap:4px;
-  padding:4px 2px;
-  list-style:none;cursor:pointer;
-  font-size:12.5px;font-weight:700;
-  transition:opacity .16s ease;
-}
-.plan__more summary::-webkit-details-marker{display:none;}
-.plan__more summary:hover{opacity:.7;}
-.plan--keep .plan__more summary{color:var(--c-blue);}
-.plan--switch .plan__more summary{color:var(--c-orange);}
-.plan__more summary .chev{transition:transform .25s ease;}
-.plan__more[open] summary .chev{transform:rotate(180deg);}
-.plan__more[open] summary .label-close{display:inline;}
-.plan__more[open] summary .label-open{display:none;}
-.plan__more summary .label-close{display:none;}
-.plan__detail{
-  padding:8px 2px 0;
-  color:var(--c-text-sub);font-size:12.5px;line-height:1.85;text-align:left;
-}
-/* フォームへ誘導するCTA */
-.plan__cta{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  margin-top:14px;padding:13px;
-  border-radius:999px;
-  color:#fff;font-size:14.5px;font-weight:900;
-  transition:transform .18s ease,box-shadow .18s ease;
-}
-.plan__cta:hover{transform:translateY(-2px);}
-.plan--keep .plan__cta{
-  background:linear-gradient(135deg,#3b8ee6,var(--c-blue-dark));
-  box-shadow:0 4px 12px rgba(26,111,212,.3);
-}
-.plan--keep .plan__cta:hover{box-shadow:0 8px 18px rgba(26,111,212,.38);}
-.plan--switch .plan__cta{
-  background:linear-gradient(135deg,#ff8339,var(--c-orange-dark));
-  box-shadow:var(--shadow-cta);
-}
-.plan--switch .plan__cta:hover{box-shadow:0 8px 18px rgba(239,86,0,.34);}
-
-.choices-note{
-  margin-top:18px;
-  color:var(--c-text-sub);font-size:11.5px;line-height:1.7;text-align:center;
-}
-
-/* ============================================================
-   カンタン比較表
-   ============================================================ */
-.compare{
-  margin-top:26px;padding:16px 12px 12px;
-  background:#fff;border:1px solid var(--c-line);border-radius:var(--radius-l);
-  box-shadow:var(--shadow-card);
-}
-.compare__title{
-  margin-bottom:12px;
-  color:var(--c-navy);font-size:14.5px;font-weight:900;text-align:center;line-height:1.5;
-}
-.compare table{
-  width:100%;border-collapse:separate;border-spacing:0;
-  table-layout:fixed;
-}
-.compare th,.compare td{
-  padding:9px 4px;
-  font-size:11px;line-height:1.5;text-align:center;vertical-align:middle;
-  border-bottom:1px solid var(--c-line);
-}
-.compare thead th{
-  font-weight:900;font-size:11.5px;
-  border-bottom:1px solid var(--c-line);
-}
-.compare thead th:first-child{width:86px;border-bottom-color:transparent;}
-.compare .col-keep{background:#eaf3fd;color:var(--c-blue);border-radius:8px 8px 0 0;}
-.compare .col-switch{background:#fff1e7;color:var(--c-orange);border-radius:8px 8px 0 0;}
-.compare tbody th{
-  padding-left:2px;
-  color:var(--c-navy);
-  font-size:11px;
-  font-weight:700;
-  text-align:left;
-  vertical-align:middle;
-}
-
-.compare tbody th svg{
-  display:inline-block;
-  vertical-align:middle;
-  margin-right:5px;
-  color:var(--c-blue);
-  opacity:.75;
-}
-
-.compare tbody th .lbl{
-  display:inline-block;
-  vertical-align:middle;
-  white-space:nowrap;
-}
-.compare tbody th svg{flex:0 0 auto;color:var(--c-blue);opacity:.75;}
-.compare tbody th .lbl{white-space:nowrap;}   /* <br>の位置でのみ改行 */
-.compare tbody tr:last-child th,
-.compare tbody tr:last-child td{border-bottom:none;}
-.compare td.is-merit{color:var(--c-orange);font-weight:700;}
-.compare td.cell-keep{border-left:1px solid var(--c-line);}
-
-/* ============================================================
-   無料診断パネル
-   ============================================================ */
-.diagnose{
-  margin-top:26px;padding:18px 14px 16px;
-  background:linear-gradient(180deg,#fff9ec,#fff4e3);
-  border:1px solid #f4e2be;border-radius:var(--radius-l);
-}
-.diagnose__head{display:flex;align-items:flex-end;gap:10px;}
-.diagnose__figure{flex:0 0 auto;width:78px;text-align:center;}
-.diagnose__bubble{
-  position:relative;
-  display:inline-block;margin-bottom:4px;padding:5px 8px;
-  background:#fff;border-radius:10px;
-  box-shadow:0 2px 6px rgba(18,39,94,.1);
-  color:var(--c-navy);font-size:10px;font-weight:700;line-height:1.4;
-}
-.diagnose__bubble::after{
-  content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);
-  border-left:5px solid transparent;border-right:5px solid transparent;
-  border-top:6px solid #fff;
-}
-.diagnose__lead{color:var(--c-navy);font-size:12.5px;font-weight:700;}
-.diagnose__title{
-  margin-top:2px;
-  color:var(--c-navy);font-size:18px;font-weight:900;line-height:1.45;
-}
-
-.diagnose__points{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
-  margin-top:14px;
-}
-.point{
-  display:grid;justify-items:center;gap:5px;
-  padding:9px 4px;
-  background:#fff;border:1px solid #eee3cd;border-radius:10px;
-  color:var(--c-navy);font-size:10px;font-weight:700;line-height:1.45;text-align:center;
-}
-.point svg{color:var(--c-blue);}
-
-.diagnose .cta-stack{margin-top:14px;}
-.cta__label--time{
-  width:48px;height:48px;
-  background:#ffe9a8;color:#c24a00;
-  font-size:11px;line-height:1.25;
-}
 
 /* ============================================================
    STEP4 流れ
@@ -552,46 +337,6 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   color:var(--c-text-sub);font-size:13px;line-height:1.85;
 }
 .faq__more{display:grid;gap:10px}.faq__more[hidden]{display:none}.faq__toggle{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:4px;padding:13px;border:1.5px solid #bdd8f4;border-radius:999px;background:#fff;color:var(--c-blue);font-size:13px;font-weight:900}.faq__toggle .chev{transition:transform .25s}.faq__toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
-
-/* ============================================================
-   利用者の声
-   ============================================================ */
-.voices{display:grid;gap:12px;}
-.voice{
-  position:relative;
-  display:grid;grid-template-columns:1fr 64px;gap:6px;align-items:end;
-  padding:14px 12px 12px 14px;
-  background:#fff;border:1px solid var(--c-line);border-radius:var(--radius-m);
-  box-shadow:var(--shadow-card);
-}
-.voice__stars{grid-column:1 / -1;display:flex;gap:1px;color:#ffb020;}
-.voice__txt{color:var(--c-text);font-size:12.5px;font-weight:500;line-height:1.75;}
-.voice__who{display:block;margin-top:4px;color:var(--c-text-sub);font-size:11px;}
-.voice__avatar{align-self:end;}
-
-/* ============================================================
-   最終CTA
-   ============================================================ */
-.final{
-  margin:36px var(--pad) 0;
-  padding:28px 18px 30px;
-  border-radius:var(--radius-l);
-  background:
-    radial-gradient(90% 70% at 50% 0%,#fff 0%,rgba(255,255,255,0) 65%),
-    var(--c-blue-tint);
-  text-align:center;
-}
-.final__cond{color:var(--c-navy);font-size:13px;font-weight:700;}
-.final__price{
-  display:flex;align-items:baseline;justify-content:center;gap:2px;
-  margin-top:8px;
-  color:var(--c-navy);font-size:17px;font-weight:900;line-height:1.3;
-}
-.final__price .num{color:var(--c-orange);font-size:48px;line-height:1;letter-spacing:-.03em;}
-.final__price .yen{color:var(--c-orange);font-size:21px;}
-.final__cb{margin-top:5px;color:var(--c-navy);font-size:17px;font-weight:900;}
-.final__gift{margin:14px auto 20px;width:fit-content;}
-.final .cta-stack{text-align:left;}
 
 /* ============================================================
    安心バー（フッター）
@@ -674,12 +419,14 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   50%{transform:translateY(-2.5px);}
 }
 
-.sticky__tel{
-  flex:0 0 auto;display:grid;place-items:center;gap:1px;
-  width:64px;padding:8px 0;
-  border:1.5px solid #cfe2f8;border-radius:12px;
+.sticky__remaining{
+  flex:0 0 auto;display:flex;align-items:baseline;justify-content:center;gap:2px;
+  width:72px;padding:8px 3px;
+  border:0;
   color:var(--c-blue);font-size:10px;font-weight:700;
 }
+.sticky__remaining strong{font-size:22px;font-weight:900;line-height:1;}
+.sticky__remaining.is-complete{align-items:center;font-size:11px;font-weight:900;background:var(--c-blue-tint2);}
 .sticky__main{
   flex:1 1 auto;display:flex;align-items:center;justify-content:center;gap:8px;
   padding:13px 10px;border-radius:12px;
@@ -697,18 +444,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   background:#fff;border:1px solid var(--c-line);border-radius:var(--radius-l);
   box-shadow:var(--shadow-card);
 }
-.form-steps{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  margin-bottom:18px;
-  color:var(--c-text-sub);font-size:11px;font-weight:700;
-}
-.form-steps b{
-  padding:3px 10px;border-radius:999px;
-  background:var(--c-blue-tint);color:var(--c-blue);font-weight:900;
-}
-.form-progress{display:grid;grid-template-columns:auto 1fr auto 1fr auto;align-items:center;margin-bottom:22px}.form-progress span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e8edf4;color:#8490a3;font-size:11px;font-weight:900}.form-progress span.active{background:var(--c-blue);color:#fff;box-shadow:0 3px 9px rgba(26,111,212,.25)}.form-progress i{height:2px;background:#e1e7ef}.form-progress i.active{background:var(--c-blue)}
-.form-progress-label{display:flex;justify-content:space-between;margin:-15px 0 20px;color:var(--c-text-sub);font-size:9px;font-weight:700}.form-panel[hidden]{display:none}.panel-title{margin:0 0 15px;color:var(--c-navy);font-size:16px;font-weight:900;text-align:center}.procedure-options{display:grid;gap:9px;margin-bottom:18px}.procedure-option input,.radio-row input,.priority-grid input{position:absolute;opacity:0;width:1px;height:1px}.procedure-option span{display:flex;align-items:center;gap:10px;min-height:62px;padding:11px 13px;border:1.5px solid var(--c-line);border-radius:13px;background:#f9fbfd;color:var(--c-navy);font-size:13px;font-weight:800;cursor:pointer}.procedure-option span:before{content:"";flex:0 0 auto;width:18px;height:18px;border:2px solid #c4cedb;border-radius:50%;background:#fff}.procedure-option input:checked+span{border-color:var(--c-blue);background:#edf6ff;box-shadow:0 0 0 2px rgba(26,111,212,.08)}.procedure-option input:checked+span:before{border:5px solid var(--c-blue)}
-.field select{width:100%;height:52px;padding:0 38px 0 14px;background:#f7f9fc;border:1.5px solid var(--c-line);border-radius:12px;color:var(--c-navy);font-size:16px}.field select:focus{outline:none;background:#fff;border-color:var(--c-blue);box-shadow:0 0 0 3px rgba(26,111,212,.12)}.conditional-fields{padding:15px 13px 1px;border-radius:14px;background:var(--c-blue-tint2);margin-bottom:17px}.conditional-fields[hidden]{display:none}.radio-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.radio-row span,.priority-grid span{display:grid;place-items:center;min-height:43px;padding:7px 4px;border:1px solid var(--c-line);border-radius:9px;background:#fff;color:var(--c-text-sub);font-size:11px;font-weight:700;text-align:center;cursor:pointer}.radio-row input:checked+span,.priority-grid input:checked+span{border-color:var(--c-blue);background:#e8f3fd;color:var(--c-blue);box-shadow:inset 0 0 0 1px var(--c-blue)}.priority-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.form-actions{display:flex;flex-direction:column;gap:8px}.form-back{order:2;align-self:center;padding:7px 15px;color:var(--c-text-sub);font-size:12px;font-weight:700;text-decoration:underline}.review-list{margin:0 0 18px}.review-list div{display:grid;grid-template-columns:105px 1fr;gap:8px;padding:9px 4px;border-bottom:1px solid var(--c-line);font-size:11px}.review-list dt{color:var(--c-text-sub);font-weight:700}.review-list dd{margin:0;color:var(--c-navy);font-weight:700;word-break:break-all}.panel-error{display:none;margin:-6px 0 12px;color:#e02020;font-size:11.5px;font-weight:700;text-align:center}.panel-error.is-shown{display:block}
+.field select{width:100%;height:52px;padding:0 38px 0 14px;background:#f7f9fc;border:1.5px solid var(--c-line);border-radius:12px;color:var(--c-navy);font-size:16px}.field select:focus{outline:none;background:#fff;border-color:var(--c-blue);box-shadow:0 0 0 3px rgba(26,111,212,.12)}
 
 .field{margin-bottom:16px;}
 .field__label{
@@ -734,6 +470,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   border-color:var(--c-blue);box-shadow:0 0 0 3px rgba(26,111,212,.12);
 }
 .field input[aria-invalid="true"]{border-color:#e02020;background:#fff6f6;}
+.field select[aria-invalid="true"]{border-color:#e02020;background:#fff6f6;}
 .field__hint{margin-top:5px;color:var(--c-text-sub);font-size:11px;}
 .postal-status{min-height:18px;margin:-10px 0 12px;color:var(--c-text-sub);font-size:11px;font-weight:600}.postal-status.success{color:#237a3b}.postal-status.error{color:#c62828}
 .field__error{
@@ -741,19 +478,6 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   margin-top:5px;color:#e02020;font-size:11.5px;font-weight:700;
 }
 .field__error.is-shown{display:flex;}
-
-.consent{
-  display:flex;align-items:flex-start;gap:8px;
-  margin:4px 0 16px;padding:12px;
-  background:#f7f9fc;border-radius:12px;
-  color:var(--c-text);font-size:12px;line-height:1.7;
-  cursor:pointer;
-}
-.consent input{
-  flex:0 0 auto;width:20px;height:20px;margin-top:1px;
-  accent-color:var(--c-blue);
-}
-.consent a{color:var(--c-blue);text-decoration:underline;}
 
 .submit{
   display:flex;align-items:center;justify-content:center;gap:8px;
@@ -766,17 +490,6 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 }
 .submit:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(239,86,0,.34);}
 .submit:active{transform:translateY(0);}
-.form-note{
-  margin-top:12px;
-  color:var(--c-text-sub);font-size:11px;line-height:1.7;text-align:center;
-}
-.form-tel{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  margin-top:16px;padding-top:16px;
-  border-top:1px dashed var(--c-line);
-  color:var(--c-blue);font-size:13.5px;font-weight:700;
-}
-
 /* ボット対策の隠しフィールド */
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
 
@@ -790,20 +503,34 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 .form-alert.is-shown{display:block;}
 .submit[disabled]{opacity:.6;pointer-events:none;}
 
-/* 送信完了 */
-.form-done{
-  display:none;
-  padding:28px 16px;text-align:center;
+/* ============================================================
+   初回流入時のご案内モーダル
+   ============================================================ */
+body.modal-open{overflow:hidden;}
+.route-modal[hidden]{display:none;}
+.route-modal{
+  position:fixed;z-index:1000;inset:0;display:grid;place-items:center;
+  padding:18px;background:rgba(18,39,94,.68);backdrop-filter:blur(3px);
 }
-.form-done.is-shown{display:block;}
-.form-done__icon{
-  display:grid;place-items:center;
-  width:56px;height:56px;margin:0 auto 12px;
-  border-radius:50%;background:#e6f4ea;color:#1f9254;
+.route-modal__panel{
+  position:relative;width:min(100%,380px);max-height:calc(100dvh - 36px);overflow:auto;
+  padding:26px 18px 20px;border:1px solid var(--c-line);border-radius:22px;
+  background:#fff;box-shadow:0 20px 54px rgba(0,18,55,.32);
 }
-.form-done__title{color:var(--c-navy);font-size:18px;font-weight:900;}
-.form-done__txt{margin-top:8px;color:var(--c-text-sub);font-size:13px;line-height:1.8;}
-.is-hidden{display:none!important;}
+.route-modal__close{position:absolute;right:12px;top:12px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--c-blue-tint2);color:var(--c-text-sub);font-size:23px;line-height:1;}
+.route-modal__brand{margin:0 42px 15px 0;color:var(--c-blue);font-size:11px;font-weight:900;}
+.route-modal__title{margin:0;color:var(--c-navy);font-size:21px;font-weight:900;line-height:1.5;text-align:left;}
+.route-modal__title em{color:var(--c-orange);font-style:normal;}
+.route-modal__lead{margin:7px 0 19px;color:var(--c-text-sub);font-size:12px;text-align:left;}
+.route-modal__options{display:grid;gap:9px;}
+.route-option{display:grid;grid-template-columns:40px 1fr 16px;align-items:center;gap:10px;width:100%;min-height:76px;padding:11px 12px;border:1.5px solid #d4e2f1;border-radius:14px;background:#fff;color:var(--c-navy);box-shadow:0 3px 10px rgba(18,39,94,.06);text-align:left;}
+.route-option:first-child{background:var(--c-blue-tint2);border-color:#bcd7f3;}
+.route-option__icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--c-blue);color:#fff;font-size:11px;font-weight:900;}
+.route-option__copy{display:grid;gap:2px;min-width:0;line-height:1.45;}
+.route-option__copy small{color:var(--c-blue);font-size:10px;font-weight:900;}
+.route-option__copy b{font-size:14.5px;font-weight:900;}
+.route-option__copy span{color:var(--c-text-sub);font-size:10.5px;}
+.route-option__arrow{color:var(--c-blue);font-size:22px;font-weight:700;}
 
 /* ============================================================
    モーション配慮 / 画面幅
@@ -818,7 +545,6 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 @media (max-width:359px){
   :root{--pad:14px;}
   .sticky__bubble{padding:7px 10px;letter-spacing:-.02em;max-width:calc(100% - 8px);}
-  .offer__price{font-size:44px;}
 }
 </style>
 </head>
@@ -856,6 +582,10 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
       </span>
       <span class="logo__text">インターネット<br>引越し受付<span class="dotcom">.com</span></span>
     </a>
+    <a class="header-tel" href="tel:05052918061" aria-label="電話で相談する 050-5291-8061">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/></svg>
+      <span>電話相談</span>
+    </a>
   </header>
 
   <!-- ========== FV（画像） ========== -->
@@ -868,239 +598,77 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
          onerror="this.parentNode.classList.add('fv--fallback');this.removeAttribute('src');">
   </figure>
 
-  <!-- ========== 引越しの選択肢 ========== -->
+  <div class="fv-entry">
+    <p class="fv-entry__guide">▼こちらから最短3分▼</p>
+    <div class="cta-stack">
+      <a class="cta cta--primary" href="#entry">
+        <span class="cta__label">無料</span>
+        <span class="cta__body">
+          <span class="cta__main">おトクにお引越しする</span>
+          <span class="cta__sub">WEBから24時間受付</span>
+        </span>
+        <svg class="cta__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="cta cta--tel" href="tel:05052918061">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
+        </svg>
+        <span class="cta__body">
+          <span class="cta__main">今すぐ電話で相談する</span>
+          <span class="cta__sub">受付時間 9:00〜20:00（年中無休）</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ========== 引越しの対応範囲・特典 ========== -->
   <section class="section section--tint choice-section">
-    <h2 class="section-title" style="margin-top:4px;">インターネットを<br>おトクにお引越し</h2>
-    <p class="section-lead">お客様のご要望に合わせたお手続きをご案内します</p>
-
-    <div class="entry-paths" role="group" aria-label="ご希望のお手続き">
-      <a class="entry-path" href="#entry" data-procedure-choice="新居で新規申し込み">
-        <span class="entry-path__num">01</span>
-        <span class="entry-path__copy"><b>新居で新規申し込み</b><small>おトクな回線をご案内いたします</small></span>
-        <span class="entry-path__arrow" aria-hidden="true">›</span>
-      </a>
-      <a class="entry-path" href="#entry" data-procedure-choice="引越しに伴う他社乗り換え">
-        <span class="entry-path__num">02</span>
-        <span class="entry-path__copy"><b>おトクな回線にてお引越し</b><small>新居で料金や回線を見直したい方</small></span>
-        <span class="entry-path__arrow" aria-hidden="true">›</span>
-      </a>
-      <a class="entry-path" href="#entry" data-procedure-choice="引越し・移転">
-        <span class="entry-path__num">03</span>
-        <span class="entry-path__copy"><b>今の回線を引越し・移転</b><small>現在の回線を新居でも利用したい方</small></span>
-        <span class="entry-path__arrow" aria-hidden="true">›</span>
-      </a>
+    <div class="choice-intro">
+      <h2 class="section-title">インターネットを<br>おトクにお引越し</h2>
+      <p class="section-lead">引越し先の状況に合わせて、<br>必要な手続きをまとめてご案内します</p>
     </div>
 
-    <div class="choices">
-      <!-- 選択肢A：そのまま移転 -->
-      <article class="plan plan--keep">
-        <span class="plan__icon">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M3.5 10.8 12 4l8.5 6.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M5.8 10.5V19a1 1 0 0 0 1 1h10.4a1 1 0 0 0 1-1v-8.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-            <rect x="10" y="13.5" width="4" height="6.5" fill="currentColor"/>
-          </svg>
-        </span>
-        <h3 class="plan__title">今の回線を<br>そのまま移転する</h3>
-        <p class="plan__sub">今と同じ回線事業者を新居でも使う</p>
-
-        <ul class="checklist plan__list">
-          <li>
-            <svg class="ico-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" fill="#dbeafe"/>
-              <path d="m8 12.2 2.6 2.6L16 9.4" stroke="#1a6fd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            同じ回線事業者を使い続けられる
+    <div class="service-scope">
+      <div class="service-scope__visual">
+        <ul class="service-scope__list">
+          <li class="service-scope__item">
+            <span class="service-scope__icon" aria-hidden="true">✓</span>
+            <span><b>新居で新しくインターネットを始める</b><small>新居に合うおトクな回線をご案内</small></span>
           </li>
-          <li>
-            <svg class="ico-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" fill="#dbeafe"/>
-              <path d="m8 12.2 2.6 2.6L16 9.4" stroke="#1a6fd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            手続きがシンプル
+          <li class="service-scope__item">
+            <span class="service-scope__icon" aria-hidden="true">✓</span>
+            <span><b>引越しを機に他社回線へ乗り換える</b><small>料金・速度・特典をまとめて見直し</small></span>
           </li>
-          <li>
-            <svg class="ico-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" fill="#dbeafe"/>
-              <path d="m8 12.2 2.6 2.6L16 9.4" stroke="#1a6fd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            キャッシュバックがもらえる場合も
-          </li>
-          <li>
-            <svg class="ico-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" fill="#dbeafe"/>
-              <path d="m8 12.2 2.6 2.6L16 9.4" stroke="#1a6fd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            工事費がかかる場合あり
+          <li class="service-scope__item">
+            <span class="service-scope__icon" aria-hidden="true">✓</span>
+            <span><b>今の回線を新居へ引越し・移転する</b><small>現在の契約を確認して手続きをサポート</small></span>
           </li>
         </ul>
-
-        <details class="plan__more">
-          <summary>
-            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="label-open">詳しく見る</span><span class="label-close">閉じる</span>
-          </summary>
-          <p class="plan__detail">
-            今と同じ回線事業者を新居でも使う方法です。使い慣れたサービスやサポート窓口をそのまま利用できます。<br>
-            ただし移転にともなって契約内容が変わったり、新たに契約し直しになる場合もあります。新居の設備によっては開通工事が必要で、工事費が発生することもあります。移転でもキャッシュバックの対象になる場合があるため、条件は無料診断で確認できます。
-          </p>
-        </details>
-        <a class="plan__cta" href="#entry">
-          この方法で相談する
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </article>
-
-      <span class="or" aria-hidden="true">or</span>
-
-      <!-- 選択肢B：乗り換え -->
-      <article class="plan plan--switch">
-        <span class="plan__icon">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M8.5 8 12 12.4 15.5 8M8.6 12.6h6.8M8.6 15.2h6.8M12 12.4V17" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <h3 class="plan__title">他社へ乗り換えて<br>お得にする</h3>
-        <p class="plan__sub">料金や特典を見直してお得に</p>
-
-        <ul class="checklist plan__list">
-          <li>
-            <svg class="ico-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" fill="#ffe0cc"/>
-              <path d="m8 12.2 2.6 2.6L16 9.4" stroke="#ef5600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            月額料金が安くなる可能性あり
-          </li>
-          <li>
-            <svg class="ico-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" fill="#ffe0cc"/>
-              <path d="m8 12.2 2.6 2.6L16 9.4" stroke="#ef5600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            キャッシュバックがもらえる
-          </li>
-          <li>
-            <svg class="ico-check" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" fill="#ffe0cc"/>
-              <path d="m8 12.2 2.6 2.6L16 9.4" stroke="#ef5600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            お得なキャンペーンが豊富
-          </li>
-        </ul>
-
-        <details class="plan__more">
-          <summary>
-            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="label-open">詳しく見る</span><span class="label-close">閉じる</span>
-          </summary>
-          <p class="plan__detail">
-            引越しを機に回線を見直す方法です。新規申し込みの特典が使えるため、キャッシュバックや月額割引の対象になりやすいのが特徴です。<br>
-            契約期間の途中だと解約金がかかることもありますが、特典で相殺できるケースもあります。総額でどちらが得かは無料診断で比較できます。
-          </p>
-        </details>
-        <a class="plan__cta" href="#entry">
-          この方法で相談する
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </article>
-    </div>
-
-    <p class="choices-note">
-      ※どちらがよいか迷ったら、専門スタッフが<span class="em-orange">無料</span>で最適なプランをご案内します！
-    </p>
-
-    <!-- 比較表 -->
-    <div class="compare">
-      <h3 class="compare__title">そのまま移転と乗り換えの<br>違いをカンタン比較</h3>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col"><span class="visually-hidden">項目</span></th>
-            <th scope="col" class="col-keep">そのまま<br>移転する場合</th>
-            <th scope="col" class="col-switch">乗り換え<br>する場合</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M8.5 8 12 12.4 15.5 8M8.6 12.8h6.8M8.6 15.4h6.8M12 12.4V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-              <span class="lbl">月額料金</span>
-            </th>
-            <td class="cell-keep">原則そのまま</td>
-            <td class="is-merit">見直せる<br>（安くなる可能性あり）</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <rect x="3.5" y="9.5" width="17" height="11" rx="1.6" stroke="currentColor" stroke-width="1.6"/>
-                <rect x="2.5" y="6" width="19" height="4" rx="1.2" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M12 6v14.5" stroke="currentColor" stroke-width="1.6"/>
-              </svg>
-              <span class="lbl">キャッシュ<br>バック</span>
-            </th>
-            <td class="cell-keep">対象になる<br>場合あり</td>
-            <td class="is-merit">対象になる<br>場合が多い</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M14.8 3.4a4.6 4.6 0 0 0 5.6 6.2l-8.7 8.7a2.2 2.2 0 0 1-3.1-3.1l6.2-6.2a4.6 4.6 0 0 1 0-5.6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                <path d="m4 19.6 3.6-3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-              <span class="lbl">工事</span>
-            </th>
-            <td class="cell-keep">必要な場合あり</td>
-            <td>必要な場合あり</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
-                <circle cx="12" cy="10" r="2.8" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M7 18.2c1.1-2 2.9-3 5-3s3.9 1 5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-              <span class="lbl">手続きの<br>手間</span>
-            </th>
-            <td class="cell-keep">比較的カンタン</td>
-            <td class="is-merit">スタッフが<br>サポート</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <section class="offer-panel offer-panel--inset" aria-label="キャッシュバック特典">
-      <div class="offer">
-        <span class="offer__tag">WEB<br>限定</span>
-        <span class="offer__cond">条件達成で</span>
-        <span class="offer__max">最大</span>
-        <p class="offer__price">70,000<span class="yen">円</span></p>
-        <p class="offer__cb">キャッシュバック！</p>
-        <p class="offer__note">※特典内容は回線・プラン・申込窓口により異なります。</p>
       </div>
+      <p class="service-scope__all">
+        <strong>すべてOK！</strong>
+        <span>新規・乗り換え・移転、どのケースでも<br>専門のスタッフがお客様がスムーズにご対応させていただきます</span>
+      </p>
+    </div>
 
+    <section class="campaign-feature" aria-label="引越しを機にインターネットを見直す特典">
+      <p class="campaign-feature__eyebrow">引越しを機に</p>
+      <h2 class="campaign-feature__title">ネットを見直して<br><em>もっとおトクに</em></h2>
+      <p class="campaign-feature__offer"><small>最大</small><span class="campaign-feature__price"><strong>70,000</strong><i>円</i></span><b>還元</b></p>
+      <p class="campaign-feature__caption">キャッシュバックキャンペーン</p>
       <div class="cta-stack">
         <a class="cta cta--primary" href="#entry">
           <span class="cta__label">無料</span>
           <span class="cta__body">
-            <span class="cta__main">おトクにお引越しを申し込む</span>
+            <span class="cta__main">おトクにお引越しする</span>
             <span class="cta__sub">乗り換えをご希望の方も受付中</span>
           </span>
           <svg class="cta__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-
         <a class="cta cta--tel" href="tel:05052918061">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
@@ -1112,82 +680,6 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
         </a>
       </div>
     </section>
-
-    <!-- 無料診断パネル -->
-    <div class="diagnose">
-      <div class="diagnose__head">
-        <div class="diagnose__figure">
-          <span class="diagnose__bubble">無料で<br>診断♪</span>
-          <svg width="78" height="86" viewBox="0 0 78 86" fill="none" aria-hidden="true">
-            <path d="M6 86c0-16 12-25 33-25s33 9 33 25H6Z" fill="#2f6fb5"/>
-            <path d="M39 61c-8 0-13 3-13 3l13 22 13-22s-5-3-13-3Z" fill="#e8f0f9"/>
-            <circle cx="39" cy="34" r="20" fill="#f6d7c3"/>
-            <path d="M18 33c0-13 8-21 21-21s21 8 21 21c0-6-3-9-7-9-6 0-7 4-16 4-5 0-9 1-11 5-1 2-2 6-2 12l-3 1-3-13Z" fill="#3b3230"/>
-            <circle cx="32" cy="35" r="2" fill="#3a3230"/>
-            <circle cx="46" cy="35" r="2" fill="#3a3230"/>
-            <path d="M35 42c2.4 1.8 5.6 1.8 8 0" stroke="#c98a7a" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M17 30h6v12h-6zM55 30h6v12h-6z" fill="#1a6fd4"/>
-            <path d="M17 31a22 22 0 0 1 44 0" stroke="#1a6fd4" stroke-width="3.4" fill="none"/>
-            <path d="M23 40c3 4 3 8 1 10" stroke="#1a6fd4" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="24" cy="52" r="3" fill="#1a6fd4"/>
-            <path d="M62 70c-3-6-7-8-7-8l6-6 6 4-5 10Z" fill="#f6d7c3"/>
-            <circle cx="66" cy="52" r="5" fill="#f6d7c3"/>
-          </svg>
-        </div>
-        <div>
-          <p class="diagnose__lead">どちらがお得かわからない方へ</p>
-          <p class="diagnose__title">専門スタッフが<br><span class="em-orange">無料</span>で診断します！</p>
-        </div>
-      </div>
-
-      <ul class="diagnose__points">
-        <li class="point">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M8.5 8 12 12.4 15.5 8M8.6 12.8h6.8M8.6 15.4h6.8M12 12.4V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          料金を<br>シミュレーション
-        </li>
-        <li class="point">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M14.8 3.4a4.6 4.6 0 0 0 5.6 6.2l-8.7 8.7a2.2 2.2 0 0 1-3.1-3.1l6.2-6.2a4.6 4.6 0 0 1 0-5.6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="m4 19.6 3.6-3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          工事の有無や<br>費用を確認
-        </li>
-        <li class="point">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="3.5" y="9.5" width="17" height="11" rx="1.6" stroke="currentColor" stroke-width="1.6"/>
-            <rect x="2.5" y="6" width="19" height="4" rx="1.2" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M12 6v14.5" stroke="currentColor" stroke-width="1.6"/>
-          </svg>
-          特典・キャッシュ<br>バックを比較
-        </li>
-      </ul>
-
-      <div class="cta-stack">
-        <a class="cta cta--primary" href="#entry">
-          <span class="cta__label cta__label--time">最短<br>30秒</span>
-          <span class="cta__body">
-            <span class="cta__main">おトクにお引越しを申し込む</span>
-            <span class="cta__sub">乗り換えをご希望の方も受付中</span>
-          </span>
-          <svg class="cta__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-
-        <a class="cta cta--tel" href="tel:05052918061">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
-          </svg>
-          <span class="cta__body">
-            <span class="cta__main">今すぐ電話で相談する</span>
-            <span class="cta__sub">受付時間 9:00〜20:00（年中無休）</span>
-          </span>
-        </a>
-      </div>
-    </div>
   </section>
 
   <!-- ========== ご相談から開通までの流れ ========== -->
@@ -1255,41 +747,6 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
       </svg>
       最短で当日中にお見積り可能です！
     </p>
-  </section>
-
-  <!-- ========== キャッシュバック（再訴求） ========== -->
-  <section class="offer-panel" aria-label="キャッシュバック特典">
-    <div class="offer">
-      <span class="offer__tag">WEB<br>限定</span>
-      <span class="offer__cond">条件達成で</span>
-      <span class="offer__max">最大</span>
-      <p class="offer__price">70,000<span class="yen">円</span></p>
-      <p class="offer__cb">キャッシュバック！</p>
-      <p class="offer__note">※特典内容は回線・プラン・申込窓口により異なります。</p>
-    </div>
-
-    <div class="cta-stack">
-      <a class="cta cta--primary" href="#entry">
-        <span class="cta__label">無料</span>
-        <span class="cta__body">
-          <span class="cta__main">おトクにお引越しを申し込む</span>
-          <span class="cta__sub">乗り換えをご希望の方も受付中</span>
-        </span>
-        <svg class="cta__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-
-      <a class="cta cta--tel" href="tel:05052918061">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
-        </svg>
-        <span class="cta__body">
-          <span class="cta__main">今すぐ電話で相談する</span>
-          <span class="cta__sub">受付時間 9:00〜20:00（年中無休）</span>
-        </span>
-      </a>
-    </div>
   </section>
 
   <!-- ========== STEP5 FAQ ========== -->
@@ -1387,160 +844,17 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
     </div>
   </section>
 
-  <!-- ========== 利用者の声 ========== -->
-  <section class="section section--tint">
-    <h2 class="section-title" style="margin-bottom:22px;">ご利用者の声</h2>
-
-    <ul class="voices">
-      <li class="voice">
-        <span class="voice__stars" aria-label="評価5">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-        </span>
-        <p class="voice__txt">
-          住所変更だけのつもりが、相談したら乗り換えた方がお得とわかり、月額も安くなりました！
-          <span class="voice__who">（30代・女性）</span>
-        </p>
-        <span class="voice__avatar" aria-hidden="true">
-          <svg width="56" height="62" viewBox="0 0 56 62" fill="none">
-            <path d="M8 62c0-13 9-20 20-20s20 7 20 20H8Z" fill="#cbb2e0"/>
-            <circle cx="28" cy="26" r="15" fill="#f6d7c3"/>
-            <path d="M13 24c0-9 6-15 15-15s15 6 15 15c0-5-4-7-8-7-5 0-6 3-12 3-4 0-10 1-10 4Z" fill="#4a3b33"/>
-            <circle cx="22" cy="27" r="1.7" fill="#3a3230"/><circle cx="34" cy="27" r="1.7" fill="#3a3230"/>
-            <path d="M25 33c1.6 1.4 4.4 1.4 6 0" stroke="#c98a7a" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </span>
-      </li>
-
-      <li class="voice">
-        <span class="voice__stars" aria-label="評価5">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-        </span>
-        <p class="voice__txt">
-          引越しのタイミングで色々比較してもらえて、キャッシュバックも受け取れてラッキーでした！
-          <span class="voice__who">（40代・男性）</span>
-        </p>
-        <span class="voice__avatar" aria-hidden="true">
-          <svg width="56" height="62" viewBox="0 0 56 62" fill="none">
-            <path d="M8 62c0-13 9-20 20-20s20 7 20 20H8Z" fill="#3c9a9a"/>
-            <circle cx="28" cy="26" r="15" fill="#f6d7c3"/>
-            <path d="M13 23c0-9 6-14 15-14s15 5 15 14c-2-4-7-6-15-6s-13 2-15 6Z" fill="#3a3230"/>
-            <circle cx="22" cy="27" r="1.7" fill="#3a3230"/><circle cx="34" cy="27" r="1.7" fill="#3a3230"/>
-            <path d="M24.5 33.5h7" stroke="#c98a7a" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </span>
-      </li>
-
-      <li class="voice">
-        <span class="voice__stars" aria-label="評価5">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/></svg>
-        </span>
-        <p class="voice__txt">
-          工事が必要か不安でしたが、事前に確認してもらえてスムーズに開通できました！
-          <span class="voice__who">（20代・女性）</span>
-        </p>
-        <span class="voice__avatar" aria-hidden="true">
-          <svg width="56" height="62" viewBox="0 0 56 62" fill="none">
-            <path d="M8 62c0-13 9-20 20-20s20 7 20 20H8Z" fill="#f0a6bc"/>
-            <circle cx="28" cy="26" r="15" fill="#f6d7c3"/>
-            <path d="M13 27c-1-11 5-18 15-18s16 7 15 18c-1-6-2-9-5-9-4 0-3-4-10-4s-8 5-11 5c-2 0-3 3-4 8Z" fill="#5a4030"/>
-            <circle cx="22" cy="27" r="1.7" fill="#3a3230"/><circle cx="34" cy="27" r="1.7" fill="#3a3230"/>
-            <path d="M25 33c1.6 1.4 4.4 1.4 6 0" stroke="#c98a7a" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </span>
-      </li>
-    </ul>
-  </section>
-
-  <!-- ========== 最終CTA ========== -->
-  <section class="final" aria-label="無料相談の申し込み">
-    <p class="final__cond">条件達成で</p>
-    <p class="final__price">最大<span class="num">70,000</span><span class="yen">円</span></p>
-    <p class="final__cb">キャッシュバック！</p>
-
-    <span class="final__gift" aria-hidden="true">
-      <svg width="66" height="60" viewBox="0 0 66 60" fill="none">
-        <rect x="7" y="24" width="52" height="32" rx="3" fill="#4d9ae8"/>
-        <rect x="4" y="16" width="58" height="10" rx="2.5" fill="#1a6fd4"/>
-        <rect x="28" y="16" width="10" height="40" fill="#ffd06b"/>
-        <path d="M33 16c-8 0-12.5-2.4-12.5-6.4 0-3 2.4-4.6 5.2-4.6 4 0 7.3 3.7 7.3 11Zm0 0c8 0 12.5-2.4 12.5-6.4 0-3-2.4-4.6-5.2-4.6-4 0-7.3 3.7-7.3 11Z" fill="#ffb020"/>
-      </svg>
-    </span>
-
-    <div class="cta-stack">
-      <a class="cta cta--primary" href="#entry">
-        <span class="cta__label">無料</span>
-        <span class="cta__body">
-          <span class="cta__main">おトクにお引越しを申し込む</span>
-          <span class="cta__sub">乗り換えをご希望の方も受付中</span>
-        </span>
-        <svg class="cta__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-
-      <a class="cta cta--tel" href="tel:05052918061">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
-        </svg>
-        <span class="cta__body">
-          <span class="cta__main">今すぐ電話で相談する</span>
-          <span class="cta__sub">受付時間 9:00〜20:00（年中無休）</span>
-        </span>
-      </a>
-    </div>
-  </section>
-
   <!-- ========== 申込フォーム ========== -->
   <section class="section form-sec" id="entry">
-    <h2 class="section-title section-title--rule">おトクにお引越しを申し込む</h2>
+    <h2 class="section-title section-title--rule">インターネットをおトクにお引越し</h2>
 
     <div class="form-card">
-      <div class="form-progress" aria-label="入力ステップ"><span class="active">1</span><i></i><span>2</span><i></i><span>3</span></div>
-      <div class="form-progress-label"><span>手続き内容</span><span>お客様情報</span><span>確認・送信</span></div>
-
-      <!--
-        送信先（環境に応じて action を切り替えてください）
-        ・PHPが動くサーバー   → action="api/send.php"  ★現在の設定
-        ・Cloudflare Pages   → action="api/entry"（functions/api/entry.js）
-        ・GitHub Pages のまま → gas-send.gs をデプロイして得たURL
-      -->
       <form id="entryForm" action="api/send.php" method="post" novalidate>
-        <!-- ボット対策（利用者には見えません） -->
         <div class="hp" aria-hidden="true">
           <label>会社名<input type="text" name="company" tabindex="-1" autocomplete="off"></label>
         </div>
         <div id="tracking-fields"></div>
-
-        <section class="form-panel" data-form-step="1">
-          <h3 class="panel-title">引越しの手続きを選択してください</h3>
-          <div class="procedure-options">
-            <label class="procedure-option"><input type="radio" name="procedure" value="新居で新規申し込み"><span>新居で新規申し込み</span></label>
-            <label class="procedure-option"><input type="radio" name="procedure" value="引越しに伴う他社乗り換え"><span>おトクな回線にてお引越し</span></label>
-            <label class="procedure-option"><input type="radio" name="procedure" value="引越し・移転"><span>今の回線を引越し・移転</span></label>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="current-line">現在利用中の回線 <span class="req">必須</span></label>
-            <select id="current-line" name="current_line"><option value="">選択してください</option><option>ドコモ光</option><option>SoftBank 光</option><option>auひかり</option><option>フレッツ光</option><option>その他の光回線</option><option>ホームルーター・WiMAX</option><option>利用していない</option><option>分からない</option></select>
-          </div>
-
-          <p class="panel-error" id="step1-error">引越しの手続きと現在の回線を選択してください</p>
-          <button class="submit next-step" type="button"><span class="submit__txt">お客様情報の入力へ</span> ›</button>
-        </section>
-
-        <section class="form-panel" data-form-step="2" hidden>
+        <input type="hidden" id="procedure" name="procedure" value="引越し・移転">
 
         <div class="field">
           <label class="field__label" for="name">お名前 <span class="req">必須</span></label>
@@ -1579,32 +893,16 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
           <p class="field__error" id="email-error">メールアドレスを正しく入力してください</p>
         </div>
 
-        <div class="form-actions"><button class="submit review-step" type="button"><span class="submit__txt">入力内容を確認する</span> ›</button><button class="form-back back-to-step1" type="button">前の画面に戻る</button></div>
-        </section>
+        <div class="field">
+          <label class="field__label" for="current-line">現在利用中の回線 <span class="req">必須</span></label>
+          <select id="current-line" name="current_line" required aria-describedby="current-line-error"><option value="">選択してください</option><option>ドコモ光</option><option>SoftBank 光</option><option>auひかり</option><option>フレッツ光</option><option>その他の光回線</option><option>ホームルーター・WiMAX</option><option>利用していない</option><option>分からない</option></select>
+          <p class="field__error" id="current-line-error">現在利用中の回線を選択してください</p>
+        </div>
 
-        <section class="form-panel" data-form-step="3" hidden>
-          <h3 class="panel-title">入力内容をご確認ください</h3>
-          <dl class="review-list" id="review-list"></dl>
-          <p class="form-alert" id="formAlert" role="alert"></p>
-          <div class="form-actions"><button class="submit" type="submit" id="submitBtn"><span class="submit__txt">見積り・申し込みを送信する</span> ›</button><button class="form-back back-to-step2" type="button">入力内容を修正する</button></div>
-        </section>
-
-        <a class="form-tel" href="tel:05052918061">電話で相談する（9:00〜20:00）</a>
+        <p class="form-alert" id="formAlert" role="alert"></p>
+        <button class="submit" type="submit" id="submitBtn"><span class="submit__txt">この内容で申し込む</span> ›</button>
       </form>
 
-      <!-- 送信完了 -->
-      <div class="form-done" id="formDone" role="status" aria-live="polite">
-        <span class="form-done__icon" aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <path d="m5 12.5 4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <p class="form-done__title">送信しました</p>
-        <p class="form-done__txt">
-          専門スタッフより、ご入力の電話番号へご連絡します。<br>
-          （受付時間 9:00〜20:00／年中無休）
-        </p>
-      </div>
     </div>
   </section>
 
@@ -1622,14 +920,9 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
       このフォームからお申し込みで最大<span class="num">70,000円</span>キャッシュバック
     </p>
     <div class="sticky__row">
-      <a class="sticky__tel" href="tel:05052918061">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
-        </svg>
-        電話相談
-      </a>
+      <div class="sticky__remaining" id="remainingFields" aria-live="polite"><span>あと</span><strong id="remainingCount">6</strong><span>項目</span></div>
       <a class="sticky__main" href="#entry">
-        おトクにお引越しを申し込む
+        おトクにお引越しする
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -1639,7 +932,81 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 
 </div>
 
+<div class="route-modal" id="routeModal" role="dialog" aria-modal="true" aria-labelledby="routeModalTitle" hidden>
+  <div class="route-modal__panel">
+    <button class="route-modal__close" type="button" id="routeModalClose" aria-label="案内を閉じる">×</button>
+    <p class="route-modal__brand">インターネット引越し受付.com</p>
+    <h2 class="route-modal__title" id="routeModalTitle">ご希望に合った<br><em>受付窓口</em>をお選びください</h2>
+    <p class="route-modal__lead">該当する内容を選択してください</p>
+    <div class="route-modal__options">
+      <button class="route-option" type="button" id="routeModalNew">
+        <span class="route-option__icon" aria-hidden="true">01</span>
+        <span class="route-option__copy"><small>引越し・新居の方</small><b>新規・乗り換え・移転のお申し込み</b><span>新居でインターネットを利用したい方</span></span>
+        <span class="route-option__arrow" aria-hidden="true">›</span>
+      </button>
+      <a class="route-option" href="support.html">
+        <span class="route-option__icon" aria-hidden="true">02</span>
+        <span class="route-option__copy"><small>現在ご契約中の方</small><b>解約のみ</b><span>ご契約中の回線事業者へ進みます</span></span>
+        <span class="route-option__arrow" aria-hidden="true">›</span>
+      </a>
+      <a class="route-option" href="support.html">
+        <span class="route-option__icon" aria-hidden="true">03</span>
+        <span class="route-option__copy"><small>現在ご契約中の方</small><b>契約内容の確認</b><span>料金・プラン・契約状況を確認したい方</span></span>
+        <span class="route-option__arrow" aria-hidden="true">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
 <script>
+// 初回流入時の窓口振り分け
+(function () {
+  var modal = document.getElementById('routeModal');
+  var closeButton = document.getElementById('routeModalClose');
+  var newButton = document.getElementById('routeModalNew');
+  var storageKey = 'internet-hikkoshi-entry:route-modal-seen';
+  var existingUserKey = 'internet-hikkoshi-entry:existing-user';
+
+  function syncExistingUserState() {
+    var existingUser = false;
+    try { existingUser = sessionStorage.getItem(existingUserKey) === '1'; } catch (e) {}
+    document.body.classList.toggle('existing-user', existingUser);
+  }
+
+  function closeRouteModal() {
+    modal.hidden = true;
+    document.body.classList.remove('modal-open');
+    try { sessionStorage.setItem(storageKey, '1'); } catch (e) {}
+  }
+
+  var seen = false;
+  try { seen = sessionStorage.getItem(storageKey) === '1'; } catch (e) {}
+  if (!seen) {
+    modal.hidden = false;
+    document.body.classList.add('modal-open');
+    setTimeout(function () { closeButton.focus(); }, 0);
+  }
+
+  closeButton.addEventListener('click', closeRouteModal);
+  newButton.addEventListener('click', closeRouteModal);
+  modal.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      try {
+        sessionStorage.setItem(storageKey, '1');
+        sessionStorage.setItem(existingUserKey, '1');
+      } catch (e) {}
+    });
+  });
+  window.addEventListener('pageshow', syncExistingUserState);
+  syncExistingUserState();
+  modal.addEventListener('click', function (event) {
+    if (event.target === modal) closeRouteModal();
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && !modal.hidden) closeRouteModal();
+  });
+})();
+
 // FAQ：5件目以降を開閉
 var faqToggle = document.querySelector('.faq__toggle');
 if (faqToggle) {
@@ -1725,8 +1092,25 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
     tel:   { test: function (v) { return /^0\d{9,10}$/.test(v.replace(/[-\s]/g, '')); }, error: 'tel-error' },
     postal:{ test: function (v) { return /^\d{3}-?\d{4}$/.test(v.trim()); }, error: 'postal-error' },
     address:{ test: function (v) { return v.trim().length > 0; }, error: 'address-error' },
-    email: { test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, error: 'email-error' }
+    email: { test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, error: 'email-error' },
+    'current-line': { test: function (v) { return v !== ''; }, error: 'current-line-error' }
   };
+
+  var remainingBox = document.getElementById('remainingFields');
+  var remainingCount = document.getElementById('remainingCount');
+
+  function updateRemainingFields() {
+    var remaining = Object.keys(rules).filter(function (id) {
+      return !rules[id].test(document.getElementById(id).value);
+    }).length;
+    remainingBox.classList.toggle('is-complete', remaining === 0);
+    if (remaining === 0) {
+      remainingBox.innerHTML = '入力完了';
+    } else {
+      remainingBox.innerHTML = '<span>あと</span><strong id="remainingCount">' + remaining + '</strong><span>項目</span>';
+      remainingCount = document.getElementById('remainingCount');
+    }
+  }
 
   function validateField(id) {
     var input = document.getElementById(id);
@@ -1742,6 +1126,11 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
     input.addEventListener('blur', function () { validateField(id); });
     input.addEventListener('input', function () {
       if (input.getAttribute('aria-invalid') === 'true') validateField(id);
+      updateRemainingFields();
+    });
+    input.addEventListener('change', function () {
+      if (input.value) validateField(id);
+      updateRemainingFields();
     });
   });
 
@@ -1770,6 +1159,7 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
         document.getElementById('address-error').classList.remove('is-shown');
         postalStatus.textContent = '住所を自動入力しました。番地を追記してください。';
         postalStatus.classList.add('success');
+        updateRemainingFields();
       })
       .catch(function () {
         if (request !== postalRequest) return;
@@ -1778,50 +1168,7 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
       });
   });
 
-  var panels = Array.prototype.slice.call(form.querySelectorAll('[data-form-step]'));
-  var progressDots = Array.prototype.slice.call(document.querySelectorAll('.form-progress span'));
-  var progressLines = Array.prototype.slice.call(document.querySelectorAll('.form-progress i'));
-
-  function showStep(stepNumber) {
-    panels.forEach(function (panel) {
-      var active = panel.getAttribute('data-form-step') === String(stepNumber);
-      panel.hidden = !active;
-    });
-    progressDots.forEach(function (dot, index) { dot.classList.toggle('active', index < stepNumber); });
-    progressLines.forEach(function (line, index) { line.classList.toggle('active', index < stepNumber - 1); });
-    document.getElementById('entry').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function selectedValue(name) {
-    var selected = form.querySelector('[name="' + name + '"]:checked');
-    return selected ? selected.value : '';
-  }
-
-  function updateConditionalFields() {
-    document.getElementById('step1-error').classList.remove('is-shown');
-  }
-
-  form.querySelectorAll('[name="procedure"]').forEach(function (radio) {
-    radio.addEventListener('change', updateConditionalFields);
-  });
-
-  document.querySelectorAll('[data-procedure-choice]').forEach(function (link) {
-    link.addEventListener('click', function () {
-      var radio = form.querySelector('[name="procedure"][value="' + link.dataset.procedureChoice + '"]');
-      if (radio) { radio.checked = true; updateConditionalFields(); }
-    });
-  });
-
-  form.querySelector('.next-step').addEventListener('click', function () {
-    var ok = selectedValue('procedure') !== '' && form.elements.current_line.value !== '';
-    document.getElementById('step1-error').classList.toggle('is-shown', !ok);
-    if (ok) showStep(2);
-  });
-
-  form.querySelector('.back-to-step1').addEventListener('click', function () { showStep(1); });
-  form.querySelector('.back-to-step2').addEventListener('click', function () { showStep(2); });
-
-  function validateCustomerStep() {
+  function validateForm() {
     var ok = true;
     Object.keys(rules).forEach(function (id) { if (!validateField(id)) ok = false; });
     if (!ok) {
@@ -1831,31 +1178,12 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
     return ok;
   }
 
-  function addReviewRow(list, label, value) {
-    if (!value) return;
-    var row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
-    dt.textContent = label; dd.textContent = value; row.appendChild(dt); row.appendChild(dd); list.appendChild(row);
-  }
-
-  form.querySelector('.review-step').addEventListener('click', function () {
-    if (!validateCustomerStep()) return;
-    var list = document.getElementById('review-list');
-    var procedure = selectedValue('procedure');
-    list.innerHTML = '';
-    addReviewRow(list, '希望する手続き', procedure);
-    addReviewRow(list, '現在の回線', form.elements.current_line.value);
-    addReviewRow(list, 'お名前', form.elements.name.value.trim());
-    addReviewRow(list, '電話番号', form.elements.tel.value.trim());
-    addReviewRow(list, '郵便番号', form.elements.postal.value.trim());
-    addReviewRow(list, '住所', form.elements.address.value.trim());
-    addReviewRow(list, 'メールアドレス', form.elements.email.value.trim());
-    showStep(3);
-  });
+  updateRemainingFields();
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    var ok = validateCustomerStep();
+    var ok = validateForm();
 
     var alertBox = document.getElementById('formAlert');
     var btn = document.getElementById('submitBtn');
@@ -1888,7 +1216,7 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
         alertBox.textContent = err.message || '送信に失敗しました。時間をおいて再度お試しください。';
         alertBox.classList.add('is-shown');
         btn.disabled = false;
-        btnTxt.textContent = '見積り・申し込みを送信する';
+        btnTxt.textContent = 'この内容で申し込む';
       });
   });
 })();
