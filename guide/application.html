@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start': new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-NBGR5MP9');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お申し込み｜引越し・住所変更 受付窓口</title>
+<meta name="description" content="引越しでネット回線をどうするか迷ったら。今の回線をそのまま移転するか、他社へ乗り換えるか。専門スタッフが無料で診断し、条件達成で最大70,000円キャッシュバック。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+
+</head>
+<body class="application-page">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBGR5MP9" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+<div class="page">
+<header class="application-header"><p class="application-header__brand">引越し・住所変更 受付窓口</p><span class="application-header__badge">WEBから24時間受付</span><h1>引越しのお申し込み</h1><p class="application-header__lead">新しい暮らしのネット手続きを、スムーズに。</p></header>
+<div class="application-support" id="applicationSupport" hidden>
+  <p>すでに開通済みの方</p>
+  <a class="existing-support-link" href="support.html">契約内容の確認・解約のみのお問合せはこちら <span aria-hidden="true">›</span></a>
+</div>
+  <section class="section form-sec" id="entry">
+    <h2 class="application-heading"><span aria-hidden="true">01</span> お客様情報の入力</h2><p class="application-lead">専門スタッフよりお電話で、料金やお手続きの詳細をご案内します。</p>
+
+    <div class="form-card">
+      <form id="entryForm" action="api/send.php" method="post" novalidate>
+        <div class="hp" aria-hidden="true">
+          <label>会社名<input type="text" name="company" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <div id="tracking-fields"></div>
+        <input type="hidden" id="procedure" name="procedure" value="引越し・移転">
+
+        <div class="field">
+          <label class="field__label" for="name">お名前 <span class="req">必須</span></label>
+          <input type="text" id="name" name="name" autocomplete="name"
+                 placeholder="山田 太郎" required aria-describedby="name-error">
+          <p class="field__error" id="name-error">お名前を入力してください</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="tel">電話番号 <span class="req">必須</span></label>
+          <input type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel"
+                 placeholder="09012345678" required aria-describedby="tel-hint tel-error">
+          <p class="field__hint" id="tel-hint">ハイフンなしで入力してください</p>
+          <p class="field__error" id="tel-error">電話番号を正しく入力してください</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="postal">郵便番号 <span class="req">必須</span></label>
+          <input type="text" id="postal" name="postal" autocomplete="postal-code" inputmode="numeric"
+                 maxlength="8" placeholder="450-0001" required aria-describedby="postal-status postal-error">
+          <p class="field__error" id="postal-error">郵便番号を正しく入力してください</p>
+        </div>
+        <p class="postal-status" id="postal-status" aria-live="polite"></p>
+
+        <div class="field">
+          <label class="field__label" for="address">住所 <span class="req">必須</span></label>
+          <input type="text" id="address" name="address" autocomplete="street-address"
+                 placeholder="愛知県名古屋市中村区" required aria-describedby="address-error">
+          <p class="field__error" id="address-error">住所を入力してください</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="email">メールアドレス <span class="req">必須</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" inputmode="email"
+                 placeholder="example@mail.com" required aria-describedby="email-error">
+          <p class="field__error" id="email-error">メールアドレスを正しく入力してください</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="current-line">現在利用中の回線 <span class="req">必須</span></label>
+          <select id="current-line" name="current_line" required aria-describedby="current-line-error"><option value="">選択してください</option><option>ドコモ光</option><option>SoftBank 光</option><option>auひかり</option><option>フレッツ光</option><option>その他の光回線</option><option>ホームルーター・WiMAX</option><option>利用していない</option><option>分からない</option></select>
+          <p class="field__error" id="current-line-error">現在利用中の回線を選択してください</p>
+        </div>
+
+        <p class="form-alert" id="formAlert" role="alert"></p>
+        <button class="submit" type="submit" id="submitBtn"><span class="submit__txt">この内容で申し込む</span> ›</button>
+      </form>
+
+    </div>
+  </section>
+</div>
+<script>
+// 申込フォーム：入力チェック
+(function () {
+  var form = document.getElementById('entryForm');
+  if (!form) return;
+
+  // URLは許可した回線名だけに対応し、未指定・不明な値は共通窓口へ。
+  var carrierOptions = {
+    softbank_hikari: { name: 'SoftBank 光', theme: 'softbank', support: 'https://www.softbank.jp/internet/support/contact/sbhikari/' },
+    air: { name: 'SoftBank Air', theme: 'air', support: 'https://www.softbank.jp/internet/support/contact/sbair/' },
+    biglobe: { name: 'BIGLOBE光', theme: 'biglobe', support: 'https://support.biglobe.ne.jp/ask/' },
+    flets: { name: 'フレッツ光', theme: 'flets', support: 'support.html#flets' },
+    docomo: { name: 'ドコモ光', theme: 'docomo', support: 'https://www.docomo.ne.jp/support/inquiry/hikari/' },
+    au: { name: 'auひかり', theme: 'au', support: 'https://www.au.com/support/service/internet/auhikari/' },
+    jcom: { name: 'J:COM', theme: 'jcom', support: 'https://www.jcom.co.jp/contactus/call_rgu.html' },
+    sonet: { name: 'So-net 光', theme: 'sonet', support: 'https://www.so-net.ne.jp/support/contact/' }
+  };
+  var requestedCarrier = new URLSearchParams(location.search).get('requested_carrier');
+  var selectedCarrier = Object.prototype.hasOwnProperty.call(carrierOptions, requestedCarrier) ? carrierOptions[requestedCarrier] : null;
+  if (selectedCarrier) {
+    var windowName = selectedCarrier.name + ' 受付窓口';
+    document.querySelector('.application-header__brand').textContent = windowName;
+    document.title = 'お申し込み｜' + windowName;
+    document.querySelector('.application-header__lead').textContent = selectedCarrier.name + 'の引越し・住所変更をご案内します。';
+    document.querySelector('.application-header').dataset.carrier = selectedCarrier.theme;
+    document.querySelector('#applicationSupport a').href = selectedCarrier.support;
+    document.getElementById('applicationSupport').hidden = false;
+  }
+
+  var trackingKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gad_source','gad_campaignid','gclid','gbraid','wbraid','yclid','msclkid','fbclid'];
+  var blockedQueryKey = /(?:password|passwd|pwd|token|secret|email|mail|phone|tel|name|address|postal|zipcode|session|auth|cookie)/i;
+  var trackingStoreKey = 'internet-hikkoshi-entry:attribution';
+
+  function safeUrl(value) {
+    try {
+      var url = new URL(value, location.href);
+      return url.origin + url.pathname + url.hash;
+    } catch (e) { return ''; }
+  }
+
+  function collectAttribution() {
+    var query = new URLSearchParams(location.search);
+    var data = {};
+    try { data = JSON.parse(sessionStorage.getItem(trackingStoreKey) || '{}'); } catch (e) {}
+    trackingKeys.forEach(function (key) {
+      if (query.has(key)) data[key] = (query.get(key) || '').slice(0, 500);
+    });
+    var extra = {}, count = 0;
+    query.forEach(function (value, key) {
+      if (count >= 30 || trackingKeys.indexOf(key) !== -1 || blockedQueryKey.test(key) || !/^[A-Za-z0-9_.-]{1,64}$/.test(key)) return;
+      extra[key] = value.slice(0, 500);
+      count++;
+    });
+    if (Object.keys(extra).length) data.other_query_params = JSON.stringify(extra);
+    if (!data.entry_url) data.entry_url = safeUrl(location.href);
+    if (!data.entry_time) data.entry_time = new Date().toISOString();
+    if (!data.referrer) data.referrer = safeUrl(document.referrer);
+    data.submit_url = safeUrl(location.href);
+    data.lp_name = 'internet-hikkoshi-entry';
+    data.carrier = selectedCarrier ? selectedCarrier.name : 'general';
+    data.device = matchMedia('(max-width:767px)').matches ? 'mobile' : 'desktop';
+    try { sessionStorage.setItem(trackingStoreKey, JSON.stringify(data)); } catch (e) {}
+    return data;
+  }
+
+  function setTrackingFields() {
+    var holder = document.getElementById('tracking-fields');
+    var data = collectAttribution();
+    holder.innerHTML = '';
+    Object.keys(data).forEach(function (name) {
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = data[name];
+      holder.appendChild(input);
+    });
+  }
+
+  setTrackingFields();
+
+
+  var rules = {
+    name:  { test: function (v) { return v.trim().length > 0; },              error: 'name-error' },
+    tel:   { test: function (v) { return /^0\d{9,10}$/.test(v.replace(/[-\s]/g, '')); }, error: 'tel-error' },
+    postal:{ test: function (v) { return /^\d{3}-?\d{4}$/.test(v.trim()); }, error: 'postal-error' },
+    address:{ test: function (v) { return v.trim().length > 0; }, error: 'address-error' },
+    email: { test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, error: 'email-error' },
+    'current-line': { test: function (v) { return v !== ''; }, error: 'current-line-error' }
+  };
+
+  var remainingBox = document.getElementById('remainingFields');
+  var remainingCount = document.getElementById('remainingCount');
+
+  function updateRemainingFields() {
+    if (!remainingBox) return;
+    var remaining = Object.keys(rules).filter(function (id) {
+      return !rules[id].test(document.getElementById(id).value);
+    }).length;
+    remainingBox.classList.toggle('is-complete', remaining === 0);
+    if (remaining === 0) {
+      remainingBox.innerHTML = '入力完了';
+    } else {
+      remainingBox.innerHTML = '<span>あと</span><strong id="remainingCount">' + remaining + '</strong><span>項目</span>';
+      remainingCount = document.getElementById('remainingCount');
+    }
+  }
+
+  function validateField(id) {
+    var input = document.getElementById(id);
+    var err = document.getElementById(rules[id].error);
+    var ok = rules[id].test(input.value);
+    input.setAttribute('aria-invalid', ok ? 'false' : 'true');
+    err.classList.toggle('is-shown', !ok);
+    return ok;
+  }
+
+  Object.keys(rules).forEach(function (id) {
+    var input = document.getElementById(id);
+    input.addEventListener('blur', function () { validateField(id); });
+    input.addEventListener('input', function () {
+      if (input.getAttribute('aria-invalid') === 'true') validateField(id);
+      updateRemainingFields();
+    });
+    input.addEventListener('change', function () {
+      if (input.value) validateField(id);
+      updateRemainingFields();
+    });
+  });
+
+  var postalInput = document.getElementById('postal');
+  var addressInput = document.getElementById('address');
+  var postalStatus = document.getElementById('postal-status');
+  var postalRequest = 0;
+
+  postalInput.addEventListener('input', function () {
+    var digits = postalInput.value.replace(/\D/g, '').slice(0, 7);
+    var request = ++postalRequest;
+    if (digits.length > 3) postalInput.value = digits.slice(0, 3) + '-' + digits.slice(3);
+    else postalInput.value = digits;
+    postalStatus.className = 'postal-status';
+    postalStatus.textContent = '';
+    if (digits.length !== 7) return;
+    postalStatus.textContent = '住所を検索しています…';
+    fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + encodeURIComponent(digits))
+      .then(function (response) { if (!response.ok) throw new Error(); return response.json(); })
+      .then(function (data) {
+        if (request !== postalRequest) return;
+        if (!data.results || !data.results.length) throw new Error('not_found');
+        var result = data.results[0];
+        addressInput.value = result.address1 + result.address2 + result.address3;
+        addressInput.setAttribute('aria-invalid', 'false');
+        document.getElementById('address-error').classList.remove('is-shown');
+        postalStatus.textContent = '住所を自動入力しました。番地を追記してください。';
+        postalStatus.classList.add('success');
+        updateRemainingFields();
+      })
+      .catch(function () {
+        if (request !== postalRequest) return;
+        postalStatus.textContent = '住所を自動入力できませんでした。住所を手入力してください。';
+        postalStatus.classList.add('error');
+      });
+  });
+
+  function validateForm() {
+    var ok = true;
+    Object.keys(rules).forEach(function (id) { if (!validateField(id)) ok = false; });
+    if (!ok) {
+      var first = form.querySelector('[aria-invalid="true"]');
+      if (first) first.focus({ preventScroll: false });
+    }
+    return ok;
+  }
+
+  updateRemainingFields();
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var ok = validateForm();
+
+    var alertBox = document.getElementById('formAlert');
+    var btn = document.getElementById('submitBtn');
+    var btnTxt = btn.querySelector('.submit__txt');
+
+    if (!ok) {
+      var first = form.querySelector('[aria-invalid="true"]');
+      if (first) first.focus({ preventScroll: false });
+      return;
+    }
+
+    // 送信
+    setTrackingFields();
+    alertBox.classList.remove('is-shown');
+    btn.disabled = true;
+    btnTxt.textContent = '送信中…';
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form)   // ヘッダーは付けない（GASのCORSプリフライトを避けるため）
+    })
+      .then(function (res) {
+        return res.json().catch(function () { return { ok: res.ok }; });
+      })
+      .then(function (data) {
+        if (!data.ok) throw new Error(data.message || '送信に失敗しました。時間をおいて再度お試しください。');
+        window.location.replace('thanks.html');
+      })
+      .catch(function (err) {
+        alertBox.textContent = err.message || '送信に失敗しました。時間をおいて再度お試しください。';
+        alertBox.classList.add('is-shown');
+        btn.disabled = false;
+        btnTxt.textContent = 'この内容で申し込む';
+      });
+  });
+})();
+
+
+</script>
+</body>
+</html>

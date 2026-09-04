@@ -17,537 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<style>
-/* ============================================================
-   Design tokens
-   ============================================================ */
-:root{
-  --c-navy:#12275e;          /* 見出し */
-  --c-blue:#1a6fd4;          /* プライマリ */
-  --c-blue-dark:#0f57ad;
-  --c-blue-tint:#eaf3fd;     /* 薄い背景 */
-  --c-blue-tint2:#f4f9ff;
-  --c-orange:#ff6a13;        /* アクセント */
-  --c-orange-dark:#ef5600;
-  --c-orange-tint:#fff2e8;
-  --c-text:#3a4256;
-  --c-text-sub:#6b7590;
-  --c-line:#e2e8f2;
-  --c-white:#fff;
-  --c-page:#eef2f7;
-
-  --radius-s:10px;
-  --radius-m:16px;
-  --radius-l:22px;
-  --shadow-card:0 2px 10px rgba(18,39,94,.06);
-  --shadow-cta:0 6px 16px rgba(239,86,0,.28);
-  --shadow-cta-b:0 4px 12px rgba(26,111,212,.14);
-
-  --pad:20px;               /* 左右の基準余白 */
-}
-
-*,*::before,*::after{box-sizing:border-box;}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
-body{
-  margin:0;
-  background:var(--c-page);
-  color:var(--c-text);
-  font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
-  font-size:15px;
-  line-height:1.75;
-  letter-spacing:.01em;
-  -webkit-font-smoothing:antialiased;
-}
-img{max-width:100%;height:auto;display:block;}
-ul{margin:0;padding:0;list-style:none;}
-p{margin:0;}
-a{color:inherit;text-decoration:none;}
-button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:pointer;}
-:focus-visible{outline:3px solid var(--c-orange);outline-offset:2px;border-radius:4px;}
-
-/* ページ枠（SP幅で固定表示） */
-.page{
-  max-width:420px;
-  margin:0 auto;
-  background:var(--c-white);
-  overflow:hidden;
-  position:relative;
-  padding-bottom:128px;  /* 追従CTA分 */
-}
-
-/* ============================================================
-   共通パーツ
-   ============================================================ */
-.section{padding:40px var(--pad);}
-.section--tint{background:var(--c-blue-tint2);}
-
-.step-badge{
-  display:block;width:fit-content;margin:0 auto 18px;
-  padding:4px 20px;border-radius:999px;
-  background:var(--c-blue);color:#fff;
-  font-size:12px;font-weight:700;letter-spacing:.08em;
-}
-.section-title{
-  margin:0 0 8px;text-align:center;
-  color:var(--c-navy);font-size:22px;font-weight:900;line-height:1.5;
-}
-.section-title--rule{
-  position:relative;
-  margin-bottom:30px;padding-bottom:14px;
-}
-.section-title--rule::after{
-  content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);
-  width:34px;height:3px;border-radius:2px;background:var(--c-blue);
-}
-.section-lead{
-  margin:0 0 24px;text-align:center;
-  color:var(--c-text-sub);font-size:13px;line-height:1.8;
-}
-.em-orange{color:var(--c-orange);}
-.em-lg{font-size:1.4em;}
-
-/* チェック行 */
-.checklist li{
-  display:flex;gap:8px;align-items:flex-start;
-  font-size:13.5px;font-weight:500;line-height:1.6;
-  padding:3px 0;
-}
-.checklist .ico-check{flex:0 0 auto;margin-top:3px;}
-
-/* CTA */
-.cta{
-  display:flex;align-items:center;gap:10px;
-  width:100%;padding:14px 16px;
-  border-radius:var(--radius-m);
-  text-align:left;
-}
-.cta__label{
-  flex:0 0 auto;
-  display:grid;place-items:center;
-  width:44px;height:44px;border-radius:50%;
-  background:#fff;color:var(--c-orange);
-  font-size:12px;font-weight:900;
-}
-.cta__body{flex:1 1 auto;min-width:0;}
-.cta__main{display:block;font-size:clamp(15px,4.2vw,17px);font-weight:900;line-height:1.35;white-space:nowrap;}
-.cta__sub{display:block;font-size:11px;font-weight:500;opacity:.9;margin-top:1px;}
-.cta__arrow{flex:0 0 auto;}
-
-.cta--primary{
-  background:linear-gradient(135deg,#ff8339,var(--c-orange-dark));
-  color:#fff;box-shadow:var(--shadow-cta);
-  transition:transform .18s ease,box-shadow .18s ease;
-}
-.cta--primary .cta__body{text-align:center;}
-.cta--primary:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(239,86,0,.34);}
-.cta--primary:active{transform:translateY(0);}
-
-.cta--tel{
-  display:grid;grid-template-columns:44px 1fr 18px;align-items:center;gap:10px;
-  background:#fff;color:var(--c-blue);
-  border:2px solid #cfe2f8;box-shadow:var(--shadow-cta-b);
-  text-align:center;
-  transition:border-color .18s ease,transform .18s ease;
-}
-.cta--tel>svg{justify-self:center;}
-.cta--tel:hover{border-color:var(--c-blue);transform:translateY(-2px);}
-.cta--tel .cta__main{font-size:17px;}
-.cta--tel .cta__sub{color:var(--c-text-sub);font-weight:500;}
-.cta--tel .cta__body{flex:0 1 auto;}
-
-.cta-stack{display:grid;gap:12px;}
-
-/* ============================================================
-   代理店届出番号バー（最上部）
-   ============================================================ */
-.agency-bar{
-  padding:7px 8px;
-  background:#e9f3fb;
-  border-bottom:1px solid #d5e6f5;
-  color:#1a63c0;
-  /* 画面幅に応じて縮小し、SPでも必ず1行に収める */
-  font-size:clamp(6px,2.15vw,9.5px);
-  font-weight:700;line-height:1.6;letter-spacing:0;
-  text-align:center;
-  white-space:nowrap;
-  overflow:hidden;
-}
-.agency-bar span{display:inline;margin:0 .35em;}
-
-/* ============================================================
-   サイトヘッダー（ロゴ）
-   ============================================================ */
-.site-header{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:7px var(--pad);
-  background:#fff;
-}
-.logo{display:flex;align-items:center;gap:7px;}
-.logo__mark{flex:0 0 auto;display:block;}
-.logo__mark svg{display:block;width:32px;height:32px;}
-.logo__text{
-  color:var(--c-blue);
-  font-size:14px;font-weight:900;line-height:1.25;letter-spacing:.01em;
-  font-style:italic;
-}
-.logo__text .dotcom{font-size:.92em;}
-.header-tel{
-  flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:6px;
-  width:98px;min-width:98px;height:36px;padding:0 10px;
-  border:1.5px solid #cfe2f8;border-radius:999px;
-  background:#fff;color:var(--c-blue);box-shadow:0 2px 8px rgba(26,111,212,.12);
-  font-size:12px;font-weight:900;line-height:1;white-space:nowrap;
-  overflow:hidden;
-}
-.header-tel svg{flex:0 0 auto;}
-body.existing-user a[href^="tel:"]{display:none!important;}
-
-/* ============================================================
-   FV（画像差し替え：hikkoshi_FV.png）
-   ============================================================ */
-.fv{margin:0;position:relative;background:var(--c-blue-tint2);}
-.fv img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;}
-.fv--fallback{aspect-ratio:2/3;background:linear-gradient(160deg,#eaf3fd,#dbe9fa);}
-.fv-entry{padding:19px calc(var(--pad) + 14px) 15px;background:#fff;}
-.fv-entry__guide{margin-bottom:7px;color:var(--c-blue);font-size:13px;font-weight:900;letter-spacing:.04em;text-align:center;}
-.fv-entry .cta--primary{animation:fvCtaFloat 3s ease-in-out infinite;will-change:transform,box-shadow;}
-@keyframes fvCtaFloat{
-  0%,62%,100%{transform:translateY(0);box-shadow:var(--shadow-cta);}
-  72%{transform:translateY(-5px);box-shadow:0 12px 24px rgba(239,86,0,.36);}
-  82%{transform:translateY(0);box-shadow:var(--shadow-cta);}
-  90%{transform:translateY(-2px);box-shadow:0 8px 18px rgba(239,86,0,.3);}
-}
-.visually-hidden{
-  position:absolute;width:1px;height:1px;margin:-1px;padding:0;
-  overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
-}
-
-/* ============================================================
-   引越し対応範囲 ＋ 特典訴求
-   ============================================================ */
-.choice-section{
-  padding-top:0;
-  background:linear-gradient(180deg,#fff 0%,#f7fbff 44%,#eef7ff 100%);
-}
-.choice-intro{
-  position:relative;display:flex;flex-direction:column;justify-content:flex-start;
-  min-height:202px;margin:0 calc(0px - var(--pad));padding:26px var(--pad) 6px;
-  background:transparent;
-}
-.choice-intro .section-title{position:relative;margin:35px auto 8px;padding-bottom:10px;font-size:25px;text-shadow:0 1px 0 #fff,0 2px 10px rgba(255,255,255,.95);}
-.choice-intro .section-title::before{content:"引越し × インターネット";position:absolute;left:50%;bottom:100%;transform:translateX(-50%);width:max-content;margin-bottom:8px;padding:4px 12px;border-radius:999px;background:#e5f2ff;color:var(--c-blue);font-size:10px;font-weight:900;letter-spacing:.08em;box-shadow:0 2px 8px rgba(20,92,170,.1);}
-.choice-intro .section-title::after{content:"";position:absolute;left:50%;bottom:0;width:52px;height:4px;transform:translateX(-50%);border-radius:99px;background:linear-gradient(90deg,#1a6fd4,#ffd82e);}
-.choice-intro .section-lead{max-width:340px;margin:0 auto;color:#344968;font-size:12px;font-weight:800;line-height:1.7;text-align:center;text-shadow:0 1px 0 #fff,0 1px 8px rgba(255,255,255,.98);}
-.service-scope{position:relative;margin-top:0;padding:0 0 30px;}
-.service-scope__visual{margin:0 calc(0px - var(--pad));padding:16px var(--pad) 20px;background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(241,248,254,.46) 35%,rgba(235,245,253,.62) 100%),url("img/moving-support-soft-home.png") center 72%/100% auto no-repeat;}
-.service-scope__list{display:grid;gap:9px;margin:0;padding:0;list-style:none;border:0;}
-.service-scope__item{position:relative;display:grid;grid-template-columns:34px 1fr;align-items:center;gap:11px;padding:13px 10px;border:0;border-radius:12px;background:rgba(255,255,255,.7);box-shadow:0 3px 12px rgba(29,84,139,.07);color:var(--c-navy);text-shadow:0 1px 5px rgba(255,255,255,.98);}
-.service-scope__link{position:absolute;inset:0;border-radius:inherit;}
-.service-scope__link:focus-visible{outline:3px solid var(--c-blue);outline-offset:2px;}
-.service-scope__icon{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#e4f0fc;color:var(--c-blue);font-size:15px;font-weight:900;}
-.service-scope__item b{display:block;font-size:14px;font-weight:900;line-height:1.45;}
-.service-scope__item small{display:block;margin-top:2px;color:var(--c-text-sub);font-size:11px;line-height:1.55;}
-.service-scope__all{position:relative;margin:20px 0 0;padding:20px 16px 18px;background:#fff8cf;border:1px solid #f0d357;border-radius:16px;color:var(--c-navy);text-align:center;box-shadow:0 8px 20px rgba(18,39,94,.08);}
-.service-scope__all::before{content:"";position:absolute;top:-9px;left:50%;width:16px;height:16px;transform:translateX(-50%) rotate(45deg);background:#fff8cf;border-top:1px solid #f0d357;border-left:1px solid #f0d357;}
-.service-scope__all strong{display:block;color:#e65e00;font-size:25px;font-weight:900;letter-spacing:.02em;line-height:1.25;}
-.service-scope__all span{display:block;margin-top:5px;font-size:12px;font-weight:700;line-height:1.65;}
-.campaign-feature{position:relative;overflow:hidden;margin:0 calc(0px - var(--pad));padding:54px calc(var(--pad) + 14px) 38px;background:#06265e url("img/campaign-premium-bg.png") center/cover no-repeat;color:#fff;text-align:center;}
-.campaign-feature::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,22,61,.12),rgba(2,28,77,.24));pointer-events:none;}
-.campaign-feature>*{position:relative;z-index:1;}
-.campaign-feature__eyebrow{font-size:15px;font-weight:900;letter-spacing:.04em;}
-.campaign-feature__title{margin-top:8px;font-size:27px;font-weight:900;line-height:1.35;}
-.campaign-feature__title em{color:#ffe34d;font-style:normal;}
-.campaign-feature__offer{display:grid;grid-template-columns:36px minmax(0,1fr) 28px;align-items:end;gap:6px;margin:18px 0 8px;}
-.campaign-feature__offer small{display:grid;place-items:center;width:36px;height:36px;margin-bottom:4px;border-radius:50%;background:#fff;color:#0d4f9f;font-size:10px;font-weight:900;}
-.campaign-feature__price{display:flex;align-items:flex-end;justify-content:center;min-width:0;white-space:nowrap;}
-.campaign-feature__offer strong{position:relative;color:#ffe629;font-family:"Arial Black",Arial,sans-serif;font-size:clamp(42px,12.5vw,56px);font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:.02em;line-height:.92;text-shadow:0 0 10px rgba(255,230,41,.38),0 5px 14px rgba(0,0,0,.26);}
-.campaign-feature__offer strong::before,.campaign-feature__offer strong::after{position:absolute;color:#fff7a6;font-size:22px;line-height:1;letter-spacing:0;text-shadow:0 0 9px rgba(255,235,75,.9);}
-.campaign-feature__offer strong::before{content:"✦";left:-8px;top:-17px;}
-.campaign-feature__offer strong::after{content:"✧";right:-5px;top:-18px;}
-.campaign-feature__price i{margin:0 0 3px 4px;color:#ffe629;font-size:21px;font-style:normal;font-weight:900;line-height:1;}
-.campaign-feature__offer b{margin-bottom:5px;font-size:12px;white-space:nowrap;}
-.campaign-feature__caption{display:inline-block;margin-bottom:20px;padding:5px 16px;background:#ffe629;color:#073d87;font-size:13px;font-weight:900;clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%);}
-.campaign-feature .cta-stack{margin-top:0;text-align:left;}
-
-/* 区切り */
-.divider-dots{
-  height:26px;margin:10px 0 0;
-  background-image:radial-gradient(circle,var(--c-line) 1.4px,transparent 1.5px);
-  background-size:10px 10px;background-position:center;background-repeat:repeat-x;
-}
-
-
-/* ============================================================
-   STEP4 流れ
-   ============================================================ */
-.flow{display:grid;gap:0;}
-.flow__item{
-  position:relative;
-  display:grid;grid-template-columns:44px 1fr;gap:12px;
-  padding-bottom:22px;
-}
-.flow__item:last-child{padding-bottom:0;}
-.flow__item::before{ /* 点線コネクタ */
-  content:"";
-  position:absolute;left:21px;top:48px;bottom:6px;
-  width:2px;
-  background-image:linear-gradient(var(--c-blue) 3px,transparent 3px);
-  background-size:2px 8px;
-  opacity:.45;
-}
-.flow__item:last-child::before{display:none;}
-.flow__icon{
-  position:relative;z-index:1;
-  display:grid;place-items:center;
-  width:44px;height:44px;border-radius:50%;
-  background:var(--c-blue);color:#fff;
-  box-shadow:0 3px 8px rgba(26,111,212,.28);
-}
-.flow__num{
-  display:block;
-  color:var(--c-text-sub);font-size:11px;font-weight:900;letter-spacing:.1em;
-  line-height:1.4;
-}
-.flow__title{
-  display:block;margin-bottom:2px;
-  color:var(--c-blue);font-size:15px;font-weight:900;line-height:1.5;
-}
-.flow__desc{color:var(--c-text-sub);font-size:12.5px;line-height:1.65;}
-
-/* ============================================================
-   STEP5 FAQ
-   ============================================================ */
-.faq{display:grid;gap:10px;}
-.faq__item{
-  background:#fff;border:1px solid var(--c-line);border-radius:var(--radius-m);
-  box-shadow:var(--shadow-card);
-  overflow:hidden;
-}
-.faq__q{
-  display:flex;align-items:center;gap:10px;
-  padding:14px 14px;
-  cursor:pointer;list-style:none;
-  color:var(--c-navy);font-size:13.5px;font-weight:700;line-height:1.6;
-}
-.faq__q::-webkit-details-marker{display:none;}
-.faq__q .q{flex:0 0 auto;color:var(--c-blue);font-size:15px;font-weight:900;}
-.faq__q .txt{flex:1 1 auto;}
-.faq__q .chev{flex:0 0 auto;color:var(--c-text-sub);transition:transform .25s ease;}
-.faq__item[open] .faq__q .chev{transform:rotate(180deg);}
-.faq__a{
-  padding:0 14px 16px 34px;
-  color:var(--c-text-sub);font-size:13px;line-height:1.85;
-}
-.faq__more{display:grid;gap:10px}.faq__more[hidden]{display:none}.faq__toggle{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:4px;padding:13px;border:1.5px solid #bdd8f4;border-radius:999px;background:#fff;color:var(--c-blue);font-size:13px;font-weight:900}.faq__toggle .chev{transition:transform .25s}.faq__toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
-
-/* ============================================================
-   安心バー（フッター）
-   ============================================================ */
-.trust{
-  margin-top:36px;
-  padding:20px var(--pad);
-  background:linear-gradient(135deg,#1a6fd4,#0f4f9e);
-  color:#fff;
-  display:grid;gap:14px;
-}
-.trust__item{display:flex;align-items:center;gap:12px;}
-.trust__icon{
-  flex:0 0 auto;display:grid;place-items:center;
-  width:34px;height:34px;border-radius:50%;
-  border:1.5px solid rgba(255,255,255,.55);
-  font-size:11px;font-weight:900;
-}
-.trust__txt{font-size:12.5px;font-weight:700;line-height:1.55;}
-
-.foot{
-  padding:20px var(--pad) 26px;
-  background:#0d3f80;color:rgba(255,255,255,.72);
-  font-size:10.5px;line-height:1.8;text-align:center;
-}
-.foot__links{display:flex;justify-content:center;gap:14px;margin-bottom:8px;}
-.foot__links a{color:#fff;font-weight:500;}
-.foot__links a:hover{text-decoration:underline;}
-
-/* ============================================================
-   追従CTA
-   ============================================================ */
-.sticky{
-  position:fixed;left:0;right:0;bottom:0;z-index:50;
-  display:block;
-  max-width:420px;margin:0 auto;
-  background:none;border:none;box-shadow:none;
-  pointer-events:none;              /* 透明部分はページ操作を邪魔しない */
-}
-.sticky__row{
-  display:flex;gap:8px;align-items:center;
-  padding:10px 12px calc(10px + env(safe-area-inset-bottom));
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(8px);
-  border-top:1px solid var(--c-line);
-  box-shadow:0 -4px 16px rgba(18,39,94,.1);
-  pointer-events:auto;
-}
-
-/* CTA上の吹き出し */
-.sticky__bubble{
-  position:relative;
-  width:fit-content;max-width:calc(100% - 16px);
-  margin:0 auto 12px;padding:8px 12px;
-  background:linear-gradient(180deg,#fff6d8,#ffe7ab);
-  border:1px solid #f0cf87;border-radius:999px;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.9),
-    0 3px 10px rgba(18,39,94,.16);
-  color:var(--c-navy);
-  /* 画面幅に比例して縮小し、どの端末でも1行に収める */
-  font-size:clamp(9.5px,3vw,13px);font-weight:700;line-height:1.5;
-  letter-spacing:-.01em;
-  text-align:center;white-space:nowrap;
-  animation:bubbleFloat 2.6s ease-in-out infinite;
-  pointer-events:auto;
-}
-.sticky__bubble .num{
-  color:var(--c-orange-dark);
-  font-size:1.3em;font-weight:900;letter-spacing:-.02em;
-}
-.sticky__bubble::after,.sticky__bubble::before{
-  content:"";position:absolute;left:50%;transform:translateX(-50%);
-  border-left:8px solid transparent;border-right:8px solid transparent;
-}
-.sticky__bubble::before{bottom:-9px;border-top:9px solid #f0cf87;}
-.sticky__bubble::after{bottom:-8px;border-top:8px solid #ffe7ab;}
-@keyframes bubbleFloat{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-2.5px);}
-}
-
-.sticky__remaining{
-  flex:0 0 auto;display:flex;align-items:baseline;justify-content:center;gap:2px;
-  width:72px;padding:8px 3px;
-  border:0;
-  color:var(--c-blue);font-size:10px;font-weight:700;
-}
-.sticky__remaining strong{font-size:22px;font-weight:900;line-height:1;}
-.sticky__remaining.is-complete{align-items:center;font-size:11px;font-weight:900;background:var(--c-blue-tint2);}
-.sticky__main{
-  flex:1 1 auto;display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:13px 10px;border-radius:12px;
-  background:linear-gradient(135deg,#ff8339,var(--c-orange-dark));
-  color:#fff;font-size:15px;font-weight:900;
-  box-shadow:var(--shadow-cta);
-}
-
-/* ============================================================
-   申込フォーム
-   ============================================================ */
-.form-sec{scroll-margin-top:12px;}
-.form-card{
-  padding:20px 16px 22px;
-  background:#fff;border:1px solid var(--c-line);border-radius:var(--radius-l);
-  box-shadow:var(--shadow-card);
-}
-.field select{width:100%;height:52px;padding:0 38px 0 14px;background:#f7f9fc;border:1.5px solid var(--c-line);border-radius:12px;color:var(--c-navy);font-size:16px}.field select:focus{outline:none;background:#fff;border-color:var(--c-blue);box-shadow:0 0 0 3px rgba(26,111,212,.12)}
-
-.field{margin-bottom:16px;}
-.field__label{
-  display:flex;align-items:center;gap:6px;
-  margin-bottom:6px;
-  color:var(--c-navy);font-size:13.5px;font-weight:700;
-}
-.req{
-  padding:2px 6px;border-radius:4px;
-  background:#ffe8dc;color:var(--c-orange-dark);
-  font-size:10px;font-weight:900;letter-spacing:.02em;
-}
-.field input{
-  width:100%;height:52px;padding:0 14px;
-  background:#f7f9fc;
-  border:1.5px solid var(--c-line);border-radius:12px;
-  color:var(--c-navy);font-size:16px;font-weight:500;   /* 16px：iOSの自動ズーム防止 */
-  transition:border-color .16s ease,background-color .16s ease;
-}
-.field input::placeholder{color:#a9b3c6;font-weight:400;}
-.field input:focus{
-  outline:none;background:#fff;
-  border-color:var(--c-blue);box-shadow:0 0 0 3px rgba(26,111,212,.12);
-}
-.field input[aria-invalid="true"]{border-color:#e02020;background:#fff6f6;}
-.field select[aria-invalid="true"]{border-color:#e02020;background:#fff6f6;}
-.field__hint{margin-top:5px;color:var(--c-text-sub);font-size:11px;}
-.postal-status{min-height:18px;margin:-10px 0 12px;color:var(--c-text-sub);font-size:11px;font-weight:600}.postal-status.success{color:#237a3b}.postal-status.error{color:#c62828}
-.field__error{
-  display:none;align-items:center;gap:4px;
-  margin-top:5px;color:#e02020;font-size:11.5px;font-weight:700;
-}
-.field__error.is-shown{display:flex;}
-
-.submit{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  width:100%;padding:17px;
-  border-radius:14px;
-  background:linear-gradient(135deg,#ff8339,var(--c-orange-dark));
-  color:#fff;font-size:17px;font-weight:900;
-  box-shadow:var(--shadow-cta);
-  transition:transform .18s ease,box-shadow .18s ease;
-}
-.submit:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(239,86,0,.34);}
-.submit:active{transform:translateY(0);}
-/* ボット対策の隠しフィールド */
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
-
-/* 送信エラー */
-.form-alert{
-  display:none;
-  margin-bottom:12px;padding:10px 12px;
-  background:#fff6f6;border:1px solid #f3c8c8;border-radius:10px;
-  color:#c81e1e;font-size:12px;font-weight:700;line-height:1.7;text-align:center;
-}
-.form-alert.is-shown{display:block;}
-.submit[disabled]{opacity:.6;pointer-events:none;}
-
-/* ============================================================
-   初回流入時のご案内モーダル
-   ============================================================ */
-body.modal-open{overflow:hidden;}
-.route-modal[hidden]{display:none;}
-.route-modal{
-  position:fixed;z-index:1000;inset:0;display:grid;place-items:center;
-  padding:18px;background:rgba(18,39,94,.68);backdrop-filter:blur(3px);
-}
-.route-modal__panel{
-  position:relative;width:min(100%,380px);max-height:calc(100dvh - 36px);overflow:auto;
-  padding:26px 18px 20px;border:1px solid var(--c-line);border-radius:22px;
-  background:#fff;box-shadow:0 20px 54px rgba(0,18,55,.32);
-}
-.route-modal__brand{margin:0 0 15px;color:var(--c-blue);font-size:11px;font-weight:900;}
-.route-modal__title{margin:0;color:var(--c-navy);font-size:21px;font-weight:900;line-height:1.5;text-align:left;}
-.route-modal__title em{color:var(--c-orange);font-style:normal;}
-.route-modal__lead{margin:7px 0 19px;color:var(--c-text-sub);font-size:12px;text-align:left;}
-.route-modal__options{display:grid;gap:9px;}
-.route-option{display:grid;grid-template-columns:40px 1fr 16px;align-items:center;gap:10px;width:100%;min-height:76px;padding:11px 12px;border:1.5px solid #d4e2f1;border-radius:14px;background:#fff;color:var(--c-navy);box-shadow:0 3px 10px rgba(18,39,94,.06);text-align:left;}
-.route-option:first-child{background:var(--c-blue-tint2);border-color:#bcd7f3;}
-.route-option__icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--c-blue);color:#fff;font-size:11px;font-weight:900;}
-.route-option__copy{display:grid;gap:2px;min-width:0;line-height:1.45;}
-.route-option__copy small{color:var(--c-blue);font-size:10px;font-weight:900;}
-.route-option__copy b{font-size:14.5px;font-weight:900;}
-.route-option__copy span{color:var(--c-text-sub);font-size:10.5px;}
-.route-option__arrow{color:var(--c-blue);font-size:22px;font-weight:700;}
-
-/* ============================================================
-   モーション配慮 / 画面幅
-   ============================================================ */
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
-}
-@media (min-width:421px){
-  body{background:var(--c-page);}
-  .page{box-shadow:0 0 40px rgba(18,39,94,.1);min-height:100vh;}
-}
-@media (max-width:359px){
-  :root{--pad:14px;}
-  .sticky__bubble{padding:7px 10px;letter-spacing:-.02em;max-width:calc(100% - 8px);}
-}
-</style>
+<link rel="stylesheet" href="site.css">
+<script src="area-form.js"></script>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -583,105 +54,187 @@ body.modal-open{overflow:hidden;}
       </span>
       <span class="logo__text">インターネット<br>引越し受付<span class="dotcom">.com</span></span>
     </a>
-    <a class="header-tel" href="tel:05052918061" aria-label="電話で相談する 050-5291-8061">
+    <button class="header-tel" type="button" data-callback aria-haspopup="dialog" aria-controls="callbackDialog" aria-label="電話相談の折り返しを予約する">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/></svg>
       <span>電話相談</span>
-    </a>
+    </button>
   </header>
 
   <!-- ========== FV（画像） ========== -->
   <!-- 画像を差し替える場合は width / height を実寸に合わせてください -->
-  <h1 class="visually-hidden">インターネットの引越し手続きをまとめてサポート。住所変更・移転・乗り換えまで3分でカンタン受付</h1>
+  <h1 class="visually-hidden">インターネット・Wi-Fiの引越し・住所変更。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。</h1>
   <figure class="fv">
-    <img src="img/hikkoshi_FV.png"
-         alt="インターネット引越しをまとめてサポート。住所変更・新規契約・乗り換えまで3分でカンタン受付。主要インターネット回線に対応"
-         width="1024" height="1536" loading="eager" fetchpriority="high"
-         onerror="this.parentNode.classList.add('fv--fallback');this.removeAttribute('src');">
+    <img src="img/fv-cashback-v2.png"
+         alt="インターネット・Wi-Fiの引越し・住所変更。面倒な手続きもカンタン受付。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。電気・ガスもまとめてお手続きOK。専門スタッフが必要な手続きをご案内。"
+         width="941" height="1672" loading="eager" fetchpriority="high">
   </figure>
 
-  <div class="fv-entry">
-    <p class="fv-entry__guide">▼こちらから最短3分▼</p>
-    <div class="cta-stack">
-      <a class="cta cta--primary" href="#entry">
-        <span class="cta__label">無料</span>
-        <span class="cta__body">
-          <span class="cta__main">今すぐお引越し</span>
-          <span class="cta__sub">WEBから24時間受付</span>
-        </span>
-        <svg class="cta__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <a class="cta cta--tel" href="tel:05052918061">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
-        </svg>
-        <span class="cta__body">
-          <span class="cta__main">今すぐ電話で相談する</span>
-          <span class="cta__sub">受付時間 9:00〜20:00（年中無休）</span>
-        </span>
-      </a>
-    </div>
-  </div>
-
-  <!-- ========== 引越しの対応範囲・特典 ========== -->
-  <section class="section section--tint choice-section">
-    <div class="choice-intro">
-      <h2 class="section-title">インターネットを<br>おトクにお引越し</h2>
-      <p class="section-lead">引越し先の状況に合わせて、<br>必要な手続きをまとめてご案内します</p>
-    </div>
-
-    <div class="service-scope">
-      <div class="service-scope__visual">
-        <ul class="service-scope__list">
-          <li class="service-scope__item">
-            <span class="service-scope__icon" aria-hidden="true">✓</span>
-            <span><b>新居で新しくインターネットを始める</b><small>新居に合うおトクな回線をご案内</small></span>
-            <a class="service-scope__link" href="#entry" aria-label="新居で新しくインターネットを始める申込フォームへ"></a>
-          </li>
-          <li class="service-scope__item">
-            <span class="service-scope__icon" aria-hidden="true">✓</span>
-            <span><b>引越しを機に他社回線へ乗り換える</b><small>料金・速度・特典をまとめて見直し</small></span>
-            <a class="service-scope__link" href="#entry" aria-label="他社回線へ乗り換える申込フォームへ"></a>
-          </li>
-          <li class="service-scope__item">
-            <span class="service-scope__icon" aria-hidden="true">✓</span>
-            <span><b>今の回線を新居へ引越し・移転する</b><small>現在の契約を確認して手続きをサポート</small></span>
-            <a class="service-scope__link" href="#entry" aria-label="今の回線を引越し・移転する申込フォームへ"></a>
-          </li>
-        </ul>
+  <section class="fv-carriers" aria-labelledby="fvCarriersTitle">
+    <h2 id="fvCarriersTitle">各種インターネット回線に対応</h2>
+    <div class="fv-carriers__logos">
+      <img src="img/hikkoshi_FV.png" width="1024" height="1536"
+           alt="" loading="lazy">
+      <div class="fv-carriers__links">
+        <a href="application.html?requested_carrier=air" aria-label="SoftBank Airのお申し込みフォームへ"></a>
+        <a href="application.html?requested_carrier=softbank_hikari" aria-label="SoftBank 光のお申し込みフォームへ"></a>
+        <a href="application.html?requested_carrier=flets" aria-label="フレッツ光のお申し込みフォームへ"></a>
+        <a href="application.html?requested_carrier=jcom" aria-label="J:COMのお申し込みフォームへ"></a>
+        <a href="application.html?requested_carrier=docomo" aria-label="ドコモ光のお申し込みフォームへ"></a>
+        <a href="application.html?requested_carrier=au" aria-label="auひかりのお申し込みフォームへ"></a>
+        <a href="application.html?requested_carrier=biglobe" aria-label="BIGLOBEのお申し込みフォームへ"></a>
+        <a href="application.html?requested_carrier=sonet" aria-label="So-net 光のお申し込みフォームへ"></a>
       </div>
-      <p class="service-scope__all">
-        <strong>すべてOK！</strong>
-        <span>新規・乗り換え・移転、どのケースでも<br>専門のスタッフがスムーズにご対応させていただきます</span>
-      </p>
     </div>
+    <p>その他の回線もご相談ください</p>
+    <a class="fv-carriers__apply" href="application.html">
+      <span class="fv-carriers__apply-label">無料</span>
+      <span><b>かんたんお申し込み</b><small>WEBから24時間受付</small></span>
+      <span class="fv-carriers__apply-arrow" aria-hidden="true">›</span>
+    </a>
+    <a class="existing-support-link" href="support.html">契約内容の確認・解約のみのお問合せはこちら <span aria-hidden="true">›</span></a>
+  </section>
 
-    <section class="campaign-feature" aria-label="引越しを機にインターネットを見直す特典">
-      <p class="campaign-feature__eyebrow">引越しを機に</p>
-      <h2 class="campaign-feature__title">ネットを見直して<br><em>もっとおトクに</em></h2>
-      <p class="campaign-feature__offer"><small>最大</small><span class="campaign-feature__price"><strong>70,000</strong><i>円</i></span><b>還元</b></p>
-      <p class="campaign-feature__caption">キャッシュバックキャンペーン</p>
+  <section class="section area-check" id="area-check" aria-labelledby="areaTitle">
+    <h2 class="section-title" id="areaTitle">引越し先のエリアをチェック</h2>
+    <p class="section-lead">ご住所をもとに、利用可能な回線を<br>担当スタッフからお電話でご案内します。</p>
+    <form id="areaForm" action="api/send.php" method="post" novalidate>
+      <input type="hidden" name="form_type" value="area">
+      <div class="hp" aria-hidden="true"><label>会社名<input name="company" tabindex="-1" autocomplete="off"></label></div>
+      <div class="field"><label class="field__label" for="areaPostal">郵便番号 <span class="req">必須</span></label><input id="areaPostal" name="postal" inputmode="numeric" autocomplete="postal-code" placeholder="123-4567" maxlength="8" required><p id="areaPostalStatus" class="postal-status" role="status"></p></div>
+      <div class="field"><label class="field__label" for="areaAddress">住所 <span class="req">必須</span></label><input id="areaAddress" name="address" autocomplete="street-address" placeholder="都道府県・市区町村・番地・建物名" maxlength="200" required></div>
+      <div class="field"><label class="field__label" for="areaName">お名前 <span class="req">必須</span></label><input id="areaName" name="name" autocomplete="name" placeholder="山田 太郎" maxlength="50" required></div>
+      <div class="field"><label class="field__label" for="areaTel">電話番号 <span class="req">必須</span></label><input id="areaTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="09012345678" maxlength="30" required></div>
+      <p id="areaError" class="callback-dialog__error" role="alert"></p>
+      <button class="submit area-check__submit" type="submit"><span class="area-check__free">無料</span><span>エリア確認をスタート</span></button>
+    </form>
+  </section>
+
+  <section class="section carrier-guide" aria-labelledby="carrierGuideTitle">
+    <h2 class="carrier-guide__title" id="carrierGuideTitle">ご利用回線によって<br>専門窓口をご案内</h2>
+    <article class="carrier-guide__service" aria-labelledby="softbankTitle">
+      <header class="carrier-guide__header"><p>引越し・住所変更がかんたんにできる</p><h3 id="softbankTitle"><span class="fv-carrier-logo fv-carrier-logo--softbank" role="img" aria-label="SoftBank 光"></span></h3></header>
+      <ul class="carrier-guide__points">
+        <li>スマホとセットでおトクな「おうち割」</li>
+        <li>条件達成で工事費相当額を割引</li>
+        <li>新規・乗り換え・引越しをサポート</li>
+      </ul>
+      <table class="carrier-guide__table">
+        <caption class="visually-hidden">Softbank 光の料金</caption>
+        <tbody>
+          <tr><th scope="row">初期費用</th><td>事務手数料</td><td><b>4,950円</b></td></tr>
+          <tr><th scope="row" rowspan="2">月額料金</th><td>戸建</td><td><b>5,720円</b></td></tr>
+          <tr><td>集合住宅</td><td><b>4,180円</b></td></tr>
+        </tbody>
+      </table>
+      <p class="carrier-guide__note">税込・別途工事費等が必要。特典には適用条件があります。</p>
+      <a class="carrier-guide__cta" href="application.html?requested_carrier=softbank_hikari">窓口へ進む <span aria-hidden="true">›</span></a>
+    </article>
+
+    <article class="carrier-guide__service" aria-labelledby="biglobeTitle">
+      <header class="carrier-guide__header"><p>スマホとのセット利用にも</p><h3 id="biglobeTitle"><span class="fv-carrier-logo fv-carrier-logo--biglobe" role="img" aria-label="BIGLOBE光"></span></h3></header>
+      <ul class="carrier-guide__points"><li>au・UQ mobileのセット割に対応</li><li>条件達成で工事費相当額を還元</li><li>引越し先の回線選びをサポート</li></ul>
+      <table class="carrier-guide__table">
+        <caption class="visually-hidden">BIGLOBE光の料金</caption>
+        <tbody>
+          <tr><th scope="row">初期費用</th><td>事務手数料</td><td><b>3,300円</b></td></tr>
+          <tr><th scope="row" rowspan="2">月額料金</th><td>戸建</td><td><b>5,478円</b></td></tr>
+          <tr><td>集合住宅</td><td><b>4,378円</b></td></tr>
+        </tbody>
+      </table>
+      <p class="carrier-guide__note">税込・別途工事費等が必要。特典には適用条件があります。</p>
+      <a class="carrier-guide__cta" href="application.html?requested_carrier=biglobe">窓口へ進む <span aria-hidden="true">›</span></a>
+    </article>
+
+    <article class="carrier-guide__service" aria-labelledby="fletsTitle">
+      <header class="carrier-guide__header"><p>お住まいのエリアに合わせて</p><h3 id="fletsTitle"><span class="fv-carrier-logo fv-carrier-logo--flets" role="img" aria-label="フレッツ光"></span></h3></header>
+      <ul class="carrier-guide__points"><li>NTT東日本・西日本の光回線</li><li>プロバイダーを選んで利用</li><li>建物に合った料金プランをご案内</li></ul>
+      <table class="carrier-guide__table">
+        <caption class="visually-hidden">フレッツ光の料金</caption>
+        <tbody>
+          <tr><th scope="row">初期費用</th><td>契約料</td><td><b>880円</b></td></tr>
+          <tr><th scope="row" rowspan="2">月額料金</th><td>戸建</td><td><b>個別案内</b></td></tr>
+          <tr><td>集合住宅</td><td><b>個別案内</b></td></tr>
+        </tbody>
+      </table>
+      <p class="carrier-guide__note">税込・契約料はNTT東日本の例。工事費・プロバイダー料は別途。</p>
+      <a class="carrier-guide__cta" href="application.html?requested_carrier=flets">窓口へ進む <span aria-hidden="true">›</span></a>
+    </article>
+
+    <article class="carrier-guide__service" aria-labelledby="docomoTitle">
+      <header class="carrier-guide__header"><p>ドコモのスマホをお使いの方に</p><h3 id="docomoTitle"><span class="fv-carrier-logo fv-carrier-logo--docomo" role="img" aria-label="ドコモ光"></span></h3></header>
+      <ul class="carrier-guide__points"><li>対象スマホとのセット割に対応</li><li>プロバイダー込みの料金プラン</li><li>新規・乗り換えの手続きをご案内</li></ul>
+      <table class="carrier-guide__table">
+        <caption class="visually-hidden">ドコモ光の料金</caption>
+        <tbody>
+          <tr><th scope="row">初期費用</th><td>事務手数料</td><td><b>4,950円</b></td></tr>
+          <tr><th scope="row" rowspan="2">月額料金</th><td>戸建</td><td><b>5,720円</b></td></tr>
+          <tr><td>集合住宅</td><td><b>4,400円</b></td></tr>
+        </tbody>
+      </table>
+      <p class="carrier-guide__note">税込・別途工事費等が必要。セット割には適用条件があります。</p>
+      <a class="carrier-guide__cta" href="application.html?requested_carrier=docomo">窓口へ進む <span aria-hidden="true">›</span></a>
+    </article>
+
+    <article class="carrier-guide__service" aria-labelledby="auTitle">
+      <header class="carrier-guide__header"><p>au・UQ mobileをお使いの方に</p><h3 id="auTitle"><span class="fv-carrier-logo fv-carrier-logo--au" role="img" aria-label="auひかり"></span></h3></header>
+      <ul class="carrier-guide__points"><li>対象スマホとのセット割に対応</li><li>建物の設備に合うプランをご案内</li><li>引越し先の提供エリアを確認</li></ul>
+      <table class="carrier-guide__table">
+        <caption class="visually-hidden">auひかりの料金</caption>
+        <tbody>
+          <tr><th scope="row">初期費用</th><td>登録料</td><td><b>4,950円</b></td></tr>
+          <tr><th scope="row" rowspan="2">月額料金</th><td>戸建</td><td><b>個別案内</b></td></tr>
+          <tr><td>集合住宅</td><td><b>個別案内</b></td></tr>
+        </tbody>
+      </table>
+      <p class="carrier-guide__note">税込・別途工事費等が必要。料金は建物・プランによって異なります。</p>
+      <a class="carrier-guide__cta" href="application.html?requested_carrier=au">窓口へ進む <span aria-hidden="true">›</span></a>
+    </article>
+
+    <article class="carrier-guide__service" aria-labelledby="airTitle">
+      <header class="carrier-guide__header"><p>工事不要のホームルーター</p><h3 id="airTitle"><span class="fv-carrier-logo fv-carrier-logo--air" role="img" aria-label="SoftBank Air"></span></h3></header>
+      <ul class="carrier-guide__points"><li>コンセントにつないでWi-Fi利用</li><li>対象スマホのおうち割に対応</li><li>引越し先の提供エリアをご案内</li></ul>
+      <table class="carrier-guide__table">
+        <caption class="visually-hidden">SoftBank Airの料金</caption>
+        <tbody>
+          <tr><th scope="row">初期費用</th><td>事務手数料</td><td><b>4,950円</b></td></tr>
+          <tr><th scope="row" rowspan="2">月額料金</th><td>戸建</td><td><b>5,368円</b></td></tr>
+          <tr><td>集合住宅</td><td><b>5,368円</b></td></tr>
+        </tbody>
+      </table>
+      <p class="carrier-guide__note">税込・端末代別途。通信状況は住所や設置場所により異なります。</p>
+      <a class="carrier-guide__cta" href="application.html?requested_carrier=air">窓口へ進む <span aria-hidden="true">›</span></a>
+    </article>
+  </section>
+
+  <!-- ========== 特典 ========== -->
+  <section class="section section--tint campaign-section">
+    <section class="campaign-feature" aria-label="引越し・住所変更の受付とキャッシュバック特典">
+      <p class="campaign-feature__eyebrow">インターネットのお手続き</p>
+      <h2 class="campaign-feature__title">引越し・住所変更を、<br>カンタンに。</h2>
+      <p class="campaign-feature__eligibility">対象のお申し込みで</p>
+      <p class="campaign-feature__offer"><small>最大</small><span class="campaign-feature__price"><strong>70,000</strong><i>円</i></span></p>
+      <p class="campaign-feature__caption">キャッシュバック</p>
+      <p class="campaign-feature__support">電気・ガスもまとめてお手続きOK！</p>
       <div class="cta-stack">
-        <a class="cta cta--primary" href="#entry">
+        <a class="cta cta--primary" href="application.html">
           <span class="cta__label">無料</span>
           <span class="cta__body">
-            <span class="cta__main">おトクにお引越し</span>
-            <span class="cta__sub">乗り換えをご希望の方も受付中</span>
+            <span class="cta__main">かんたんお申し込み</span>
+            <span class="cta__sub">WEBから24時間受付</span>
           </span>
           <svg class="cta__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-        <a class="cta cta--tel" href="tel:05052918061">
+        <button class="cta cta--tel" type="button" data-callback aria-haspopup="dialog" aria-controls="callbackDialog">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/>
           </svg>
           <span class="cta__body">
-            <span class="cta__main">今すぐ電話で相談する</span>
-            <span class="cta__sub">受付時間 9:00〜20:00（年中無休）</span>
+            <span class="cta__main">電話相談を予約する</span>
+            <span class="cta__sub">ご希望の時間帯にこちらからお電話</span>
           </span>
-        </a>
+        </button>
       </div>
     </section>
   </section>
@@ -732,7 +285,7 @@ body.modal-open{overflow:hidden;}
       </li>
     </ol>
 
-    <p class="hint">
+    <p class="hint flow-hint">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="#ff6a13" aria-hidden="true">
         <path d="M12 2.5 13.7 8h5.8l-4.7 3.4 1.8 5.6-4.6-3.5-4.6 3.5 1.8-5.6L4.5 8h5.8L12 2.5Z"/>
       </svg>
@@ -825,7 +378,7 @@ body.modal-open{overflow:hidden;}
             <path d="m6 9.5 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </summary>
-        <p class="faq__a">はい。050-5291-8061で、年中無休9:00〜20:00まで受け付けています。WEBフォームは24時間受付です。現在の回線名と引越し先住所が分かると、確認がスムーズです。</p>
+        <p class="faq__a">はい。「電話相談」から電話番号をご入力いただくと、担当スタッフから折り返しご連絡します。WEBでの電話予約は24時間受付、折り返しは年中無休10:00〜20:00です。現在の回線名と引越し先住所が分かると、確認がスムーズです。</p>
       </details>
 
       <details class="faq__item">
@@ -862,69 +415,7 @@ body.modal-open{overflow:hidden;}
     </div>
   </section>
 
-  <!-- ========== 申込フォーム ========== -->
-  <section class="section form-sec" id="entry">
-    <h2 class="section-title section-title--rule">インターネットをおトクにお引越し</h2>
-
-    <div class="form-card">
-      <form id="entryForm" action="api/send.php" method="post" novalidate>
-        <div class="hp" aria-hidden="true">
-          <label>会社名<input type="text" name="company" tabindex="-1" autocomplete="off"></label>
-        </div>
-        <div id="tracking-fields"></div>
-        <input type="hidden" id="procedure" name="procedure" value="引越し・移転">
-
-        <div class="field">
-          <label class="field__label" for="name">お名前 <span class="req">必須</span></label>
-          <input type="text" id="name" name="name" autocomplete="name"
-                 placeholder="山田 太郎" required aria-describedby="name-error">
-          <p class="field__error" id="name-error">お名前を入力してください</p>
-        </div>
-
-        <div class="field">
-          <label class="field__label" for="tel">電話番号 <span class="req">必須</span></label>
-          <input type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel"
-                 placeholder="09012345678" required aria-describedby="tel-hint tel-error">
-          <p class="field__hint" id="tel-hint">ハイフンなしで入力してください</p>
-          <p class="field__error" id="tel-error">電話番号を正しく入力してください</p>
-        </div>
-
-        <div class="field">
-          <label class="field__label" for="postal">郵便番号 <span class="req">必須</span></label>
-          <input type="text" id="postal" name="postal" autocomplete="postal-code" inputmode="numeric"
-                 maxlength="8" placeholder="450-0001" required aria-describedby="postal-status postal-error">
-          <p class="field__error" id="postal-error">郵便番号を正しく入力してください</p>
-        </div>
-        <p class="postal-status" id="postal-status" aria-live="polite"></p>
-
-        <div class="field">
-          <label class="field__label" for="address">住所 <span class="req">必須</span></label>
-          <input type="text" id="address" name="address" autocomplete="street-address"
-                 placeholder="愛知県名古屋市中村区" required aria-describedby="address-error">
-          <p class="field__error" id="address-error">住所を入力してください</p>
-        </div>
-
-        <div class="field">
-          <label class="field__label" for="email">メールアドレス <span class="req">必須</span></label>
-          <input type="email" id="email" name="email" autocomplete="email" inputmode="email"
-                 placeholder="example@mail.com" required aria-describedby="email-error">
-          <p class="field__error" id="email-error">メールアドレスを正しく入力してください</p>
-        </div>
-
-        <div class="field">
-          <label class="field__label" for="current-line">現在利用中の回線 <span class="req">必須</span></label>
-          <select id="current-line" name="current_line" required aria-describedby="current-line-error"><option value="">選択してください</option><option>ドコモ光</option><option>SoftBank 光</option><option>auひかり</option><option>フレッツ光</option><option>その他の光回線</option><option>ホームルーター・WiMAX</option><option>利用していない</option><option>分からない</option></select>
-          <p class="field__error" id="current-line-error">現在利用中の回線を選択してください</p>
-        </div>
-
-        <p class="form-alert" id="formAlert" role="alert"></p>
-        <button class="submit" type="submit" id="submitBtn"><span class="submit__txt">この内容で申し込む</span> ›</button>
-      </form>
-
-    </div>
-  </section>
-
-  <footer class="foot">
+<footer class="foot">
     <div class="foot__links">
       <a href="https://shinseikatsu-portal.jp/company/">運営会社</a>
       <a href="https://shinseikatsu-portal.jp/privacy/">プライバシーポリシー</a>
@@ -934,83 +425,53 @@ body.modal-open{overflow:hidden;}
 
   <!-- ========== 追従CTA ========== -->
   <div class="sticky" id="stickyCta">
-    <p class="sticky__bubble">
-      このフォームからお申し込みで最大<span class="num">70,000円</span>キャッシュバック
-    </p>
-    <div class="sticky__row">
-      <div class="sticky__remaining" id="remainingFields" aria-live="polite"><span>あと</span><strong id="remainingCount">6</strong><span>項目</span></div>
-      <a class="sticky__main" href="#entry">
-        今すぐお引越し
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+<div class="sticky__row">
+<a class="sticky__main sticky__main--area" href="#area-check">エリア確認</a>
+      <a class="sticky__main" href="application.html">お申し込み</a>
     </div>
   </div>
 
 </div>
 
-<div class="route-modal" id="routeModal" role="dialog" aria-modal="true" aria-labelledby="routeModalTitle" hidden>
-  <div class="route-modal__panel">
-    <p class="route-modal__brand">インターネット引越し受付.com</p>
-    <h2 class="route-modal__title" id="routeModalTitle">ご希望に合った<br><em>受付窓口</em>をお選びください</h2>
-    <p class="route-modal__lead">該当する内容を選択してください</p>
-    <div class="route-modal__options">
-      <button class="route-option" type="button" id="routeModalNew">
-        <span class="route-option__icon" aria-hidden="true">01</span>
-        <span class="route-option__copy"><small>引越し・新居の方</small><b>新規・乗り換え・移転のお申し込み</b><span>新居でインターネットを利用したい方</span></span>
-        <span class="route-option__arrow" aria-hidden="true">›</span>
-      </button>
-      <a class="route-option" href="support.html">
-        <span class="route-option__icon" aria-hidden="true">02</span>
-        <span class="route-option__copy"><small>現在ご契約中の方</small><b>解約のみ</b><span>ご契約中の回線事業者へ進みます</span></span>
-        <span class="route-option__arrow" aria-hidden="true">›</span>
-      </a>
-      <a class="route-option" href="support.html">
-        <span class="route-option__icon" aria-hidden="true">03</span>
-        <span class="route-option__copy"><small>現在ご契約中の方</small><b>契約内容の確認</b><span>料金・プラン・契約状況を確認したい方</span></span>
-        <span class="route-option__arrow" aria-hidden="true">›</span>
-      </a>
-    </div>
+<dialog class="callback-dialog" id="callbackDialog" aria-labelledby="callbackTitle" aria-describedby="callbackLead">
+  <button class="callback-dialog__close" type="button" aria-label="電話予約を閉じる">×</button>
+  <h2 id="callbackTitle">お電話でのご相談</h2>
+  <p hidden class="callback-dialog__lead" id="callbackLead">専用のオペレーターより、ご希望の時間帯にご連絡いたします。</p>
+  <div id="callbackQuestion" class="callback-question">
+    <p>ご引越し先のインターネットは、<br>すでに開通していますか？</p>
+    <button type="button" id="callbackNotOpened">これから開通・引越し予定 <span aria-hidden="true">›</span></button>
+    <a href="support.html" id="callbackAlreadyOpened">開通・引越し済み <span aria-hidden="true">›</span></a>
   </div>
-</div>
+  <form hidden id="callbackForm" action="api/send.php" method="post" novalidate>
+    <input type="hidden" name="form_type" value="callback">
+    <div class="hp" aria-hidden="true"><label>会社名<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+    <label for="callbackName">お名前</label>
+    <input id="callbackName" name="name" type="text" autocomplete="name" placeholder="山田 太郎" maxlength="50" required aria-describedby="callbackError">
+    <label for="callbackTel">電話番号</label>
+    <input id="callbackTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="send" placeholder="09012345678" maxlength="30" required aria-describedby="callbackHint callbackError">
+    <p class="callback-dialog__hint" id="callbackHint">ハイフンなしでもOK</p>
+    <label for="callbackTime">ご案内希望時間帯</label>
+    <select id="callbackTime" name="preferred_time" required aria-describedby="callbackError">
+      <option value="いつでも">いつでも</option>
+      <option value="10-12時頃">10-12時頃</option>
+      <option value="12-15時頃">12-15時頃</option>
+      <option value="15-18時頃">15-18時頃</option>
+      <option value="18時以降">18時以降</option>
+    </select>
+    <p class="callback-dialog__error" id="callbackError" role="alert"></p>
+    <button class="submit" type="submit" id="callbackSubmit">予約情報を送信する</button>
+    <p class="callback-dialog__note">折り返し 10:00〜20:00（年中無休）</p>
+  </form>
+</dialog>
 
 <script>
-// 初回流入時の窓口振り分け
+// 既存契約者として振り分け済みの場合は電話導線を非表示
 (function () {
-  var modal = document.getElementById('routeModal');
-  var newButton = document.getElementById('routeModalNew');
-  var storageKey = 'internet-hikkoshi-entry:route-modal-seen';
-  var existingUserKey = 'internet-hikkoshi-entry:existing-user';
-
   function syncExistingUserState() {
     var existingUser = false;
-    try { existingUser = sessionStorage.getItem(existingUserKey) === '1'; } catch (e) {}
+    try { existingUser = sessionStorage.getItem('internet-hikkoshi-entry:existing-user') === '1'; } catch (e) {}
     document.body.classList.toggle('existing-user', existingUser);
   }
-
-  function closeRouteModal() {
-    modal.hidden = true;
-    document.body.classList.remove('modal-open');
-    try { sessionStorage.setItem(storageKey, '1'); } catch (e) {}
-  }
-
-  var seen = false;
-  try { seen = sessionStorage.getItem(storageKey) === '1'; } catch (e) {}
-  if (!seen) {
-    modal.hidden = false;
-    document.body.classList.add('modal-open');
-  }
-
-  newButton.addEventListener('click', closeRouteModal);
-  modal.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      try {
-        sessionStorage.setItem(storageKey, '1');
-        sessionStorage.setItem(existingUserKey, '1');
-      } catch (e) {}
-    });
-  });
   window.addEventListener('pageshow', syncExistingUserState);
   syncExistingUserState();
 })();
@@ -1039,10 +500,8 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
   });
 });
 
-// 申込フォーム：入力チェック
+// エリア確認・電話相談：流入情報と受付
 (function () {
-  var form = document.getElementById('entryForm');
-  if (!form) return;
 
   var trackingKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gad_source','gad_campaignid','gclid','gbraid','wbraid','yclid','msclkid','fbclid'];
   var blockedQueryKey = /(?:password|passwd|pwd|token|secret|email|mail|phone|tel|name|address|postal|zipcode|session|auth|cookie)/i;
@@ -1080,153 +539,127 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
     return data;
   }
 
-  function setTrackingFields() {
-    var holder = document.getElementById('tracking-fields');
-    var data = collectAttribution();
-    holder.innerHTML = '';
-    Object.keys(data).forEach(function (name) {
-      var input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = name;
-      input.value = data[name];
-      holder.appendChild(input);
-    });
-  }
+  collectAttribution();
+  initAreaForm(collectAttribution);
 
-  setTrackingFields();
+  // 通常フォームの入力内容は送らず、電話番号と流入情報だけで予約する。
+  var callbackDialog = document.getElementById('callbackDialog');
+  var callbackForm = document.getElementById('callbackForm');
+  var callbackTel = document.getElementById('callbackTel');
+  var callbackName = document.getElementById('callbackName');
+  var callbackTime = document.getElementById('callbackTime');
+  var callbackError = document.getElementById('callbackError');
+  var callbackSubmit = document.getElementById('callbackSubmit');
+  var callbackBusy = false;
+  var callbackTrigger = null;
+  var callbackQuestion = document.getElementById('callbackQuestion');
+  var callbackLead = document.getElementById('callbackLead');
+  var callbackNotOpened = document.getElementById('callbackNotOpened');
 
-  var rules = {
-    name:  { test: function (v) { return v.trim().length > 0; },              error: 'name-error' },
-    tel:   { test: function (v) { return /^0\d{9,10}$/.test(v.replace(/[-\s]/g, '')); }, error: 'tel-error' },
-    postal:{ test: function (v) { return /^\d{3}-?\d{4}$/.test(v.trim()); }, error: 'postal-error' },
-    address:{ test: function (v) { return v.trim().length > 0; }, error: 'address-error' },
-    email: { test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, error: 'email-error' },
-    'current-line': { test: function (v) { return v !== ''; }, error: 'current-line-error' }
-  };
-
-  var remainingBox = document.getElementById('remainingFields');
-  var remainingCount = document.getElementById('remainingCount');
-
-  function updateRemainingFields() {
-    var remaining = Object.keys(rules).filter(function (id) {
-      return !rules[id].test(document.getElementById(id).value);
-    }).length;
-    remainingBox.classList.toggle('is-complete', remaining === 0);
-    if (remaining === 0) {
-      remainingBox.innerHTML = '入力完了';
-    } else {
-      remainingBox.innerHTML = '<span>あと</span><strong id="remainingCount">' + remaining + '</strong><span>項目</span>';
-      remainingCount = document.getElementById('remainingCount');
-    }
-  }
-
-  function validateField(id) {
-    var input = document.getElementById(id);
-    var err = document.getElementById(rules[id].error);
-    var ok = rules[id].test(input.value);
-    input.setAttribute('aria-invalid', ok ? 'false' : 'true');
-    err.classList.toggle('is-shown', !ok);
-    return ok;
-  }
-
-  Object.keys(rules).forEach(function (id) {
-    var input = document.getElementById(id);
-    input.addEventListener('blur', function () { validateField(id); });
-    input.addEventListener('input', function () {
-      if (input.getAttribute('aria-invalid') === 'true') validateField(id);
-      updateRemainingFields();
-    });
-    input.addEventListener('change', function () {
-      if (input.value) validateField(id);
-      updateRemainingFields();
-    });
+  callbackNotOpened.addEventListener('click', function () {
+    callbackQuestion.hidden = true;
+    callbackLead.hidden = false;
+    callbackForm.hidden = false;
+    callbackName.focus();
+  });
+  document.getElementById('callbackAlreadyOpened').addEventListener('click', function () {
+    try {
+      sessionStorage.setItem('internet-hikkoshi-entry:existing-user', '1');
+    } catch (e) {}
+    document.body.classList.add('existing-user');
+    callbackDialog.close();
   });
 
-  var postalInput = document.getElementById('postal');
-  var addressInput = document.getElementById('address');
-  var postalStatus = document.getElementById('postal-status');
-  var postalRequest = 0;
-
-  postalInput.addEventListener('input', function () {
-    var digits = postalInput.value.replace(/\D/g, '').slice(0, 7);
-    var request = ++postalRequest;
-    if (digits.length > 3) postalInput.value = digits.slice(0, 3) + '-' + digits.slice(3);
-    else postalInput.value = digits;
-    postalStatus.className = 'postal-status';
-    postalStatus.textContent = '';
-    if (digits.length !== 7) return;
-    postalStatus.textContent = '住所を検索しています…';
-    fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + encodeURIComponent(digits))
-      .then(function (response) { if (!response.ok) throw new Error(); return response.json(); })
-      .then(function (data) {
-        if (request !== postalRequest) return;
-        if (!data.results || !data.results.length) throw new Error('not_found');
-        var result = data.results[0];
-        addressInput.value = result.address1 + result.address2 + result.address3;
-        addressInput.setAttribute('aria-invalid', 'false');
-        document.getElementById('address-error').classList.remove('is-shown');
-        postalStatus.textContent = '住所を自動入力しました。番地を追記してください。';
-        postalStatus.classList.add('success');
-        updateRemainingFields();
-      })
-      .catch(function () {
-        if (request !== postalRequest) return;
-        postalStatus.textContent = '住所を自動入力できませんでした。住所を手入力してください。';
-        postalStatus.classList.add('error');
-      });
-  });
-
-  function validateForm() {
-    var ok = true;
-    Object.keys(rules).forEach(function (id) { if (!validateField(id)) ok = false; });
-    if (!ok) {
-      var first = form.querySelector('[aria-invalid="true"]');
-      if (first) first.focus({ preventScroll: false });
-    }
-    return ok;
+  function openCallback(trigger) {
+    if (document.body.classList.contains('existing-user')) return;
+    callbackTrigger = trigger;
+    callbackError.textContent = '';
+    callbackTel.removeAttribute('aria-invalid');
+    callbackQuestion.hidden = false;
+    callbackLead.hidden = true;
+    callbackForm.hidden = true;
+    callbackDialog.showModal();
+    document.body.classList.add('modal-open');
+    callbackNotOpened.focus();
   }
-
-  updateRemainingFields();
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    var ok = validateForm();
-
-    var alertBox = document.getElementById('formAlert');
-    var btn = document.getElementById('submitBtn');
-    var btnTxt = btn.querySelector('.submit__txt');
-
-    if (!ok) {
-      var first = form.querySelector('[aria-invalid="true"]');
-      if (first) first.focus({ preventScroll: false });
+  document.querySelectorAll('[data-callback]').forEach(function (trigger) {
+    trigger.addEventListener('click', function () { openCallback(trigger); });
+  });
+  callbackDialog.querySelector('.callback-dialog__close').addEventListener('click', function () {
+    if (!callbackBusy) callbackDialog.close();
+  });
+  callbackDialog.addEventListener('cancel', function (event) {
+    if (callbackBusy) event.preventDefault();
+  });
+  callbackDialog.addEventListener('close', function () {
+    document.body.classList.remove('modal-open');
+    if (callbackTrigger && !document.body.classList.contains('existing-user')) callbackTrigger.focus();
+  });
+  function syncCallbackState() {
+    if (document.body.classList.contains('existing-user') && callbackDialog.open) callbackDialog.close();
+    if (location.hash === '#callback' && !callbackDialog.open) openCallback(document.querySelector('[data-callback]'));
+  }
+  window.addEventListener('pageshow', syncCallbackState);
+  window.addEventListener('hashchange', syncCallbackState);
+  callbackTel.addEventListener('input', function () {
+    callbackTel.removeAttribute('aria-invalid');
+    callbackError.textContent = '';
+  });
+  callbackForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (callbackBusy || document.body.classList.contains('existing-user')) return;
+    if (!callbackName.value.trim()) {
+      callbackError.textContent = 'お名前を入力してください。';
+      callbackName.focus();
       return;
     }
-
-    // 送信
-    setTrackingFields();
-    alertBox.classList.remove('is-shown');
-    btn.disabled = true;
-    btnTxt.textContent = '送信中…';
-
-    fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form)   // ヘッダーは付けない（GASのCORSプリフライトを避けるため）
-    })
-      .then(function (res) {
-        return res.json().catch(function () { return { ok: res.ok }; });
+    if (['いつでも','10-12時頃','12-15時頃','15-18時頃','18時以降'].indexOf(callbackTime.value) === -1) {
+      callbackError.textContent = 'ご案内希望時間帯を選択してください。';
+      callbackTime.focus();
+      return;
+    }
+    var tel = callbackTel.value.replace(/[０-９]/g, function (digit) {
+      return String.fromCharCode(digit.charCodeAt(0) - 0xFEE0);
+    }).replace(/[-\s()]+/g, '');
+    if (!/^0\d{9,10}$/.test(tel)) {
+      callbackTel.setAttribute('aria-invalid', 'true');
+      callbackError.textContent = '0から始まる10〜11桁の電話番号を入力してください。';
+      callbackTel.focus();
+      return;
+    }
+    var payload = new FormData(callbackForm);
+    var attribution = collectAttribution();
+    Object.keys(attribution).forEach(function (key) { payload.set(key, attribution[key]); });
+    payload.set('form_type', 'callback');
+    payload.set('tel', tel);
+    payload.set('name', callbackName.value.trim());
+    payload.set('preferred_time', callbackTime.value);
+    callbackBusy = true;
+    callbackSubmit.disabled = true;
+    callbackSubmit.textContent = '送信中…';
+    callbackForm.setAttribute('aria-busy', 'true');
+    callbackError.textContent = '';
+    var controller = new AbortController();
+    var timeout = setTimeout(function () { controller.abort(); }, 30000);
+    fetch(callbackForm.action, { method: 'POST', body: payload, signal: controller.signal })
+      .then(function (response) {
+        if (!response.ok) return response.json().then(function (data) { throw new Error(data.message || '送信できませんでした。時間をおいて再度お試しください。'); });
+        return response.json();
       })
       .then(function (data) {
-        if (!data.ok) throw new Error(data.message || '送信に失敗しました。時間をおいて再度お試しください。');
-        window.location.replace('thanks.html');
+        if (data.ok !== true) throw new Error(data.message || '送信できませんでした。時間をおいて再度お試しください。');
+        try { sessionStorage.setItem('internet-hikkoshi-entry:callback-complete', '1'); } catch (e) {}
+        window.location.replace('callback-thanks.html');
       })
-      .catch(function (err) {
-        alertBox.textContent = err.message || '送信に失敗しました。時間をおいて再度お試しください。';
-        alertBox.classList.add('is-shown');
-        btn.disabled = false;
-        btnTxt.textContent = 'この内容で申し込む';
-      });
+      .catch(function () {
+        callbackError.textContent = '送信を確認できませんでした。電話番号を残したままにしていますので、時間をおいて再度お試しください。';
+        callbackBusy = false;
+        callbackSubmit.disabled = false;
+        callbackSubmit.textContent = '予約情報を送信する';
+        callbackForm.removeAttribute('aria-busy');
+      }).finally(function () { clearTimeout(timeout); });
   });
+
 })();
 
 </script>

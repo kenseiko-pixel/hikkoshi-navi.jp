@@ -26,36 +26,62 @@ function clean(string $key, int $limit = 500): string {
 }
 
 $procedure = clean('procedure', 50);
+$isCallback = clean('form_type', 30) === 'callback';
+$isArea = clean('form_type', 30) === 'area';
 $currentLine = clean('current_line', 100);
+$inquiryLine = clean('carrier', 100);
 
 $name = clean('name', 50);
-$tel = preg_replace('/\D+/', '', clean('tel')) ?? '';
+$preferredTime = clean('preferred_time', 30);
+$tel = $isCallback
+    ? (preg_replace('/[-\s()]+/u', '', mb_convert_kana(clean('tel', 40), 'n', 'UTF-8')) ?? '')
+    : (preg_replace('/\D+/', '', clean('tel')) ?? '');
 $postal = preg_replace('/\D+/', '', clean('postal')) ?? '';
 $address = clean('address', 200);
 $email = clean('email', 254);
 
 $errors = [];
-if (!in_array($procedure, ['引越し・移転', '引越しに伴う他社乗り換え', '新居で新規申し込み'], true)) $errors[] = '希望する手続き';
-if ($currentLine === '') $errors[] = '現在利用中の回線';
-if ($name === '') $errors[] = 'お名前';
+if ($isCallback) {
+    if ($name === '') $errors[] = 'お名前';
+    if (!in_array($preferredTime, ['いつでも', '10-12時頃', '12-15時頃', '15-18時頃', '18時以降'], true)) $errors[] = 'ご案内希望時間帯';
+}
+if ($isArea) {
+    if ($name === '') $errors[] = 'お名前';
+    if (!preg_match('/^\d{7}$/', $postal)) $errors[] = '郵便番号';
+    if ($address === '') $errors[] = '住所';
+}
+if (!$isCallback && !$isArea) {
+    if (!in_array($procedure, ['引越し・移転', '引越しに伴う他社乗り換え', '新居で新規申し込み'], true)) $errors[] = '希望する手続き';
+    if ($currentLine === '') $errors[] = '現在利用中の回線';
+    if ($name === '') $errors[] = 'お名前';
+    if (!preg_match('/^\d{7}$/', $postal)) $errors[] = '郵便番号';
+    if ($address === '') $errors[] = '住所';
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'メールアドレス';
+}
 if (!preg_match('/^0\d{9,10}$/', $tel)) $errors[] = '電話番号';
-if (!preg_match('/^\d{7}$/', $postal)) $errors[] = '郵便番号';
-if ($address === '') $errors[] = '住所';
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'メールアドレス';
 if ($errors) respond(422, false, implode('、', $errors) . 'をご確認ください。');
 
 $postalFormatted = substr($postal, 0, 3) . '-' . substr($postal, 3);
 $trackingKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gad_source','gad_campaignid','gclid','gbraid','wbraid','yclid','msclkid','fbclid','entry_url','submit_url','referrer','lp_name','carrier','device','entry_time'];
 
-$body = "お申し込み【インターネット引越し受付.com】がありました。\n\n";
-$body .= "---\n\n";
+$mailType = $isCallback ? '電話予約' : ($isArea ? 'エリアチェック' : 'お申し込み');
+$body = "{$mailType}【インターネット引越し受付.com】がありました。\n\n---\n\n";
 $body .= "[お名前] {$name}\n";
 $body .= "[電話番号] {$tel}\n";
-$body .= "[郵便番号] {$postalFormatted}\n";
-$body .= "[住所] {$address}\n";
-$body .= "[メールアドレス] {$email}\n\n";
-$body .= "[希望する手続き] {$procedure}\n";
-$body .= "[現在利用中の回線] {$currentLine}\n";
+if (!$isCallback) {
+    $body .= "[郵便番号] {$postalFormatted}\n";
+    $body .= "[住所] {$address}\n";
+}
+if ($isCallback) {
+    $body .= "[ご案内希望時間帯] {$preferredTime}\n";
+} elseif (!$isArea) {
+    $body .= "[メールアドレス] {$email}\n\n";
+    if ($inquiryLine !== '' && $inquiryLine !== 'general') {
+        $body .= "[お問合せの回線] {$inquiryLine}\n";
+    }
+    $body .= "[希望する手続き] {$procedure}\n";
+    $body .= "[現在利用中の回線] {$currentLine}\n";
+}
 $body .= "\n";
 $body .= "[パラメーター]\n";
 foreach ($trackingKeys as $key) $body .= $key . ' = ' . clean($key) . "\n";
@@ -79,12 +105,12 @@ $subject = '新お申し込み【インターネット引越し受付.com】';
 $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 $encodedFromName = '=?UTF-8?B?' . base64_encode('インターネット引越し受付.com') . '?=';
 $headers = "From: {$encodedFromName} <" . MAIL_FROM . ">\r\n";
-$headers .= "Reply-To: {$email}\r\n";
+if (!$isCallback && !$isArea) $headers .= "Reply-To: {$email}\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "Content-Transfer-Encoding: base64\r\n";
 
 $encodedBody = chunk_split(base64_encode($body), 76, "\r\n");
 $sent = mail(MAIL_TO, $encodedSubject, $encodedBody, $headers);
-if (!$sent) respond(500, false, '送信に失敗しました。お手数ですがお電話でご連絡ください。');
+if (!$sent) respond(500, false, '送信できませんでした。時間をおいて再度お試しください。');
 respond(200, true);
