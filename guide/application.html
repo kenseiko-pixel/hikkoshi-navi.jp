@@ -79,7 +79,7 @@
           <p class="field__error" id="email-error">メールアドレスを正しく入力してください</p>
         </div>
 
-        <div class="field">
+        <div class="field" id="currentLineField">
           <label class="field__label" for="current-line">現在利用中の回線 <span class="req">必須</span></label>
           <select id="current-line" name="current_line" required aria-describedby="current-line-error"><option value="">選択してください</option><option>ドコモ光</option><option>SoftBank 光</option><option>auひかり</option><option>フレッツ光</option><option>その他の光回線</option><option>ホームルーター・WiMAX</option><option>利用していない</option><option>分からない</option></select>
           <p class="field__error" id="current-line-error">現在利用中の回線を選択してください</p>
@@ -119,6 +119,11 @@
     document.querySelector('.application-header').dataset.carrier = selectedCarrier.theme;
     document.querySelector('#applicationSupport a').href = selectedCarrier.support;
     document.getElementById('applicationSupport').hidden = false;
+    var currentLineField = document.getElementById('currentLineField');
+    var currentLineSelect = document.getElementById('current-line');
+    currentLineField.hidden = true;
+    currentLineSelect.required = false;
+    currentLineSelect.disabled = true;
   }
 
   var trackingKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gad_source','gad_campaignid','gclid','gbraid','wbraid','yclid','msclkid','fbclid'];
@@ -181,6 +186,7 @@
     email: { test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, error: 'email-error' },
     'current-line': { test: function (v) { return v !== ''; }, error: 'current-line-error' }
   };
+  if (selectedCarrier) delete rules['current-line'];
 
   var remainingBox = document.getElementById('remainingFields');
   var remainingCount = document.getElementById('remainingCount');

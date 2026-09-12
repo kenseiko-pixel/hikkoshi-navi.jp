@@ -30,6 +30,8 @@ $isCallback = clean('form_type', 30) === 'callback';
 $isArea = clean('form_type', 30) === 'area';
 $currentLine = clean('current_line', 100);
 $inquiryLine = clean('carrier', 100);
+$inquiryLines = ['SoftBank 光', 'SoftBank Air', 'BIGLOBE光', 'フレッツ光', 'ドコモ光', 'auひかり', 'J:COM', 'So-net 光'];
+$isCarrierInquiry = in_array($inquiryLine, $inquiryLines, true);
 
 $name = clean('name', 50);
 $preferredTime = clean('preferred_time', 30);
@@ -52,7 +54,7 @@ if ($isArea) {
 }
 if (!$isCallback && !$isArea) {
     if (!in_array($procedure, ['引越し・移転', '引越しに伴う他社乗り換え', '新居で新規申し込み'], true)) $errors[] = '希望する手続き';
-    if ($currentLine === '') $errors[] = '現在利用中の回線';
+    if (!$isCarrierInquiry && $currentLine === '') $errors[] = '現在利用中の回線';
     if ($name === '') $errors[] = 'お名前';
     if (!preg_match('/^\d{7}$/', $postal)) $errors[] = '郵便番号';
     if ($address === '') $errors[] = '住所';
@@ -76,11 +78,11 @@ if ($isCallback) {
     $body .= "[ご案内希望時間帯] {$preferredTime}\n";
 } elseif (!$isArea) {
     $body .= "[メールアドレス] {$email}\n\n";
-    if ($inquiryLine !== '' && $inquiryLine !== 'general') {
+    if ($isCarrierInquiry) {
         $body .= "[お問合せの回線] {$inquiryLine}\n";
     }
     $body .= "[希望する手続き] {$procedure}\n";
-    $body .= "[現在利用中の回線] {$currentLine}\n";
+    if (!$isCarrierInquiry) $body .= "[現在利用中の回線] {$currentLine}\n";
 }
 $body .= "\n";
 $body .= "[パラメーター]\n";
