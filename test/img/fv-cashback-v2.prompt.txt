@@ -1,0 +1,11 @@
+Redesign the previous Japanese mobile LP hero (reference image) into a refined professional telecommunications reception banner. Output one portrait 1024x1152 hero graphic. The previous design is too loud, red, rounded and overly focused on 60 seconds; replace that aesthetic, not minor tweaks. No people, photographs, mascots, carrier logos or fictitious official certifications. Independent reception service, never claim to be a carrier official site.
+Use the existing website palette: navy #12275e, clean blue #1a6fd4, white and very pale blue #f3f8ff, selective yellow #ffe34d. No red. No fat outlines, exaggerated italic digits, comic effects, heavy shadows or giant pills. Square-edged structured full-width editorial layout with precise Japanese Gothic typography and natural tracking. No floating white rounded card. No CTA buttons/header/menu. Minimal subtle diagonal pale-blue geometry, lots of white but compact purposeful layout.
+Hierarchy:
+Top white area, medium small "インターネット・Wi-Fiの", then large navy bold "引越し・住所変更", then blue medium "面倒な手続きも、カンタン受付".
+Under it a small inline outlined label "WEB受付 最短60秒" (all on one line, total label no more than 8% of image height, digits same size as surrounding label text).
+Main middle blue area merges smoothly with top; small white "対象のお申し込みで", then "最大" smaller beside the dominant largest yellow typography "70,000円", then clear white "キャッシュバック". 70,000円 must occupy about 80% width, perfectly spaced comma and digits, strongest visual on the image. Restrained professional emphasis, no starbursts. 
+Bottom pale-blue/white area shows two concise rows:
+"電気・ガスもまとめてお手続きOK！"
+"専門スタッフが必要な手続きをご案内"
+Tiny simple consistent line icons optional, not prominent.
+Only these exact Japanese texts. No ※, asterisks or footnotes. No extra copy. Ensure mobile legibility, balanced hierarchy, 70,000円 much larger than 最短60秒. Crisp polished institutional service-design feeling with honest independent service identity.

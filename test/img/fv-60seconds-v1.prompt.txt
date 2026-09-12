@@ -1,0 +1,13 @@
+Use case: ads-marketing. Create one polished Japanese mobile landing-page first-view graphic, portrait 1024x1280. Reference is the attached old internet moving reception LP: use its confident blue/white telecommunications reception design, bold legible typography, flat clean structure, NOT its exact content or clutter. No people, no mascots, no photography, no futuristic scenes, no fake carrier logos, no government or carrier official claims. This is an independent internet moving reception service. Only create the hero artwork, NOT browser chrome or website header/menu, no buttons baked in.
+Layout: strong medium telecom blue background, large white central information area with restrained corners and tight purposeful spacing. Navy bold Japanese sans-serif headings. The overwhelming focal point is large "60" with adjacent "秒", warm orange-red digits with crisp subtle outline, not excessive 3D. Yellow minimal accents. Visual simplicity, trustworthy administrative procedure feeling. Keep all important content readable on 390px width. Little decorative geometry, no scattered sparkles. No asterisk or ※ symbols, no footnotes.
+Exact text in order:
+"インターネット・Wi-Fiの"
+"引越し・住所変更"
+"WEB受付"
+"最短60秒"
+"面倒な手続き、まずはカンタン入力。"
+"専門スタッフが必要な手続きをご案内"
+At bottom a compact supplementary band clearly secondary to 60 seconds, with two lines:
+"電気・ガスもまとめてお手続きOK！"
+"対象のお申し込みで最大70,000円キャッシュバック"
+Make 70,000円 moderately bold but substantially smaller than 60秒. Do not link the cashback solely to electricity/gas bundle, preserve exact qualifier. No other text. No 住所変更・新規契約・乗り換え list. Final bottom edge transitions to white to lead into a HTML area-check form. Professional precise Japanese typography, natural letter spacing, no clipped content.
