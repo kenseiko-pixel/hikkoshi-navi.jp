@@ -12,6 +12,7 @@
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="/guide/">
 <title>お申し込み｜引越し・住所変更 受付窓口</title>
 <meta name="description" content="引越しでネット回線をどうするか迷ったら。今の回線をそのまま移転するか、他社へ乗り換えるか。専門スタッフが無料で診断し、条件達成で最大70,000円キャッシュバック。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,14 +51,6 @@
         </div>
 
         <div class="field">
-          <label class="field__label" for="tel">電話番号 <span class="req">必須</span></label>
-          <input type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel"
-                 placeholder="09012345678" required aria-describedby="tel-hint tel-error">
-          <p class="field__hint" id="tel-hint">ハイフンなしで入力してください</p>
-          <p class="field__error" id="tel-error">電話番号を正しく入力してください</p>
-        </div>
-
-        <div class="field">
           <label class="field__label" for="postal">郵便番号 <span class="req">必須</span></label>
           <input type="text" id="postal" name="postal" autocomplete="postal-code" inputmode="numeric"
                  maxlength="8" placeholder="450-0001" required aria-describedby="postal-status postal-error">
@@ -73,9 +66,17 @@
         </div>
 
         <div class="field">
-          <label class="field__label" for="email">メールアドレス <span class="req">必須</span></label>
+          <label class="field__label" for="tel">電話番号 <span class="req">必須</span></label>
+          <input type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel"
+                 placeholder="09012345678" required aria-describedby="tel-hint tel-error">
+          <p class="field__hint" id="tel-hint">ハイフンなしで入力してください</p>
+          <p class="field__error" id="tel-error">電話番号を正しく入力してください</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="email">メールアドレス <span class="optional">任意</span></label>
           <input type="email" id="email" name="email" autocomplete="email" inputmode="email"
-                 placeholder="example@mail.com" required aria-describedby="email-error">
+                 placeholder="example@mail.com" aria-describedby="email-error">
           <p class="field__error" id="email-error">メールアドレスを正しく入力してください</p>
         </div>
 
@@ -86,7 +87,7 @@
         </div>
 
         <p class="form-alert" id="formAlert" role="alert"></p>
-        <button class="submit" type="submit" id="submitBtn"><span class="submit__txt">この内容で申し込む</span> ›</button>
+        <button class="submit" type="submit" id="submitBtn"><span class="submit__txt">この内容で受付</span> ›</button>
       </form>
 
     </div>
@@ -98,7 +99,7 @@
   var form = document.getElementById('entryForm');
   if (!form) return;
 
-  // URLは許可した回線名だけに対応し、未指定・不明な値は共通窓口へ。
+  // キャリア別パスだけに対応し、未指定・不明なパスは共通窓口へ。
   var carrierOptions = {
     softbank_hikari: { name: 'SoftBank 光', theme: 'softbank', support: 'https://www.softbank.jp/internet/support/contact/sbhikari/' },
     air: { name: 'SoftBank Air', theme: 'air', support: 'https://www.softbank.jp/internet/support/contact/sbair/' },
@@ -109,7 +110,18 @@
     jcom: { name: 'J:COM', theme: 'jcom', support: 'https://www.jcom.co.jp/contactus/call_rgu.html' },
     sonet: { name: 'So-net 光', theme: 'sonet', support: 'https://www.so-net.ne.jp/support/contact/' }
   };
-  var requestedCarrier = new URLSearchParams(location.search).get('requested_carrier');
+  var carrierPathMap = {
+    'softbank-hikari': 'softbank_hikari',
+    'softbank-air': 'air',
+    'biglobe': 'biglobe',
+    'flets': 'flets',
+    'docomo-hikari': 'docomo',
+    'au-hikari': 'au',
+    'jcom': 'jcom',
+    'sonet': 'sonet'
+  };
+  var pathParts = location.pathname.split('/').filter(Boolean);
+  var requestedCarrier = carrierPathMap[pathParts[pathParts.length - 1]] || null;
   var selectedCarrier = Object.prototype.hasOwnProperty.call(carrierOptions, requestedCarrier) ? carrierOptions[requestedCarrier] : null;
   if (selectedCarrier) {
     var windowName = selectedCarrier.name + ' 受付窓口';
@@ -183,7 +195,7 @@
     tel:   { test: function (v) { return /^0\d{9,10}$/.test(v.replace(/[-\s]/g, '')); }, error: 'tel-error' },
     postal:{ test: function (v) { return /^\d{3}-?\d{4}$/.test(v.trim()); }, error: 'postal-error' },
     address:{ test: function (v) { return v.trim().length > 0; }, error: 'address-error' },
-    email: { test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, error: 'email-error' },
+    email: { test: function (v) { return v.trim() === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, error: 'email-error' },
     'current-line': { test: function (v) { return v !== ''; }, error: 'current-line-error' }
   };
   if (selectedCarrier) delete rules['current-line'];
@@ -309,7 +321,7 @@
         alertBox.textContent = err.message || '送信に失敗しました。時間をおいて再度お試しください。';
         alertBox.classList.add('is-shown');
         btn.disabled = false;
-        btnTxt.textContent = 'この内容で申し込む';
+        btnTxt.textContent = 'この内容で受付';
       });
   });
 })();

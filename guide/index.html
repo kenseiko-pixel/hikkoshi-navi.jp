@@ -34,7 +34,7 @@
 
   <!-- ========== サイトヘッダー ========== -->
   <header class="site-header">
-    <a class="logo" href="/">
+    <div class="logo" aria-label="インターネット引越し受付.com">
       <span class="logo__mark" aria-hidden="true">
         <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
           <circle cx="24" cy="24" r="21" fill="#1a6fd4"/>
@@ -53,7 +53,7 @@
         </svg>
       </span>
       <span class="logo__text">インターネット<br>引越し受付<span class="dotcom">.com</span></span>
-    </a>
+    </div>
     <button class="header-tel" type="button" data-callback aria-haspopup="dialog" aria-controls="callbackDialog" aria-label="電話相談の折り返しを予約する">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/></svg>
       <span>電話相談</span>
@@ -63,11 +63,13 @@
   <!-- ========== FV（画像） ========== -->
   <!-- 画像を差し替える場合は width / height を実寸に合わせてください -->
   <h1 class="visually-hidden">インターネット・Wi-Fiの引越し・住所変更。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。</h1>
-  <figure class="fv">
-    <img src="img/fv-cashback-v2.png"
-         alt="インターネット・Wi-Fiの引越し・住所変更。面倒な手続きもカンタン受付。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。電気・ガスもまとめてお手続きOK。専門スタッフが必要な手続きをご案内。"
-         width="941" height="1672" loading="eager" fetchpriority="high">
-  </figure>
+  <a class="fv-link" href="#area-check" aria-label="引越し先のエリア確認へ進む">
+    <figure class="fv">
+      <img src="img/fv-cashback-v2.png"
+           alt="インターネット・Wi-Fiの引越し・住所変更。面倒な手続きもカンタン受付。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。電気・ガスもまとめてお手続きOK。専門スタッフが必要な手続きをご案内。"
+           width="941" height="1672" loading="eager" fetchpriority="high">
+    </figure>
+  </a>
 
   <section class="fv-carriers" aria-labelledby="fvCarriersTitle">
     <h2 id="fvCarriersTitle">各種インターネット回線に対応</h2>
@@ -75,18 +77,18 @@
       <img src="img/hikkoshi_FV.png" width="1024" height="1536"
            alt="" loading="lazy">
       <div class="fv-carriers__links">
-        <a href="application.html?requested_carrier=air" aria-label="SoftBank Airのお申し込みフォームへ"></a>
-        <a href="application.html?requested_carrier=softbank_hikari" aria-label="SoftBank 光のお申し込みフォームへ"></a>
-        <a href="application.html?requested_carrier=flets" aria-label="フレッツ光のお申し込みフォームへ"></a>
-        <a href="application.html?requested_carrier=jcom" aria-label="J:COMのお申し込みフォームへ"></a>
-        <a href="application.html?requested_carrier=docomo" aria-label="ドコモ光のお申し込みフォームへ"></a>
-        <a href="application.html?requested_carrier=au" aria-label="auひかりのお申し込みフォームへ"></a>
-        <a href="application.html?requested_carrier=biglobe" aria-label="BIGLOBEのお申し込みフォームへ"></a>
-        <a href="application.html?requested_carrier=sonet" aria-label="So-net 光のお申し込みフォームへ"></a>
+        <a href="application/softbank-air/" aria-label="SoftBank Airのお申し込みフォームへ"></a>
+        <a href="application/softbank-hikari/" aria-label="SoftBank 光のお申し込みフォームへ"></a>
+        <a href="application/flets/" aria-label="フレッツ光のお申し込みフォームへ"></a>
+        <a href="application/jcom/" aria-label="J:COMのお申し込みフォームへ"></a>
+        <a href="application/docomo-hikari/" aria-label="ドコモ光のお申し込みフォームへ"></a>
+        <a href="application/au-hikari/" aria-label="auひかりのお申し込みフォームへ"></a>
+        <a href="application/biglobe/" aria-label="BIGLOBEのお申し込みフォームへ"></a>
+        <a href="application/sonet/" aria-label="So-net 光のお申し込みフォームへ"></a>
       </div>
     </div>
     <p>その他の回線もご相談ください</p>
-    <a class="fv-carriers__apply" href="application.html">
+    <a class="fv-carriers__apply" href="application/">
       <span class="fv-carriers__apply-label">無料</span>
       <span><b>かんたんお申し込み</b><small>WEBから24時間受付</small></span>
       <span class="fv-carriers__apply-arrow" aria-hidden="true">›</span>
@@ -111,7 +113,7 @@
 
   <section class="section carrier-guide" aria-labelledby="carrierGuideTitle">
     <h2 class="carrier-guide__title" id="carrierGuideTitle">ご利用回線によって<br>専門窓口をご案内</h2>
-    <article class="carrier-guide__service" aria-labelledby="softbankTitle">
+    <article class="carrier-guide__service" aria-labelledby="softbankTitle" role="link" tabindex="0" data-card-href="application/softbank-hikari/" aria-label="SoftBank 光の窓口へ進む">
       <header class="carrier-guide__header"><p>引越し・住所変更がかんたんにできる</p><h3 id="softbankTitle"><span class="fv-carrier-logo fv-carrier-logo--softbank" role="img" aria-label="SoftBank 光"></span></h3></header>
       <ul class="carrier-guide__points">
         <li>スマホとセットでおトクな「おうち割」</li>
@@ -127,10 +129,10 @@
         </tbody>
       </table>
       <p class="carrier-guide__note">税込・別途工事費等が必要。特典には適用条件があります。</p>
-      <a class="carrier-guide__cta" href="application.html?requested_carrier=softbank_hikari">窓口へ進む <span aria-hidden="true">›</span></a>
+      <a class="carrier-guide__cta" href="application/softbank-hikari/">窓口へ進む <span aria-hidden="true">›</span></a>
     </article>
 
-    <article class="carrier-guide__service" aria-labelledby="biglobeTitle">
+    <article class="carrier-guide__service" aria-labelledby="biglobeTitle" role="link" tabindex="0" data-card-href="application/biglobe/" aria-label="BIGLOBE光の窓口へ進む">
       <header class="carrier-guide__header"><p>スマホとのセット利用にも</p><h3 id="biglobeTitle"><span class="fv-carrier-logo fv-carrier-logo--biglobe" role="img" aria-label="BIGLOBE光"></span></h3></header>
       <ul class="carrier-guide__points"><li>au・UQ mobileのセット割に対応</li><li>条件達成で工事費相当額を還元</li><li>引越し先の回線選びをサポート</li></ul>
       <table class="carrier-guide__table">
@@ -142,10 +144,10 @@
         </tbody>
       </table>
       <p class="carrier-guide__note">税込・別途工事費等が必要。特典には適用条件があります。</p>
-      <a class="carrier-guide__cta" href="application.html?requested_carrier=biglobe">窓口へ進む <span aria-hidden="true">›</span></a>
+      <a class="carrier-guide__cta" href="application/biglobe/">窓口へ進む <span aria-hidden="true">›</span></a>
     </article>
 
-    <article class="carrier-guide__service" aria-labelledby="fletsTitle">
+    <article class="carrier-guide__service" aria-labelledby="fletsTitle" role="link" tabindex="0" data-card-href="application/flets/" aria-label="フレッツ光の窓口へ進む">
       <header class="carrier-guide__header"><p>お住まいのエリアに合わせて</p><h3 id="fletsTitle"><span class="fv-carrier-logo fv-carrier-logo--flets" role="img" aria-label="フレッツ光"></span></h3></header>
       <ul class="carrier-guide__points"><li>NTT東日本・西日本の光回線</li><li>プロバイダーを選んで利用</li><li>建物に合った料金プランをご案内</li></ul>
       <table class="carrier-guide__table">
@@ -157,10 +159,10 @@
         </tbody>
       </table>
       <p class="carrier-guide__note">税込・契約料はNTT東日本の例。工事費・プロバイダー料は別途。</p>
-      <a class="carrier-guide__cta" href="application.html?requested_carrier=flets">窓口へ進む <span aria-hidden="true">›</span></a>
+      <a class="carrier-guide__cta" href="application/flets/">窓口へ進む <span aria-hidden="true">›</span></a>
     </article>
 
-    <article class="carrier-guide__service" aria-labelledby="docomoTitle">
+    <article class="carrier-guide__service" aria-labelledby="docomoTitle" role="link" tabindex="0" data-card-href="application/docomo-hikari/" aria-label="ドコモ光の窓口へ進む">
       <header class="carrier-guide__header"><p>ドコモのスマホをお使いの方に</p><h3 id="docomoTitle"><span class="fv-carrier-logo fv-carrier-logo--docomo" role="img" aria-label="ドコモ光"></span></h3></header>
       <ul class="carrier-guide__points"><li>対象スマホとのセット割に対応</li><li>プロバイダー込みの料金プラン</li><li>新規・乗り換えの手続きをご案内</li></ul>
       <table class="carrier-guide__table">
@@ -172,10 +174,10 @@
         </tbody>
       </table>
       <p class="carrier-guide__note">税込・別途工事費等が必要。セット割には適用条件があります。</p>
-      <a class="carrier-guide__cta" href="application.html?requested_carrier=docomo">窓口へ進む <span aria-hidden="true">›</span></a>
+      <a class="carrier-guide__cta" href="application/docomo-hikari/">窓口へ進む <span aria-hidden="true">›</span></a>
     </article>
 
-    <article class="carrier-guide__service" aria-labelledby="auTitle">
+    <article class="carrier-guide__service" aria-labelledby="auTitle" role="link" tabindex="0" data-card-href="application/au-hikari/" aria-label="auひかりの窓口へ進む">
       <header class="carrier-guide__header"><p>au・UQ mobileをお使いの方に</p><h3 id="auTitle"><span class="fv-carrier-logo fv-carrier-logo--au" role="img" aria-label="auひかり"></span></h3></header>
       <ul class="carrier-guide__points"><li>対象スマホとのセット割に対応</li><li>建物の設備に合うプランをご案内</li><li>引越し先の提供エリアを確認</li></ul>
       <table class="carrier-guide__table">
@@ -187,10 +189,10 @@
         </tbody>
       </table>
       <p class="carrier-guide__note">税込・別途工事費等が必要。料金は建物・プランによって異なります。</p>
-      <a class="carrier-guide__cta" href="application.html?requested_carrier=au">窓口へ進む <span aria-hidden="true">›</span></a>
+      <a class="carrier-guide__cta" href="application/au-hikari/">窓口へ進む <span aria-hidden="true">›</span></a>
     </article>
 
-    <article class="carrier-guide__service" aria-labelledby="airTitle">
+    <article class="carrier-guide__service" aria-labelledby="airTitle" role="link" tabindex="0" data-card-href="application/softbank-air/" aria-label="SoftBank Airの窓口へ進む">
       <header class="carrier-guide__header"><p>工事不要のホームルーター</p><h3 id="airTitle"><span class="fv-carrier-logo fv-carrier-logo--air" role="img" aria-label="SoftBank Air"></span></h3></header>
       <ul class="carrier-guide__points"><li>コンセントにつないでWi-Fi利用</li><li>対象スマホのおうち割に対応</li><li>引越し先の提供エリアをご案内</li></ul>
       <table class="carrier-guide__table">
@@ -202,7 +204,7 @@
         </tbody>
       </table>
       <p class="carrier-guide__note">税込・端末代別途。通信状況は住所や設置場所により異なります。</p>
-      <a class="carrier-guide__cta" href="application.html?requested_carrier=air">窓口へ進む <span aria-hidden="true">›</span></a>
+      <a class="carrier-guide__cta" href="application/softbank-air/">窓口へ進む <span aria-hidden="true">›</span></a>
     </article>
   </section>
 
@@ -216,7 +218,7 @@
       <p class="campaign-feature__caption">キャッシュバック</p>
       <p class="campaign-feature__support">電気・ガスもまとめてお手続きOK！</p>
       <div class="cta-stack">
-        <a class="cta cta--primary" href="application.html">
+        <a class="cta cta--primary" href="application/">
           <span class="cta__label">無料</span>
           <span class="cta__body">
             <span class="cta__main">かんたんお申し込み</span>
@@ -427,7 +429,7 @@
   <div class="sticky" id="stickyCta">
 <div class="sticky__row">
 <a class="sticky__main sticky__main--area" href="#area-check">エリア確認</a>
-      <a class="sticky__main" href="application.html">お申し込み</a>
+      <a class="sticky__main" href="application/">お申し込み</a>
     </div>
   </div>
 
@@ -436,13 +438,14 @@
 <dialog class="callback-dialog" id="callbackDialog" aria-labelledby="callbackTitle" aria-describedby="callbackLead">
   <button class="callback-dialog__close" type="button" aria-label="電話予約を閉じる">×</button>
   <h2 id="callbackTitle">お電話でのご相談</h2>
-  <p hidden class="callback-dialog__lead" id="callbackLead">専用のオペレーターより、ご希望の時間帯にご連絡いたします。</p>
-  <div id="callbackQuestion" class="callback-question">
+  <p class="callback-dialog__lead" id="callbackLead">専用のオペレーターより、ご希望の時間帯にご連絡いたします。</p>
+  <!-- useCallbackStatusQuestion を true にすると、開通状況の確認ステップを再表示できます。 -->
+  <div hidden id="callbackQuestion" class="callback-question">
     <p>ご引越し先のインターネットは、<br>すでに開通していますか？</p>
     <button type="button" id="callbackNotOpened">これから開通・引越し予定 <span aria-hidden="true">›</span></button>
     <a href="support.html" id="callbackAlreadyOpened">開通・引越し済み <span aria-hidden="true">›</span></a>
   </div>
-  <form hidden id="callbackForm" action="api/send.php" method="post" novalidate>
+  <form id="callbackForm" action="api/send.php" method="post" novalidate>
     <input type="hidden" name="form_type" value="callback">
     <div class="hp" aria-hidden="true"><label>会社名<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
     <label for="callbackName">お名前</label>
@@ -500,6 +503,36 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
   });
 });
 
+// FV・追従CTAからエリア確認へ移動し、郵便番号入力を開始できる状態にする
+document.querySelectorAll('a[href="#area-check"]').forEach(function (link) {
+  link.addEventListener('click', function (event) {
+    var areaCheck = document.getElementById('area-check');
+    var postal = document.getElementById('areaPostal');
+    if (!areaCheck || !postal) return;
+    event.preventDefault();
+    var destination = new URL(location.href);
+    destination.hash = 'area-check';
+    history.replaceState(null, '', destination.href);
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    areaCheck.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    window.setTimeout(function () {
+      postal.focus({ preventScroll: true });
+    }, reduceMotion ? 0 : 500);
+  });
+});
+
+// キャリアカード内の非操作領域も「窓口へ進む」と同じリンク先にする
+document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(function (card) {
+  function openCard(event) {
+    if (event.type === 'click' && event.target.closest('a, button, input, select, textarea, label')) return;
+    if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ') return;
+    if (event.type === 'keydown') event.preventDefault();
+    window.location.href = card.dataset.cardHref;
+  }
+  card.addEventListener('click', openCard);
+  card.addEventListener('keydown', openCard);
+});
+
 // エリア確認・電話相談：流入情報と受付
 (function () {
 
@@ -552,6 +585,8 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
   var callbackSubmit = document.getElementById('callbackSubmit');
   var callbackBusy = false;
   var callbackTrigger = null;
+  // 将来、開通状況の確認ステップを戻す場合は true に変更する。
+  var useCallbackStatusQuestion = false;
   var callbackQuestion = document.getElementById('callbackQuestion');
   var callbackLead = document.getElementById('callbackLead');
   var callbackNotOpened = document.getElementById('callbackNotOpened');
@@ -575,12 +610,12 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
     callbackTrigger = trigger;
     callbackError.textContent = '';
     callbackTel.removeAttribute('aria-invalid');
-    callbackQuestion.hidden = false;
-    callbackLead.hidden = true;
-    callbackForm.hidden = true;
+    callbackQuestion.hidden = !useCallbackStatusQuestion;
+    callbackLead.hidden = useCallbackStatusQuestion;
+    callbackForm.hidden = useCallbackStatusQuestion;
     callbackDialog.showModal();
     document.body.classList.add('modal-open');
-    callbackNotOpened.focus();
+    (useCallbackStatusQuestion ? callbackNotOpened : callbackName).focus();
   }
   document.querySelectorAll('[data-callback]').forEach(function (trigger) {
     trigger.addEventListener('click', function () { openCallback(trigger); });

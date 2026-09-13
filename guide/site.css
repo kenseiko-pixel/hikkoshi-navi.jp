@@ -191,6 +191,8 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
    ============================================================ */
 .fv{margin:0;position:relative;background:var(--c-blue-tint2);}
 .fv img{width:100%;height:auto;display:block;}
+.fv-link{display:block;color:inherit;}
+.fv-link:focus-visible{outline:3px solid var(--c-blue);outline-offset:-3px;}
 .fv-carriers{padding:22px 0 18px;background:#fff;text-align:center;}
 .fv-carriers h2{margin:0 12px 12px;color:var(--c-navy);font-size:16px;font-weight:900;line-height:1.5;}
 /* 元FVのロゴ一覧（y=1120〜1440）だけを等比で表示する。 */
@@ -245,11 +247,6 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
    ============================================================ */
 .flow{display:grid;gap:0;}
 .flow-hint{margin-left:56px;line-height:1.7;}
-.callback-question{margin-top:16px;}
-.callback-question p{margin-bottom:16px;font-size:14px;line-height:1.7;text-align:center;}
-.callback-question button,.callback-question a{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;margin-top:10px;padding:14px 12px;border:1px solid #bdd8f4;border-radius:4px;background:#f3f8ff;color:var(--c-navy);font:inherit;font-size:14px;font-weight:700;text-align:left;cursor:pointer;}
-.callback-question a{background:#fff;}
-.callback-question button:focus-visible,.callback-question a:focus-visible{outline:2px solid var(--c-blue);outline-offset:2px;}
 .callback-dialog [hidden]{display:none!important;}
 .flow__item{
   position:relative;
@@ -490,6 +487,11 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
 .callback-dialog__error:empty{display:none;}
 .callback-dialog .submit{min-height:48px;padding:12px;font-size:16px;border-radius:12px;}
 .callback-dialog__note{margin:9px 0 0;text-align:center;color:var(--c-text-sub);font-size:12px;line-height:1.5;}
+.callback-question{margin-top:16px;}
+.callback-question p{margin-bottom:16px;font-size:14px;line-height:1.7;text-align:center;}
+.callback-question button,.callback-question a{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;margin-top:10px;padding:14px 12px;border:1px solid #bdd8f4;border-radius:4px;background:#f3f8ff;color:var(--c-navy);font:inherit;font-size:14px;font-weight:700;text-align:left;cursor:pointer;}
+.callback-question a{background:#fff;}
+.callback-question button:focus-visible,.callback-question a:focus-visible{outline:2px solid var(--c-blue);outline-offset:2px;}
 
 /* ============================================================
    モーション配慮 / 画面幅
@@ -513,7 +515,8 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
 .area-check__free{position:absolute;left:12px;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#fff;color:var(--c-orange-dark);font-size:11px;font-weight:900;}
 .carrier-guide{background:#fff;}
 .carrier-guide__title{margin:0 0 20px;text-align:center;color:var(--c-navy);font-size:20px;line-height:1.6;}
-.carrier-guide__service{padding:16px;border:1px solid #d5e2ee;border-top:3px solid var(--c-blue);background:#fff;box-shadow:0 5px 18px rgba(18,39,94,.05);}
+.carrier-guide__service{padding:16px;border:1px solid #d5e2ee;border-top:3px solid var(--c-blue);background:#fff;box-shadow:0 5px 18px rgba(18,39,94,.05);cursor:pointer;}
+.carrier-guide__service:focus-visible{outline:3px solid var(--c-blue);outline-offset:3px;}
 .carrier-guide__header{border:1px solid #d7e0e8;text-align:center;}
 .carrier-guide__header p{padding:7px 10px;background:#15518a;color:#fff;font-size:13px;font-weight:700;}
 .carrier-guide__header h3{padding:14px;background:#fff;}
@@ -549,7 +552,7 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
 .application-header[data-carrier="flets"]{--header-start:#132d5a;--header-end:#214980;--header-accent:#a2bedf;}
 .application-header[data-carrier="jcom"]{--header-start:#a4311a;--header-end:#bf451d;--header-accent:#ffc0a3;}
 .application-header[data-carrier="sonet"]{--header-start:#8b1856;--header-end:#aa256e;--header-accent:#edb0d0;}
-.application-header__brand{margin-bottom:24px;font-size:13px;font-weight:700;letter-spacing:.02em;}
+.application-header__brand{margin-bottom:18px;font-size:clamp(18px,5vw,22px);font-weight:900;letter-spacing:.025em;line-height:1.45;}
 .application-header__badge{display:inline-block;padding:4px 9px;margin-bottom:10px;border:1px solid currentColor;font-size:12px;letter-spacing:.05em;}
 .application-header h1{font-size:clamp(24px,6.2vw,30px);font-weight:900;letter-spacing:.03em;line-height:1.5;}
 .application-header__lead{margin-top:9px;font-size:13px;line-height:1.7;opacity:.95;}
@@ -567,6 +570,7 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
 .application-page .field input:focus,.application-page .field select:focus{background:#fff;border-color:var(--c-blue);}
 .application-page .field__label{font-size:14px;margin-bottom:8px;}
 .application-page .req{border-radius:2px;background:#fff0e4;color:#c24b00;}
+.application-page .optional{padding:2px 6px;border-radius:2px;background:#edf2f7;color:#60758b;font-size:10px;font-weight:700;letter-spacing:.02em;}
 .application-page .submit{min-height:54px;border-radius:4px;background:linear-gradient(110deg,#ff8339,#f56808);box-shadow:0 5px 14px rgba(239,86,0,.18);}
 .area-check .section-title::after{content:"";position:absolute;bottom:0;left:18%;right:18%;height:3px;background:linear-gradient(90deg,var(--c-blue) 75%,#ffd82e 75%);}
 .area-check{scroll-margin-top:12px;}
