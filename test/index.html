@@ -438,13 +438,14 @@
 <dialog class="callback-dialog" id="callbackDialog" aria-labelledby="callbackTitle" aria-describedby="callbackLead">
   <button class="callback-dialog__close" type="button" aria-label="電話予約を閉じる">×</button>
   <h2 id="callbackTitle">お電話でのご相談</h2>
-  <p hidden class="callback-dialog__lead" id="callbackLead">専用のオペレーターより、ご希望の時間帯にご連絡いたします。</p>
-  <div id="callbackQuestion" class="callback-question">
+  <p class="callback-dialog__lead" id="callbackLead">専用のオペレーターより、ご希望の時間帯にご連絡いたします。</p>
+  <!-- useCallbackStatusQuestion を true にすると、開通状況の確認ステップを再表示できます。 -->
+  <div hidden id="callbackQuestion" class="callback-question">
     <p>ご引越し先のインターネットは、<br>すでに開通していますか？</p>
     <button type="button" id="callbackNotOpened">これから開通・引越し予定 <span aria-hidden="true">›</span></button>
     <a href="support.html" id="callbackAlreadyOpened">開通・引越し済み <span aria-hidden="true">›</span></a>
   </div>
-  <form hidden id="callbackForm" action="api/send.php" method="post" novalidate>
+  <form id="callbackForm" action="api/send.php" method="post" novalidate>
     <input type="hidden" name="form_type" value="callback">
     <div class="hp" aria-hidden="true"><label>会社名<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
     <label for="callbackName">お名前</label>
@@ -584,6 +585,8 @@ document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(fun
   var callbackSubmit = document.getElementById('callbackSubmit');
   var callbackBusy = false;
   var callbackTrigger = null;
+  // 将来、開通状況の確認ステップを戻す場合は true に変更する。
+  var useCallbackStatusQuestion = false;
   var callbackQuestion = document.getElementById('callbackQuestion');
   var callbackLead = document.getElementById('callbackLead');
   var callbackNotOpened = document.getElementById('callbackNotOpened');
@@ -607,12 +610,12 @@ document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(fun
     callbackTrigger = trigger;
     callbackError.textContent = '';
     callbackTel.removeAttribute('aria-invalid');
-    callbackQuestion.hidden = false;
-    callbackLead.hidden = true;
-    callbackForm.hidden = true;
+    callbackQuestion.hidden = !useCallbackStatusQuestion;
+    callbackLead.hidden = useCallbackStatusQuestion;
+    callbackForm.hidden = useCallbackStatusQuestion;
     callbackDialog.showModal();
     document.body.classList.add('modal-open');
-    callbackNotOpened.focus();
+    (useCallbackStatusQuestion ? callbackNotOpened : callbackName).focus();
   }
   document.querySelectorAll('[data-callback]').forEach(function (trigger) {
     trigger.addEventListener('click', function () { openCallback(trigger); });

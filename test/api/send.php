@@ -58,7 +58,7 @@ if (!$isCallback && !$isArea) {
     if ($name === '') $errors[] = 'お名前';
     if (!preg_match('/^\d{7}$/', $postal)) $errors[] = '郵便番号';
     if ($address === '') $errors[] = '住所';
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'メールアドレス';
+    if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'メールアドレス';
 }
 if (!preg_match('/^0\d{9,10}$/', $tel)) $errors[] = '電話番号';
 if ($errors) respond(422, false, implode('、', $errors) . 'をご確認ください。');
