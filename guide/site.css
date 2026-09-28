@@ -344,7 +344,9 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
   max-width:420px;margin:0 auto;
   background:none;border:none;box-shadow:none;
   pointer-events:none;              /* 透明部分はページ操作を邪魔しない */
+  transition:opacity .2s ease,transform .2s ease,visibility .2s;
 }
+.sticky.is-hidden-by-area{visibility:hidden;opacity:0;transform:translateY(100%);}
 .sticky__row{
   display:flex;gap:8px;align-items:center;
   padding:10px 12px calc(10px + env(safe-area-inset-bottom));
@@ -487,6 +489,14 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
 .callback-dialog__error:empty{display:none;}
 .callback-dialog .submit{min-height:48px;padding:12px;font-size:16px;border-radius:12px;}
 .callback-dialog__note{margin:9px 0 0;text-align:center;color:var(--c-text-sub);font-size:12px;line-height:1.5;}
+.area-time-dialog .callback-dialog__lead{margin:0 30px 16px 0;color:var(--c-navy);font-size:16px;font-weight:700;line-height:1.65;text-align:left;}
+.area-time-options{display:grid;grid-template-columns:1fr;gap:7px;margin-bottom:12px;}
+.area-time-options button{display:flex;align-items:center;width:100%;min-height:46px;padding:9px 12px;border:1.5px solid #b8cee5;border-radius:3px;background:#fff;color:var(--c-navy);font-size:14px;font-weight:700;text-align:left;cursor:pointer;}
+.area-time-options button::before{content:"✓";display:grid;flex:0 0 22px;place-items:center;width:22px;height:22px;margin-right:10px;border:1.5px solid #9bb3cd;border-radius:50%;background:#fff;color:transparent;font-size:14px;line-height:1;}
+.area-time-options button:hover,.area-time-options button:focus{border-color:var(--c-blue);background:#e8f3ff;outline:2px solid transparent;}
+.area-time-options button[aria-checked="true"]{border-color:var(--c-blue);background:#edf6ff;box-shadow:0 2px 7px rgba(0,93,196,.12);}
+.area-time-options button[aria-checked="true"]::before{border-color:var(--c-blue);background:var(--c-blue);color:#fff;}
+.area-time-options button:disabled{opacity:.6;cursor:wait;}
 .callback-question{margin-top:16px;}
 .callback-question p{margin-bottom:16px;font-size:14px;line-height:1.7;text-align:center;}
 .callback-question button,.callback-question a{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;margin-top:10px;padding:14px 12px;border:1px solid #bdd8f4;border-radius:4px;background:#f3f8ff;color:var(--c-navy);font:inherit;font-size:14px;font-weight:700;text-align:left;cursor:pointer;}

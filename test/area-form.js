@@ -4,23 +4,34 @@ function initAreaForm(collectAttribution) {
   var address = document.getElementById('areaAddress');
   var status = document.getElementById('areaPostalStatus');
   var error = document.getElementById('areaError');
-  var button = form.querySelector('button[type="submit"]');
   var timeDialog = document.getElementById('areaTimeDialog');
   var timeForm = document.getElementById('areaTimeForm');
-  var timeSelect = document.getElementById('areaPreferredTime');
   var timeError = document.getElementById('areaTimeError');
   var timeButton = document.getElementById('areaTimeSubmit');
+  var timeOptions = timeDialog ? timeDialog.querySelectorAll('[data-area-time-value]') : [];
   var submittedValues = null;
-  var busy = false, revision = 0;
+  var selectedTime = 'いつでも';
+  var busy = false, areaSent = false, revision = 0;
   function finish() { location.replace('area-thanks.html'); }
+  function pushAreaEvent(eventName, values) {
+    window.dataLayer = window.dataLayer || [];
+    var eventData = {event: eventName, lp_name: 'internet-hikkoshi-entry'};
+    Object.keys(values || {}).forEach(function(key) { eventData[key] = values[key]; });
+    window.dataLayer.push(eventData);
+  }
   function showTimeDialog(values) {
     submittedValues = values;
     if (!timeDialog || !timeForm) { submitArea(''); return; }
-    timeSelect.value = '';
+    areaSent = false;
+    selectedTime = 'いつでも';
+    timeOptions.forEach(function(option) {
+      option.setAttribute('aria-checked', option.dataset.areaTimeValue === selectedTime ? 'true' : 'false');
+    });
     timeError.textContent = '';
     timeDialog.showModal();
     document.body.classList.add('modal-open');
-    timeSelect.focus();
+    pushAreaEvent('area_time_modal_view');
+    timeDialog.querySelector('[data-area-time-value]').focus();
   }
   function submitArea(preferredTime) {
     if (busy || !submittedValues) return;
@@ -33,28 +44,30 @@ function initAreaForm(collectAttribution) {
     payload.set('tel', submittedValues.tel);
     Object.keys(submittedValues.tracking).forEach(function(key) { payload.set(key, submittedValues.tracking[key]); });
     busy = true;
-    button.disabled = true;
-    button.textContent = '送信中…';
-    timeButton && (timeButton.disabled = true);
-    if (timeButton) timeButton.textContent = '送信中…';
+    if (timeButton) {
+      timeButton.disabled = true;
+      timeButton.textContent = '送信中…';
+    }
+    timeOptions.forEach(function(option) { option.disabled = true; });
     var controller = new AbortController(), timeout = setTimeout(function(){ controller.abort(); }, 30000);
     fetch(form.action, {method:'POST', body:payload, signal:controller.signal})
       .then(function(response) { if (!response.ok) throw Error(); return response.json(); })
       .then(function(data) {
         if (data.ok !== true) throw Error();
         try { sessionStorage.setItem('internet-hikkoshi-entry:area-complete', '1'); } catch(e) {}
+        pushAreaEvent('area_time_submit', {preferred_time: preferredTime || '未指定'});
+        areaSent = true;
         if (timeDialog && timeDialog.open) timeDialog.close(); else finish();
       })
       .catch(function() {
         var message = '送信を確認できませんでした。時間をおいて再度お試しください。';
         if (timeDialog && timeDialog.open) timeError.textContent = message; else error.textContent = message;
         busy = false;
-        button.disabled = false;
-        button.textContent = 'エリア確認をスタート';
         if (timeButton) {
           timeButton.disabled = false;
-          timeButton.textContent = 'この時間帯で送信する';
+          timeButton.textContent = '送信';
         }
+        timeOptions.forEach(function(option) { option.disabled = false; });
       })
       .finally(function(){ clearTimeout(timeout); });
   }
@@ -104,27 +117,34 @@ function initAreaForm(collectAttribution) {
   });
 
   if (timeDialog && timeForm) {
-    timeDialog.querySelectorAll('[data-area-time-skip]').forEach(function(skip) {
-      skip.addEventListener('click', function() { submitArea(''); });
+    timeOptions.forEach(function(option) {
+      option.addEventListener('click', function() {
+        selectedTime = option.dataset.areaTimeValue;
+        timeOptions.forEach(function(item) {
+          item.setAttribute('aria-checked', item === option ? 'true' : 'false');
+        });
+        pushAreaEvent('area_time_selected', {preferred_time: option.dataset.areaTimeValue});
+      });
+    });
+    timeDialog.querySelector('[data-area-time-close]').addEventListener('click', function() {
+      if (!busy) timeDialog.close();
     });
     timeDialog.addEventListener('cancel', function(event) {
       event.preventDefault();
-      submitArea('');
+      if (!busy) timeDialog.close();
     });
     timeDialog.addEventListener('close', function() {
       document.body.classList.remove('modal-open');
-      finish();
+      if (areaSent) {
+        finish();
+      } else {
+        postal.focus({preventScroll:true});
+      }
     });
     timeForm.addEventListener('submit', function(event) {
       event.preventDefault();
-      var allowed = ['いつでも','10-12時頃','12-15時頃','15-18時頃','18時以降'];
       if (busy || !submittedValues) return;
-      if (allowed.indexOf(timeSelect.value) === -1) {
-        timeError.textContent = 'ご連絡希望時間帯を選択してください。';
-        timeSelect.focus();
-        return;
-      }
-      submitArea(timeSelect.value);
+      submitArea(selectedTime);
     });
   }
 }

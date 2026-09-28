@@ -107,7 +107,7 @@
       <div class="field"><label class="field__label" for="areaName">お名前 <span class="req">必須</span></label><input id="areaName" name="name" autocomplete="name" placeholder="山田 太郎" maxlength="50" required></div>
       <div class="field"><label class="field__label" for="areaTel">電話番号 <span class="req">必須</span></label><input id="areaTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="09012345678" maxlength="30" required></div>
       <p id="areaError" class="callback-dialog__error" role="alert"></p>
-      <button class="submit area-check__submit" type="submit"><span class="area-check__free">無料</span><span>エリア確認をスタート</span></button>
+      <button class="submit area-check__submit" type="submit"><span class="area-check__free">無料</span><span>エリア確認へ進む</span></button>
     </form>
   </section>
 
@@ -467,24 +467,20 @@
   </form>
 </dialog>
 
-<dialog class="callback-dialog area-time-dialog" id="areaTimeDialog" aria-labelledby="areaTimeTitle" aria-describedby="areaTimeLead">
-  <button class="callback-dialog__close" type="button" data-area-time-skip aria-label="希望時間帯を指定せず送信する">×</button>
-  <h2 id="areaTimeTitle">ご都合の良い時間帯</h2>
-  <p class="callback-dialog__lead" id="areaTimeLead">最後に、ご連絡しやすい時間帯があればお選びください。</p>
+<dialog class="callback-dialog area-time-dialog" id="areaTimeDialog" aria-labelledby="areaTimeLead">
+  <button class="callback-dialog__close" type="button" data-area-time-close aria-label="入力内容を修正する">×</button>
+  <p class="callback-dialog__lead" id="areaTimeLead">お電話がつながりやすい時間帯をお選びください。</p>
+  <p class="area-time-dialog__support">提供エリアの確認から、引越し先で利用できる回線のお手続きまでご案内します。</p>
   <form id="areaTimeForm" action="api/send.php" method="post" novalidate>
-    <label for="areaPreferredTime">ご連絡希望時間帯</label>
-    <select id="areaPreferredTime" name="preferred_time" required aria-describedby="areaTimeError">
-      <option value="">選択してください</option>
-      <option value="いつでも">いつでも</option>
-      <option value="10-12時頃">10-12時頃</option>
-      <option value="12-15時頃">12-15時頃</option>
-      <option value="15-18時頃">15-18時頃</option>
-      <option value="18時以降">18時以降</option>
-    </select>
+    <div class="area-time-options" role="radiogroup" aria-label="ご連絡希望時間帯">
+      <button type="button" role="radio" aria-checked="true" data-area-time-value="いつでも">いつでも</button>
+      <button type="button" role="radio" aria-checked="false" data-area-time-value="10-12時頃">10〜12時頃</button>
+      <button type="button" role="radio" aria-checked="false" data-area-time-value="12-15時頃">12〜15時頃</button>
+      <button type="button" role="radio" aria-checked="false" data-area-time-value="15-18時頃">15〜18時頃</button>
+      <button type="button" role="radio" aria-checked="false" data-area-time-value="18時以降">18時以降</button>
+    </div>
     <p class="callback-dialog__error" id="areaTimeError" role="alert"></p>
-    <button class="submit" type="submit" id="areaTimeSubmit">この時間帯で送信する</button>
-    <button class="area-time-dialog__skip" type="button" data-area-time-skip>時間帯を指定せず送信する</button>
-    <p class="callback-dialog__note">受付時間 10:00〜20:00（年中無休）</p>
+    <button class="submit" type="submit" id="areaTimeSubmit">送信</button>
   </form>
 </dialog>
 

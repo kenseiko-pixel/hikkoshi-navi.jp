@@ -107,7 +107,7 @@
       <div class="field"><label class="field__label" for="areaName">お名前 <span class="req">必須</span></label><input id="areaName" name="name" autocomplete="name" placeholder="山田 太郎" maxlength="50" required></div>
       <div class="field"><label class="field__label" for="areaTel">電話番号 <span class="req">必須</span></label><input id="areaTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="09012345678" maxlength="30" required></div>
       <p id="areaError" class="callback-dialog__error" role="alert"></p>
-      <button class="submit area-check__submit" type="submit"><span class="area-check__free">無料</span><span>エリア確認をスタート</span></button>
+      <button class="submit area-check__submit" type="submit"><span class="area-check__free">無料</span><span>エリア確認へ進む</span></button>
     </form>
   </section>
 
@@ -467,6 +467,22 @@
   </form>
 </dialog>
 
+<dialog class="callback-dialog area-time-dialog" id="areaTimeDialog" aria-labelledby="areaTimeLead">
+  <button class="callback-dialog__close" type="button" data-area-time-close aria-label="入力内容を修正する">×</button>
+  <p class="callback-dialog__lead" id="areaTimeLead">お電話がつながりやすい時間帯をお選びください。</p>
+  <form id="areaTimeForm" action="api/send.php" method="post" novalidate>
+    <div class="area-time-options" role="radiogroup" aria-label="ご連絡希望時間帯">
+      <button type="button" role="radio" aria-checked="true" data-area-time-value="いつでも">いつでも</button>
+      <button type="button" role="radio" aria-checked="false" data-area-time-value="10-12時頃">10〜12時頃</button>
+      <button type="button" role="radio" aria-checked="false" data-area-time-value="12-15時頃">12〜15時頃</button>
+      <button type="button" role="radio" aria-checked="false" data-area-time-value="15-18時頃">15〜18時頃</button>
+      <button type="button" role="radio" aria-checked="false" data-area-time-value="18時以降">18時以降</button>
+    </div>
+    <p class="callback-dialog__error" id="areaTimeError" role="alert"></p>
+    <button class="submit" type="submit" id="areaTimeSubmit">送信</button>
+  </form>
+</dialog>
+
 <script>
 // 既存契約者として振り分け済みの場合は電話導線を非表示
 (function () {
@@ -520,6 +536,16 @@ document.querySelectorAll('a[href="#area-check"]').forEach(function (link) {
     }, reduceMotion ? 0 : 500);
   });
 });
+
+// エリア確認フォームが見えている間は、入力を妨げないよう追従CTAを隠す
+(function () {
+  var areaForm = document.getElementById('areaForm');
+  var stickyCta = document.getElementById('stickyCta');
+  if (!areaForm || !stickyCta || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function (entries) {
+    stickyCta.classList.toggle('is-hidden-by-area', entries[0].isIntersecting);
+  }, {threshold: 0.05}).observe(areaForm);
+})();
 
 // キャリアカード内の非操作領域も「窓口へ進む」と同じリンク先にする
 document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(function (card) {
