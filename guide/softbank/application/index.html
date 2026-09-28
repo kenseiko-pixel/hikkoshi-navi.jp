@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="SoftBank 光の新規・乗り換え・移転のお申し込み受付フォームです。">
+  <title>お申し込みフォーム｜SoftBank 光 受付窓口</title>
+  <link rel="stylesheet" href="../css/styles.css?v=20260927-2">
+</head>
+<body class="application-page">
+  <div class="site-shell">
+    <div class="operator-bar">株式会社新生活ポータル　東京都豊島区南大塚二丁目25番15号　代理店届出番号：第C2115556</div>
+    <header class="site-header"><a class="brand" href="../index.html"><span class="brand-main">SoftBank <b>光</b></span><span class="brand-sub">SoftBank 光 受付窓口</span></a><a class="header-back" href="../index.html">トップへ戻る</a></header>
+    <main id="top">
+      <section class="section application application-page-section" id="application">
+        <p class="section-kicker">かんたん受付フォーム</p>
+        <h1>必要な内容を<br>順番に入力</h1>
+        <p class="lead">入力後すぐに契約が確定することはありません。内容を確認して担当スタッフからご案内します。</p>
+        <form id="application-form" action="../api/send.php" method="post" accept-charset="UTF-8" novalidate>
+          <input type="hidden" name="form_type" value="application">
+          <div class="form-progress"><span class="active">入力</span><i></i><span>確認</span><i></i><span>完了</span></div>
+          <div class="form-panel active" data-form-step="1">
+            <p class="panel-count">STEP 1 / 2</p>
+            <fieldset><legend>希望する手続き <b>必須</b></legend><div class="segmented"><label><input type="radio" name="procedure" value="新規申し込み" required><span>新規</span></label><label><input type="radio" name="procedure" value="他社からの乗り換え"><span>乗り換え</span></label><label><input type="radio" name="procedure" value="引っ越し・移転"><span>移転</span></label></div></fieldset>
+            <label class="field" for="current-line">現在利用中の回線 <b>必須</b></label>
+            <select id="current-line" name="current_line" required><option value="">選択してください</option><option>SoftBank 光</option><option>SoftBank Air</option><option>ドコモ光</option><option>auひかり</option><option>フレッツ光</option><option>BIGLOBE光</option><option>WiMAX・ホームルーター</option><option>利用していない</option><option>その他</option></select>
+            <fieldset><legend>引っ越し予定 <b>必須</b></legend><div class="segmented"><label><input type="radio" name="moving" value="あり" required><span>あり</span></label><label><input type="radio" name="moving" value="なし"><span>なし</span></label><label><input type="radio" name="moving" value="未定"><span>未定</span></label></div></fieldset>
+            <p class="error" id="step1-error"></p>
+            <button type="button" class="cta primary next-step">次の入力へ <span>›</span></button>
+          </div>
+          <div class="form-panel" data-form-step="2" hidden>
+            <p class="panel-count">STEP 2 / 2</p>
+            <label class="field">お名前 <b>必須</b><input id="customer-name" name="customer_name" autocomplete="name" maxlength="50" placeholder="例）山田 太郎" required></label>
+            <label class="field">電話番号 <b>必須</b><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="例）09012345678" required></label>
+            <label class="field">利用予定住所の郵便番号 <b>必須</b><input id="postal" name="postal" inputmode="numeric" autocomplete="postal-code" maxlength="7" placeholder="例）1000001" required></label>
+            <p class="postal-status" id="postal-status" aria-live="polite"></p>
+            <label class="field">利用予定住所 <b>必須</b><input id="address" name="address" autocomplete="street-address" maxlength="200" placeholder="都道府県・市区町村・町域" required></label>
+            <label class="field" for="contact-time">希望連絡時間</label>
+            <select id="contact-time" name="contact_time"><option>10:00〜12:00</option><option>12:00〜15:00</option><option>15:00〜18:00</option><option>18:00〜20:00</option><option selected>いつでも可</option></select>
+            <p class="error" id="step2-error"></p>
+            <div class="form-actions"><button type="button" class="back-step">戻る</button><button type="button" class="cta primary review-step">入力内容を確認する <span>›</span></button></div>
+          </div>
+          <div class="form-panel review-panel" data-form-step="review" hidden>
+            <p class="panel-count">入力内容の確認</p>
+            <dl id="review-list"></dl>
+            <p class="form-note">確認後、担当スタッフよりお申し込み手続きをご案内します。</p>
+            <div class="form-actions"><button type="button" class="back-to-edit">修正する</button><button type="submit" class="cta primary">この内容で受付する <span>›</span></button></div>
+          </div>
+          <label class="hp-field" aria-hidden="true">この項目は入力しないでください<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          <div id="tracking-fields"></div>
+        </form>
+        <p class="application-back"><a href="../index.html">トップページへ戻る</a></p>
+      </section>
+    </main>
+    <footer><a href="https://shinseikatsu-portal.jp/company/">運営会社</a><a href="https://shinseikatsu-portal.jp/privacy/">プライバシーポリシー</a><p>© 2026 株式会社新生活ポータル</p></footer>
+  </div>
+  <script src="../js/script.js?v=20260927-3"></script>
+</body>
+</html>

@@ -487,6 +487,8 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
 .callback-dialog__error:empty{display:none;}
 .callback-dialog .submit{min-height:48px;padding:12px;font-size:16px;border-radius:12px;}
 .callback-dialog__note{margin:9px 0 0;text-align:center;color:var(--c-text-sub);font-size:12px;line-height:1.5;}
+.area-time-dialog__skip{display:block;width:100%;margin:8px 0 0;padding:10px;border:0;background:transparent;color:var(--c-text-sub);font-size:13px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+.area-time-dialog select{margin-bottom:12px;}
 .callback-question{margin-top:16px;}
 .callback-question p{margin-bottom:16px;font-size:14px;line-height:1.7;text-align:center;}
 .callback-question button,.callback-question a{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;margin-top:10px;padding:14px 12px;border:1px solid #bdd8f4;border-radius:4px;background:#f3f8ff;color:var(--c-navy);font:inherit;font-size:14px;font-weight:700;text-align:left;cursor:pointer;}
