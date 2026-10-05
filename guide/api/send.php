@@ -26,8 +26,9 @@ function clean(string $key, int $limit = 500): string {
 }
 
 $procedure = clean('procedure', 50);
-$isCallback = clean('form_type', 30) === 'callback';
-$isArea = clean('form_type', 30) === 'area';
+$formType = clean('form_type', 30);
+$isCallback = $formType === 'callback';
+$isArea = $formType === 'area';
 $currentLine = clean('current_line', 100);
 $inquiryLine = clean('carrier', 100);
 $inquiryLines = ['SoftBank 光', 'SoftBank Air', 'BIGLOBE光', 'フレッツ光', 'ドコモ光', 'auひかり', 'J:COM', 'So-net 光'];

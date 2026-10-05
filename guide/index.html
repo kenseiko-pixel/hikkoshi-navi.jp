@@ -105,34 +105,9 @@
       <div class="field"><label class="field__label" for="areaPostal">郵便番号 <span class="req">必須</span></label><input id="areaPostal" name="postal" inputmode="numeric" autocomplete="postal-code" placeholder="123-4567" maxlength="8" required><p id="areaPostalStatus" class="postal-status" role="status"></p></div>
       <div class="field"><label class="field__label" for="areaAddress">住所 <span class="req">必須</span></label><input id="areaAddress" name="address" autocomplete="street-address" placeholder="都道府県・市区町村・番地・建物名" maxlength="200" required></div>
       <div class="field"><label class="field__label" for="areaName">お名前 <span class="req">必須</span></label><input id="areaName" name="name" autocomplete="name" placeholder="山田 太郎" maxlength="50" required></div>
-      <div class="field">
-        <span class="field__label" id="areaTelLabel">電話番号 <span class="req">必須</span></span>
-        <input id="areaTel" name="tel" type="hidden">
-        <div class="phone-parts" role="group" aria-labelledby="areaTelLabel" aria-describedby="areaTelError">
-          <input id="areaTel1" type="tel" inputmode="numeric" autocomplete="tel" placeholder="090" maxlength="4" aria-label="電話番号の先頭" required>
-          <span aria-hidden="true">-</span>
-          <input id="areaTel2" type="tel" inputmode="numeric" placeholder="1234" maxlength="4" aria-label="電話番号の中央" required>
-          <span aria-hidden="true">-</span>
-          <input id="areaTel3" type="tel" inputmode="numeric" placeholder="5678" maxlength="4" aria-label="電話番号の末尾" required>
-        </div>
-        <p class="field__error" id="areaTelError">電話番号を正しく入力してください。</p>
-      </div>
-      <div class="field area-time-field">
-        <span class="field__label" id="areaTimeLabel">ご連絡希望時間帯 <span class="optional">任意</span></span>
-        <input id="areaPreferredTime" name="preferred_time" type="hidden" value="いつでも">
-        <details class="area-time-picker" id="areaTimePicker">
-          <summary aria-labelledby="areaTimeLabel areaTimeCurrent"><span id="areaTimeCurrent">いつでも</span></summary>
-          <div class="area-time-options" role="radiogroup" aria-label="ご連絡希望時間帯">
-            <button type="button" role="radio" aria-checked="true" data-area-time-value="いつでも">いつでも</button>
-            <button type="button" role="radio" aria-checked="false" data-area-time-value="10-12時頃">10〜12時頃</button>
-            <button type="button" role="radio" aria-checked="false" data-area-time-value="12-15時頃">12〜15時頃</button>
-            <button type="button" role="radio" aria-checked="false" data-area-time-value="15-18時頃">15〜18時頃</button>
-            <button type="button" role="radio" aria-checked="false" data-area-time-value="18時以降">18時以降</button>
-          </div>
-        </details>
-      </div>
+      <div class="field"><label class="field__label" for="areaTel">電話番号 <span class="req">必須</span></label><input id="areaTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="09012345678" maxlength="20" required aria-describedby="areaTelError"><p class="field__error" id="areaTelError">電話番号を正しく入力してください。</p></div>
       <p id="areaError" class="callback-dialog__error" role="alert"></p>
-      <button class="submit area-check__submit" type="submit" disabled><span class="area-check__free">無料</span><span>エリア確認を依頼する</span></button>
+      <button class="submit area-check__submit" type="submit"><span class="area-check__free">無料</span><span>エリア確認を依頼する</span></button>
     </form>
   </section>
 
@@ -552,8 +527,7 @@ document.querySelectorAll('a[href="#area-check"]').forEach(function (link) {
   var stickyCta = document.getElementById('stickyCta');
   if (!areaForm || !stickyCta || !('IntersectionObserver' in window)) return;
   new IntersectionObserver(function (entries) {
-    var formIsVisible = entries[0].isIntersecting;
-    stickyCta.classList.toggle('is-hidden-by-area', formIsVisible);
+    stickyCta.classList.toggle('is-hidden-by-area', entries[0].isIntersecting);
   }, {threshold: 0.05}).observe(areaForm);
 })();
 

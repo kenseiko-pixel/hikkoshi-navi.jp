@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="auひかりの引越し・住所移転、新規・乗りかえのお申し込み相談フォームです。">
+  <title>お申し込み相談フォーム｜auひかり 引越し相談窓口</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23eb5505'/%3E%3Cpath d='M17 38c0-10 6-18 15-18 10 0 15 8 15 18v7h-9v-7c0-5-2-9-6-9s-6 4-6 9v7h-9z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../css/styles.css?v=20261004-2">
+</head>
+<body class="application-page">
+  <div class="desktop-stage desktop-stage--application">
+    <aside class="desktop-rail desktop-rail--left" aria-label="相談フォームのご案内">
+      <div class="rail-brand"><span>au</span>ひかり 引越し相談</div>
+      <section class="rail-card rail-card--accent">
+        <p class="rail-kicker">かんたん相談</p>
+        <h2>入力は2ステップ</h2>
+        <ol class="rail-flow rail-flow--large"><li><span>1</span>現在の状況を選択</li><li><span>2</span>連絡先・新居住所を入力</li><li><span>3</span>担当スタッフがご案内</li></ol>
+      </section>
+      <section class="rail-card rail-card--compact"><p class="rail-kicker">ご確認ください</p><p class="rail-copy">フォーム入力だけで契約は確定しません。内容を確認後、担当スタッフからご連絡します。</p></section>
+    </aside>
+
+    <div class="site-shell">
+    <div class="operator-bar">株式会社新生活ポータル　東京都豊島区南大塚二丁目25番15号　代理店届出番号：第C2115556</div>
+    <header class="site-header"><a class="brand" href="../index.html"><span class="brand-main">au<span>ひかり</span></span><span class="brand-sub">引越し・住所移転 相談窓口</span></a><a class="header-back" href="../index.html">トップへ戻る</a></header>
+    <main id="top">
+      <section class="section application application-page-section" id="application">
+        <p class="section-kicker">かんたん相談フォーム</p>
+        <h1>必要な内容を<br>順番に入力</h1>
+        <p class="lead">入力だけで契約が確定することはありません。内容を確認後、担当スタッフから提供状況や手続きをご案内します。</p>
+        <form id="application-form" action="../api/send.php" method="post" accept-charset="UTF-8" novalidate>
+          <input type="hidden" name="form_type" value="application">
+          <div class="form-progress"><span class="active">入力</span><i></i><span>確認</span><i></i><span>完了</span></div>
+          <div class="form-panel active" data-form-step="1">
+            <p class="panel-count">STEP 1 / 2</p>
+            <fieldset><legend>希望する手続き <b>必須</b></legend><div class="segmented"><label><input type="radio" name="procedure" value="新規申し込み" required><span>新規</span></label><label><input type="radio" name="procedure" value="他社からの乗りかえ"><span>乗りかえ</span></label><label><input type="radio" name="procedure" value="引越し・住所移転相談"><span>移転相談</span></label></div></fieldset>
+            <label class="field" for="current-line">現在利用中の回線 <b>必須</b></label>
+            <select id="current-line" name="current_line" required><option value="">選択してください</option><option>auひかり</option><option>フレッツ光</option><option>他社光コラボ</option><option>独自回線の光サービス</option><option>WiMAX・ホームルーター</option><option>利用していない</option><option>その他</option></select>
+            <fieldset><legend>引越し予定 <b>必須</b></legend><div class="segmented"><label><input type="radio" name="moving" value="あり" required><span>あり</span></label><label><input type="radio" name="moving" value="なし"><span>なし</span></label><label><input type="radio" name="moving" value="未定"><span>未定</span></label></div></fieldset>
+            <p class="error" id="step1-error" role="alert"></p>
+            <button type="button" class="cta primary next-step">次の入力へ <span aria-hidden="true">›</span></button>
+          </div>
+          <div class="form-panel" data-form-step="2" hidden>
+            <p class="panel-count">STEP 2 / 2</p>
+            <label class="field">お名前 <b>必須</b><input id="customer-name" name="customer_name" autocomplete="name" maxlength="50" placeholder="例）山田 太郎" required></label>
+            <label class="field">電話番号 <b>必須</b><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="例）09012345678" required></label>
+            <label class="field">利用予定住所の郵便番号 <b>必須</b><input id="postal" name="postal" inputmode="numeric" autocomplete="postal-code" maxlength="7" placeholder="例）1000001" required></label>
+            <p class="postal-status" id="postal-status" aria-live="polite"></p>
+            <label class="field">利用予定住所 <b>必須</b><input id="address" name="address" autocomplete="street-address" maxlength="200" placeholder="都道府県・市区町村・町域" required></label>
+            <label class="field" for="contact-time">希望連絡時間</label>
+            <select id="contact-time" name="contact_time"><option>10:00〜12:00</option><option>12:00〜15:00</option><option>15:00〜18:00</option><option>18:00〜20:00</option><option selected>いつでも可</option></select>
+            <label class="consent"><input id="privacy-consent" name="privacy_consent" type="checkbox" value="同意する" required><span>個人情報の取扱いに同意する <b>必須</b><small><a href="https://shinseikatsu-portal.jp/privacy/" target="_blank" rel="noopener noreferrer">プライバシーポリシーを確認する</a></small></span></label>
+            <p class="error" id="step2-error" role="alert"></p>
+            <div class="form-actions"><button type="button" class="back-step">戻る</button><button type="button" class="cta primary review-step">入力内容を確認する <span aria-hidden="true">›</span></button></div>
+          </div>
+          <div class="form-panel review-panel" data-form-step="review" hidden>
+            <p class="panel-count">入力内容の確認</p>
+            <dl id="review-list"></dl>
+            <p class="form-note">確認後、担当スタッフより提供状況とお申し込み手続きをご案内します。</p>
+            <div class="form-actions"><button type="button" class="back-to-edit">修正する</button><button type="submit" class="cta primary">この内容で相談する <span aria-hidden="true">›</span></button></div>
+          </div>
+          <label class="hp-field" aria-hidden="true">この項目は入力しないでください<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          <div id="tracking-fields"></div>
+        </form>
+        <p class="application-back"><a href="../index.html">トップページへ戻る</a></p>
+      </section>
+    </main>
+    <footer><a href="https://shinseikatsu-portal.jp/company/" target="_blank" rel="noopener noreferrer">運営会社</a><a href="https://shinseikatsu-portal.jp/privacy/" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a><p>© 2026 株式会社新生活ポータル</p></footer>
+    </div>
+
+    <aside class="desktop-rail desktop-rail--right" aria-label="入力時の確認事項">
+      <section class="rail-card rail-card--hero">
+        <p class="rail-kicker">ご用意いただくもの</p>
+        <h2>新居の住所と<br>連絡先だけで相談</h2>
+        <ul class="rail-checks"><li>現在利用中の回線</li><li>引越し先の郵便番号・住所</li><li>ご連絡しやすい時間帯</li></ul>
+        <a class="rail-cta rail-cta--secondary" href="../index.html#area-check">エリア確認へ戻る</a>
+      </section>
+      <p class="rail-operator">運営：株式会社新生活ポータル<br>代理店届出番号：第C2115556</p>
+    </aside>
+  </div>
+  <script src="../js/script.js?v=20261004-1"></script>
+</body>
+</html>

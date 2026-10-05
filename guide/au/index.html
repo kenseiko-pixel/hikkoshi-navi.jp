@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="auひかりの引越し・住所移転、新規・乗りかえを相談できる受付ページです。新居の提供エリア確認からお申し込み相談までご案内します。">
+  <title>auひかり 引越し・住所移転の相談受付</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23eb5505'/%3E%3Cpath d='M17 38c0-10 6-18 15-18 10 0 15 8 15 18v7h-9v-7c0-5-2-9-6-9s-6 4-6 9v7h-9z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css?v=20261004-2">
+</head>
+<body>
+  <div class="desktop-stage">
+    <aside class="desktop-rail desktop-rail--left" aria-label="引越し準備のポイント">
+      <div class="rail-brand"><span>au</span>ひかり 引越し相談</div>
+      <section class="rail-card rail-card--accent">
+        <p class="rail-kicker">新居のネット準備</p>
+        <h2>まず確認したい<br>3つのポイント</h2>
+        <ol class="rail-points">
+          <li><span>01</span><a href="#area-check"><b>提供エリア</b><small>新居で利用できるか確認</small></a></li>
+          <li><span>02</span><a href="#service-overview-title"><b>建物タイプ</b><small>戸建て・集合住宅を確認</small></a></li>
+          <li><span>03</span><a href="#moving-title"><b>開通希望時期</b><small>余裕をもって準備を開始</small></a></li>
+        </ol>
+      </section>
+      <section class="rail-card rail-card--compact">
+        <p class="rail-kicker">この窓口で相談できること</p>
+        <ul class="rail-checks"><li>引越し先のエリア確認</li><li>利用タイプ・料金の目安</li><li>移転・乗りかえ・新規の整理</li></ul>
+      </section>
+    </aside>
+
+    <div class="site-shell">
+    <div class="operator-bar">株式会社新生活ポータル　東京都豊島区南大塚二丁目25番15号　代理店届出番号：第C2115556</div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="auひかり 引越し相談窓口 トップへ">
+        <span class="brand-main">au<span>ひかり</span></span>
+        <span class="brand-sub">引越し・住所移転 相談窓口</span>
+      </a>
+      <button class="header-callback" type="button" data-callback aria-haspopup="dialog" aria-controls="callback-dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/></svg>
+        <span>電話相談予約</span>
+      </button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-content">
+          <p class="eyebrow">新居のネット、早めに準備</p>
+          <h1>auひかりの<br>引越し・住所移転を<br>かんたん相談</h1>
+          <p class="hero-copy">提供エリアの確認から、移転・乗りかえ・新規のお申し込み相談まで。</p>
+          <p class="hero-support">新しい住所が決まったら<br>まずはエリアチェック</p>
+        </div>
+        <div class="hero-actions">
+          <a class="cta primary" id="cta-fv" data-cta="fv" href="#area-check">引越し先のエリアを確認 <span aria-hidden="true">›</span></a>
+          <p class="cta-note">WEB24時間受付 ｜ 担当スタッフよりご連絡</p>
+          <button class="callback-trigger" type="button" data-callback aria-haspopup="dialog" aria-controls="callback-dialog"><b>電話相談を予約</b><small>ご希望の時間帯にこちらからご連絡します</small></button>
+        </div>
+      </section>
+
+      <section class="section area-check" id="area-check" aria-labelledby="area-check-title">
+        <p class="section-kicker">提供エリアの確認</p>
+        <h2 id="area-check-title">引越し先で使えるか<br>まずはかんたん確認</h2>
+        <p class="lead">ご住所をもとに、auひかりの提供状況と利用できるタイプを担当スタッフからご案内します。</p>
+        <form id="area-form" action="api/send.php" method="post" novalidate>
+          <input type="hidden" name="form_type" value="area">
+          <label class="hp-field" aria-hidden="true">この項目は入力しないでください<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          <label class="field">郵便番号 <b>必須</b><input id="area-postal" name="postal" inputmode="numeric" autocomplete="postal-code" maxlength="8" placeholder="例）100-0001" required></label>
+          <p class="postal-status" id="area-postal-status" role="status"></p>
+          <label class="field">利用予定住所 <b>必須</b><input id="area-address" name="address" autocomplete="street-address" maxlength="200" placeholder="都道府県・市区町村・番地・建物名" required></label>
+          <label class="field">お名前 <b>必須</b><input id="area-name" name="name" autocomplete="name" maxlength="50" placeholder="例）山田 太郎" required></label>
+          <label class="field">電話番号 <b>必須</b><input id="area-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="例）09012345678" required></label>
+          <p class="form-submit-error" id="area-error" role="alert"></p>
+          <button class="cta primary" id="area-submit" type="submit">提供エリアを確認する <span aria-hidden="true">›</span></button>
+          <p class="form-contact-note">受付後、担当スタッフよりご入力いただいた電話番号へご連絡します。</p>
+        </form>
+      </section>
+
+      <section class="section service-overview" aria-labelledby="service-overview-title">
+        <p class="section-kicker">料金の目安</p>
+        <h2 id="service-overview-title">住まいに合わせて<br>利用タイプを確認</h2>
+        <p class="lead">auひかりは、戸建てと集合住宅で提供タイプ・料金が異なります。まずは新居の設備状況をご確認ください。</p>
+        <div class="plan-cards">
+          <article class="plan-card"><p class="plan-home">戸建住宅の例</p><h3>ホーム1ギガ</h3><p class="plan-price"><strong>5,610</strong><span>円（税込）／月〜</span></p><small>ずっとギガ得プラン・ネットのみ・1年目</small></article>
+          <article class="plan-card"><p class="plan-home">集合住宅の例</p><h3>マンション タイプV</h3><p class="plan-price"><strong>4,180</strong><span>円（税込）／月〜</span></p><small>16契約以上・ネットのみ</small></article>
+        </div>
+        <div class="plan-notes">
+          <p>※au one netで口座振替・クレジットカード割引適用時の例です。ホームは3年契約。マンションは建物の対応タイプや契約数により料金・速度が異なります。</p>
+          <p>※電話・テレビ・無線LANなどのオプション、登録料、初期費用、各種ユニバーサルサービス料などは別途必要です。</p>
+        </div>
+        <a class="cta primary section-cta" href="application/">お申し込みを相談する <span aria-hidden="true">›</span></a>
+      </section>
+
+      <section class="section benefits" aria-labelledby="benefits-title">
+        <p class="section-kicker">割引・特典</p>
+        <h2 id="benefits-title">条件に合う割引を<br>一緒に確認</h2>
+        <div class="benefit-list">
+          <article><span class="benefit-mark" aria-hidden="true">01</span><div><h3>初期費用相当額を割引</h3><p>ネットと電話の同時申し込みなど、条件を満たす場合に月額利用料から割引されます。</p><small>途中解約時は初期費用残額が請求される場合があります。</small></div></article>
+          <article><span class="benefit-mark" aria-hidden="true">02</span><div><h3>auスマートバリュー</h3><p>対象のインターネットと電話、対象のauスマホ料金プランなどの条件を満たすと、スマホ料金が毎月最大1,100円割引。</p><small>対象プラン・申込条件があります。</small></div></article>
+          <article><span class="benefit-mark" aria-hidden="true">03</span><div><h3>乗りかえ・引越し特典</h3><p>他社からの乗りかえや、auひかりを継続する引越し向けの特典があります。</p><small>窓口、プロバイダ、契約内容、申請期限などにより適用条件が異なります。</small></div></article>
+        </div>
+      </section>
+
+      <section class="section moving-support" aria-labelledby="moving-title">
+        <p class="section-kicker">引越し準備の流れ</p>
+        <h2 id="moving-title">新居ですぐ使うために<br>早めの確認を</h2>
+        <p class="flow-lead">ホームは申し込みから開通まで約1〜2カ月、マンションは約2週間が目安です。設備や時期により長くかかる場合があります。</p>
+        <ol class="opening-flow">
+          <li><span class="flow-number">1</span><span><b>新居の住所を確認</b><small>提供エリア・建物設備・利用タイプを確認</small></span></li>
+          <li><span class="flow-number">2</span><span><b>手続き方法を確認</b><small>移転・乗りかえ・新規から状況に合う方法をご案内</small></span></li>
+          <li><span class="flow-number">3</span><span><b>工事日を調整</b><small>工事・機器受け取りなど開通準備</small></span></li>
+          <li><span class="flow-number">4</span><span><b>新居で利用開始</b><small>機器を接続してインターネットを利用</small></span></li>
+        </ol>
+        <div class="estimate-box">
+          <p class="estimate-label">無料お見積り相談</p>
+          <h3>新居の料金を<br>かんたん確認</h3>
+          <p class="estimate-lead">入力内容をもとに、利用できるタイプと料金の目安をご案内します。</p>
+          <form id="estimate-form" action="api/send.php" method="post" novalidate>
+            <input type="hidden" name="form_type" value="estimate">
+            <label class="hp-field" aria-hidden="true">この項目は入力しないでください<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            <label class="field">住居タイプ <b>必須</b><select id="estimate-housing" name="housing_type" required><option value="">選択してください</option><option value="戸建住宅">戸建住宅</option><option value="集合住宅">集合住宅</option></select></label>
+            <label class="field">現在利用中の回線 <b>必須</b><select id="estimate-current-line" name="current_line" required><option value="">選択してください</option><option value="auひかり">auひかり</option><option value="フレッツ光・他社光コラボ">フレッツ光・他社光コラボ</option><option value="その他の固定回線">その他の固定回線</option><option value="ホームルーター・モバイルWi-Fi">ホームルーター・モバイルWi-Fi</option><option value="利用していない・不明">利用していない・不明</option></select></label>
+            <label class="field">引越し先の郵便番号 <b>必須</b><input id="estimate-postal" name="postal" inputmode="numeric" autocomplete="postal-code" maxlength="8" placeholder="例）100-0001" required></label>
+            <label class="field">お名前 <b>必須</b><input id="estimate-name" name="name" autocomplete="name" maxlength="50" placeholder="例）山田 太郎" required></label>
+            <label class="field">電話番号 <b>必須</b><input id="estimate-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="例）09012345678" required></label>
+            <p class="form-submit-error" id="estimate-error" role="alert"></p>
+            <button class="cta primary" id="estimate-submit" type="submit">無料見積りを依頼する <span aria-hidden="true">›</span></button>
+            <p class="form-contact-note">受付後、担当スタッフよりご入力いただいた電話番号へご連絡します。</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="section faq" aria-labelledby="faq-title">
+        <p class="section-kicker">よくあるご質問</p>
+        <h2 id="faq-title">FAQ</h2>
+        <div class="accordion">
+          <details><summary><span>Q</span><b>auひかりを利用中ですが、引越しの相談はできますか？</b><i></i></summary><div><span>A</span><p>はい。新居の提供状況や必要な手続きの確認をご相談いただけます。正式な移転手続きは、ご契約中のプロバイダ窓口で行う必要があります。</p></div></details>
+          <details><summary><span>Q</span><b>新居が提供エリア内か確認できますか？</b><i></i></summary><div><span>A</span><p>住所をもとに確認します。エリア内でも、建物設備や配線状況などにより利用できない場合があります。</p></div></details>
+          <details><summary><span>Q</span><b>他社回線からの乗りかえも相談できますか？</b><i></i></summary><div><span>A</span><p>はい。現在の回線や解約費用の状況を確認し、利用できる特典を含めてご案内します。</p></div></details>
+          <details><summary><span>Q</span><b>開通までどのくらいかかりますか？</b><i></i></summary><div><span>A</span><p>ホームは約1〜2カ月、マンションは約2週間が目安です。建物・設備・申し込み時期などにより前後します。</p></div></details>
+          <details><summary><span>Q</span><b>工事費はいくらですか？</b><i></i></summary><div><span>A</span><p>新規申し込み時の初期費用（工事費含む）は、ホーム1ギガが48,950円、マンションが33,000円です。条件を満たす場合は初期費用相当額割引があります。</p></div></details>
+          <details><summary><span>Q</span><b>月額料金はいくらですか？</b><i></i></summary><div><span>A</span><p>住居、提供タイプ、プラン、プロバイダ、オプションにより異なります。ホーム1ギガはネットのみ1年目5,610円／月、マンション タイプVは16契約以上で4,180円／月が一例です。</p></div></details>
+        </div>
+      </section>
+
+      <section class="section final-cta" id="final-cta">
+        <p class="section-kicker">新居のネット準備</p>
+        <h2>住所が決まったら<br>早めに相談</h2>
+        <p>提供状況、料金の目安、必要な手続きをまとめて確認できます。</p>
+        <a class="cta primary" href="application/">お申し込みを相談する <span aria-hidden="true">›</span></a>
+        <button class="callback-trigger light" type="button" data-callback aria-haspopup="dialog" aria-controls="callback-dialog"><b>電話相談を予約</b><small>こちらからご連絡します</small></button>
+      </section>
+
+      <section class="legal" aria-labelledby="legal-title">
+        <h2 id="legal-title">受付窓口について</h2>
+        <p class="scope">株式会社新生活ポータルが運営する、auひかりの引越し・住所移転・新規申し込み相談受付窓口です。</p>
+        <ul><li>提供可否、料金、速度、特典は、地域・建物・設備・契約プラン・プロバイダ・申込窓口などにより異なります。</li><li>開通日や工事日、特典適用を保証するものではありません。</li><li>既存契約の正式な住所変更は、ご契約中のプロバイダ窓口でお手続きください。</li></ul>
+        <dl class="company"><div><dt>運営会社</dt><dd>株式会社新生活ポータル</dd></div><div><dt>所在地</dt><dd>東京都豊島区南大塚二丁目25番15号</dd></div><div><dt>代理店届出番号</dt><dd>第C2115556</dd></div><div><dt>情報確認日</dt><dd>2026年10月4日</dd></div></dl>
+      </section>
+    </main>
+
+    <footer id="footer"><a href="https://shinseikatsu-portal.jp/company/" target="_blank" rel="noopener noreferrer">運営会社</a><a href="https://shinseikatsu-portal.jp/privacy/" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a><p>© 2026 株式会社新生活ポータル</p></footer>
+    <div class="sticky hidden"><p class="sticky-meta">auひかりの引越し・住所移転相談</p><div class="sticky-actions"><a class="sticky-area" data-cta="sticky-area" href="#area-check">エリア確認</a><a class="sticky-apply" id="cta-sticky" data-cta="sticky" href="application/">相談する</a></div></div>
+    <div class="toast" id="toast" aria-live="polite"></div>
+    </div>
+
+    <aside class="desktop-rail desktop-rail--right" aria-label="相談受付のご案内">
+      <section class="rail-card rail-card--hero">
+        <p class="rail-kicker">住所が決まったら</p>
+        <h2>早めの確認で<br>引越し後もスムーズに</h2>
+        <p>提供エリア、建物設備、開通までの流れをまとめて確認できます。</p>
+        <a class="rail-cta rail-cta--primary" href="#area-check">エリアを確認する <span aria-hidden="true">›</span></a>
+        <a class="rail-cta rail-cta--secondary" href="application/">申し込みを相談する</a>
+      </section>
+      <section class="rail-card rail-card--compact">
+        <p class="rail-kicker">ご相談の流れ</p>
+        <ol class="rail-flow"><li><span>1</span>フォームに入力</li><li><span>2</span>担当スタッフが確認</li><li><span>3</span>提供状況をご案内</li></ol>
+      </section>
+      <p class="rail-operator">運営：株式会社新生活ポータル<br>代理店届出番号：第C2115556</p>
+    </aside>
+  </div>
+
+  <dialog class="callback-dialog" id="callback-dialog" aria-labelledby="callback-title" aria-describedby="callback-lead">
+    <button class="callback-dialog__close" type="button" aria-label="電話相談予約を閉じる">×</button>
+    <p class="modal-kicker">CALL BACK</p><h2 id="callback-title">電話相談を予約</h2><p class="callback-dialog__lead" id="callback-lead">担当スタッフより、ご希望の時間帯にご連絡します。</p>
+    <form id="callback-form" action="api/send.php" method="post" novalidate>
+      <input type="hidden" name="form_type" value="callback"><label class="hp-field" aria-hidden="true">この項目は入力しないでください<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      <label for="callback-name">お名前</label><input id="callback-name" name="name" autocomplete="name" maxlength="50" placeholder="例）山田 太郎" required>
+      <label for="callback-tel">電話番号</label><input id="callback-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="例）09012345678" required><p class="callback-dialog__hint">ハイフンなしでも入力できます</p>
+      <label for="callback-time">ご案内希望時間帯</label><select id="callback-time" name="preferred_time" required><option value="いつでも">いつでも</option><option value="10-12時頃">10-12時頃</option><option value="12-15時頃">12-15時頃</option><option value="15-18時頃">15-18時頃</option><option value="18時以降">18時以降</option></select>
+      <p class="form-submit-error" id="callback-error" role="alert"></p><button class="cta primary" id="callback-submit" type="submit">予約内容を送信する <span aria-hidden="true">›</span></button><p class="callback-dialog__note">受付後、担当スタッフよりご連絡します。</p>
+    </form>
+  </dialog>
+  <script src="js/script.js?v=20261004-1"></script>
+</body>
+</html>
