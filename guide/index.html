@@ -62,11 +62,11 @@
 
   <!-- ========== FV（画像） ========== -->
   <!-- 画像を差し替える場合は width / height を実寸に合わせてください -->
-  <h1 class="visually-hidden">インターネット・Wi-Fiの引越し・住所変更。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。</h1>
-  <a class="fv-link" href="#area-check" aria-label="引越し先のエリア確認へ進む">
+  <h1 class="visually-hidden">インターネット・Wi-Fiの引越し・住所変更。面倒な手続きも、カンタン受付。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。</h1>
+  <a class="fv-link" href="#consultation" aria-label="引越し先のエリア確認フォームへ進む">
     <figure class="fv">
-      <img src="img/fv-cashback-v2.png"
-           alt="インターネット・Wi-Fiの引越し・住所変更。面倒な手続きもカンタン受付。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。電気・ガスもまとめてお手続きOK。専門スタッフが必要な手続きをご案内。"
+      <img src="img/fv-cashback-v21.png"
+           alt="インターネット・Wi-Fiの引越し・住所変更。面倒な手続きも、カンタン受付。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。専門スタッフが必要な手続きをご案内。新規やお乗り換えもまとめてサポート。"
            width="941" height="1672" loading="eager" fetchpriority="high">
     </figure>
   </a>
@@ -93,21 +93,22 @@
       <span><b>かんたんお申し込み</b><small>WEBから24時間受付</small></span>
       <span class="fv-carriers__apply-arrow" aria-hidden="true">›</span>
     </a>
-    <a class="existing-support-link" href="support.html">契約内容の確認・解約のみのお問合せはこちら <span aria-hidden="true">›</span></a>
+    <a class="existing-support-link" href="support.html"><span class="existing-support-link__copy"><strong>契約内容の確認・解約のみの方はこちら</strong></span><span class="existing-support-link__arrow" aria-hidden="true">›</span></a>
   </section>
 
-  <section class="section area-check" id="area-check" aria-labelledby="areaTitle">
-    <h2 class="section-title" id="areaTitle">引越し先のエリアをチェック</h2>
-    <p class="section-lead">ご住所をもとに、利用可能な回線を<br>担当スタッフからお電話でご案内します。</p>
-    <form id="areaForm" action="api/send.php" method="post" novalidate>
+  <section class="section area-check" id="consultation" aria-labelledby="consultationTitle">
+    <h2 class="section-title" id="consultationTitle">引越し先のエリアをチェック</h2>
+    <p class="section-lead">ご住所をもとに、利用可能な回線を<br>専門スタッフがお電話でご案内します。</p>
+    <form id="consultationForm" action="api/send.php" method="post" novalidate>
       <input type="hidden" name="form_type" value="area">
       <div class="hp" aria-hidden="true"><label>会社名<input name="company" tabindex="-1" autocomplete="off"></label></div>
-      <div class="field"><label class="field__label" for="areaPostal">郵便番号 <span class="req">必須</span></label><input id="areaPostal" name="postal" inputmode="numeric" autocomplete="postal-code" placeholder="123-4567" maxlength="8" required><p id="areaPostalStatus" class="postal-status" role="status"></p></div>
-      <div class="field"><label class="field__label" for="areaAddress">住所 <span class="req">必須</span></label><input id="areaAddress" name="address" autocomplete="street-address" placeholder="都道府県・市区町村・番地・建物名" maxlength="200" required></div>
-      <div class="field"><label class="field__label" for="areaName">お名前 <span class="req">必須</span></label><input id="areaName" name="name" autocomplete="name" placeholder="山田 太郎" maxlength="50" required></div>
+      <div class="field"><label class="field__label" for="areaPostal">郵便番号 <span class="req">必須</span></label><div class="postal-entry"><input id="areaPostal" name="postal" inputmode="numeric" autocomplete="postal-code" placeholder="123-4567" maxlength="8" required aria-describedby="areaPostalStatus areaPostalError"><button class="postal-entry__button" id="postalLookupButton" type="button">住所を入力</button></div><p id="areaPostalStatus" class="postal-status" role="status"></p><p class="field__error" id="areaPostalError">郵便番号を7桁で入力してください。</p></div>
+      <div class="field"><label class="field__label" for="areaAddress">住所 <span class="req">必須</span></label><input id="areaAddress" name="address" autocomplete="street-address" placeholder="都道府県・市区町村・番地・建物名" maxlength="200" required aria-describedby="areaAddressError"><p class="field__error" id="areaAddressError">住所を入力してください。</p></div>
+      <div class="field"><label class="field__label" for="areaName">お名前 <span class="req">必須</span></label><input id="areaName" name="name" autocomplete="name" placeholder="山田 太郎" maxlength="50" required aria-describedby="areaNameError"><p class="field__error" id="areaNameError">お名前を入力してください。</p></div>
       <div class="field"><label class="field__label" for="areaTel">電話番号 <span class="req">必須</span></label><input id="areaTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="09012345678" maxlength="20" required aria-describedby="areaTelError"><p class="field__error" id="areaTelError">電話番号を正しく入力してください。</p></div>
+      <div class="field"><label class="field__label" for="consultationTime">ご希望の連絡時間帯 <span class="req">必須</span></label><select id="consultationTime" name="preferred_time" required aria-describedby="consultationTimeError"><option value="">選択してください</option><option value="いつでも">いつでも</option><option value="10-12時頃">10-12時頃</option><option value="12-15時頃">12-15時頃</option><option value="15-18時頃">15-18時頃</option><option value="18時以降">18時以降</option></select><p class="field__error" id="consultationTimeError">ご希望の連絡時間帯を選択してください。</p></div>
       <p id="areaError" class="callback-dialog__error" role="alert"></p>
-      <button class="submit area-check__submit" type="submit"><span class="area-check__free">無料</span><span>エリア確認を依頼する</span></button>
+      <button class="submit area-check__submit" type="submit">エリア確認を依頼</button>
     </form>
   </section>
 
@@ -210,13 +211,13 @@
 
   <!-- ========== 特典 ========== -->
   <section class="section section--tint campaign-section">
-    <section class="campaign-feature" aria-label="引越し・住所変更の受付とキャッシュバック特典">
+    <section class="campaign-feature" aria-label="インターネットの引越し・住所変更受付とキャッシュバック特典">
       <p class="campaign-feature__eyebrow">インターネットのお手続き</p>
-      <h2 class="campaign-feature__title">引越し・住所変更を、<br>カンタンに。</h2>
+      <h2 class="campaign-feature__title">引越し・住所変更を、<br>かんたんに。</h2>
       <p class="campaign-feature__eligibility">対象のお申し込みで</p>
       <p class="campaign-feature__offer"><small>最大</small><span class="campaign-feature__price"><strong>70,000</strong><i>円</i></span></p>
       <p class="campaign-feature__caption">キャッシュバック</p>
-      <p class="campaign-feature__support">電気・ガスもまとめてお手続きOK！</p>
+      <p class="campaign-feature__support">新規やお乗り換えもまとめてご案内</p>
       <div class="cta-stack">
         <a class="cta cta--primary" href="application/">
           <span class="cta__label">無料</span>
@@ -427,9 +428,9 @@
 
   <!-- ========== 追従CTA ========== -->
   <div class="sticky" id="stickyCta">
-<div class="sticky__row">
-<a class="sticky__main sticky__main--area" href="#area-check">エリア確認</a>
-      <a class="sticky__main" href="application/">お申し込み</a>
+    <div class="sticky__row">
+      <a class="sticky__choice sticky__choice--area" id="stickyAreaCheck" href="#consultation">エリア確認</a>
+      <a class="sticky__choice sticky__choice--apply" href="application/">お申し込み</a>
     </div>
   </div>
 
@@ -503,33 +504,34 @@ document.querySelectorAll('.faq__item').forEach(function (item) {
   });
 });
 
-// FV・追従CTAからエリア確認へ移動し、郵便番号入力を開始できる状態にする
-document.querySelectorAll('a[href="#area-check"]').forEach(function (link) {
+// FV・ページ内CTAからエリア確認フォームへ移動する
+document.querySelectorAll('a[href="#consultation"]').forEach(function (link) {
   link.addEventListener('click', function (event) {
-    var areaCheck = document.getElementById('area-check');
-    var postal = document.getElementById('areaPostal');
-    if (!areaCheck || !postal) return;
+    var consultation = document.getElementById('consultation');
+    var form = document.getElementById('consultationForm');
+    var firstField = document.getElementById('areaPostal');
+    var submitButton = form ? form.querySelector('button[type="submit"]') : null;
+    if (!consultation || !form || !firstField || !submitButton) return;
     event.preventDefault();
     var destination = new URL(location.href);
-    destination.hash = 'area-check';
+    destination.hash = 'consultation';
     history.replaceState(null, '', destination.href);
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    areaCheck.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    var requiredFields = Array.prototype.slice.call(form.querySelectorAll('[required]'));
+    var nextField = requiredFields.find(function (field) {
+      return !field.disabled && String(field.value || '').trim() === '';
+    });
+    var focusTarget = nextField || submitButton;
+    var scrollTarget = focusTarget === firstField ? consultation : (focusTarget.closest('.field') || focusTarget);
+    scrollTarget.scrollIntoView({
+      behavior: !reduceMotion && focusTarget === firstField ? 'smooth' : 'instant',
+      block: focusTarget === firstField ? 'start' : 'center'
+    });
     window.setTimeout(function () {
-      postal.focus({ preventScroll: true });
-    }, reduceMotion ? 0 : 500);
+      focusTarget.focus({ preventScroll: true });
+    }, !reduceMotion && focusTarget === firstField ? 500 : 0);
   });
 });
-
-// エリア確認フォームが見えている間は、入力を妨げないよう追従CTAを隠す
-(function () {
-  var areaForm = document.getElementById('areaForm');
-  var stickyCta = document.getElementById('stickyCta');
-  if (!areaForm || !stickyCta || !('IntersectionObserver' in window)) return;
-  new IntersectionObserver(function (entries) {
-    stickyCta.classList.toggle('is-hidden-by-area', entries[0].isIntersecting);
-  }, {threshold: 0.05}).observe(areaForm);
-})();
 
 // キャリアカード内の非操作領域も「窓口へ進む」と同じリンク先にする
 document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(function (card) {
@@ -543,7 +545,7 @@ document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(fun
   card.addEventListener('keydown', openCard);
 });
 
-// エリア確認・電話相談：流入情報と受付
+// 相談・お申し込み／電話相談：流入情報と受付
 (function () {
 
   var trackingKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gad_source','gad_campaignid','gclid','gbraid','wbraid','yclid','msclkid','fbclid'];
@@ -583,7 +585,7 @@ document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(fun
   }
 
   collectAttribution();
-  initAreaForm(collectAttribution);
+  initConsultationForm(collectAttribution);
 
   // 通常フォームの入力内容は送らず、電話番号と流入情報だけで予約する。
   var callbackDialog = document.getElementById('callbackDialog');
@@ -666,9 +668,13 @@ document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(fun
     var tel = callbackTel.value.replace(/[０-９]/g, function (digit) {
       return String.fromCharCode(digit.charCodeAt(0) - 0xFEE0);
     }).replace(/[-\s()]+/g, '');
-    if (!/^0\d{9,10}$/.test(tel)) {
+    var mobileNumber = /^(070|080|090)/.test(tel);
+    var validTel = mobileNumber ? /^(070|080|090)\d{8}$/.test(tel) : /^0\d{9,10}$/.test(tel);
+    if (!validTel) {
       callbackTel.setAttribute('aria-invalid', 'true');
-      callbackError.textContent = '0から始まる10〜11桁の電話番号を入力してください。';
+      callbackError.textContent = mobileNumber
+        ? '携帯番号の桁数は11桁です。'
+        : '電話番号を正しく入力してください。';
       callbackTel.focus();
       return;
     }
@@ -693,7 +699,10 @@ document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(fun
       })
       .then(function (data) {
         if (data.ok !== true) throw new Error(data.message || '送信できませんでした。時間をおいて再度お試しください。');
-        try { sessionStorage.setItem('internet-hikkoshi-entry:callback-complete', '1'); } catch (e) {}
+        try {
+          sessionStorage.setItem('internet-hikkoshi-entry:callback-complete', '1');
+          sessionStorage.setItem('internet-hikkoshi-entry:callback-phone', tel);
+        } catch (e) {}
         window.location.replace('callback-thanks.html');
       })
       .catch(function () {

@@ -25,20 +25,27 @@ function clean(string $key, int $limit = 500): string {
     return mb_substr($value, 0, $limit, 'UTF-8');
 }
 
+function validPhone(string $tel): bool {
+    if (preg_match('/^(070|080|090)/', $tel)) {
+        return (bool)preg_match('/^(070|080|090)\d{8}$/', $tel);
+    }
+    return (bool)preg_match('/^0\d{9,10}$/', $tel);
+}
+
 $procedure = clean('procedure', 50);
 $formType = clean('form_type', 30);
 $isCallback = $formType === 'callback';
 $isArea = $formType === 'area';
+$isConsultation = $formType === 'consultation';
 $currentLine = clean('current_line', 100);
+$movingPlan = clean('moving_plan', 50);
 $inquiryLine = clean('carrier', 100);
 $inquiryLines = ['SoftBank 光', 'SoftBank Air', 'BIGLOBE光', 'フレッツ光', 'ドコモ光', 'auひかり', 'J:COM', 'So-net 光'];
 $isCarrierInquiry = in_array($inquiryLine, $inquiryLines, true);
 
 $name = clean('name', 50);
 $preferredTime = clean('preferred_time', 30);
-$tel = $isCallback
-    ? (preg_replace('/[-\s()]+/u', '', mb_convert_kana(clean('tel', 40), 'n', 'UTF-8')) ?? '')
-    : (preg_replace('/\D+/', '', clean('tel')) ?? '');
+$tel = preg_replace('/\D+/', '', mb_convert_kana(clean('tel', 40), 'n', 'UTF-8')) ?? '';
 $postal = preg_replace('/\D+/', '', clean('postal')) ?? '';
 $address = clean('address', 200);
 $email = clean('email', 254);
@@ -52,9 +59,16 @@ if ($isArea) {
     if ($name === '') $errors[] = 'お名前';
     if (!preg_match('/^\d{7}$/', $postal)) $errors[] = '郵便番号';
     if ($address === '') $errors[] = '住所';
-    if ($preferredTime !== '' && !in_array($preferredTime, ['いつでも', '10-12時頃', '12-15時頃', '15-18時頃', '18時以降'], true)) $errors[] = 'ご案内希望時間帯';
+    if (!in_array($preferredTime, ['いつでも', '10-12時頃', '12-15時頃', '15-18時頃', '18時以降'], true)) $errors[] = 'ご希望の連絡時間帯';
 }
-if (!$isCallback && !$isArea) {
+if ($isConsultation) {
+    if ($name === '') $errors[] = 'お名前';
+    if (!preg_match('/^\d{7}$/', $postal)) $errors[] = '郵便番号';
+    if ($address === '') $errors[] = '住所';
+    if (!in_array($movingPlan, ['引越し済み（ネットはこれから）', '2週間以内に引っ越す', '1か月以内に引っ越す', '1か月以上先に引っ越す', '引っ越す予定はない（今の住まいで使う）'], true)) $errors[] = 'お引越しのご予定';
+    if ($preferredTime !== '' && !in_array($preferredTime, ['いつでも', '10-12時頃', '12-15時頃', '15-18時頃', '18時以降'], true)) $errors[] = 'ご希望の連絡時間帯';
+}
+if (!$isCallback && !$isArea && !$isConsultation) {
     if (!in_array($procedure, ['引越し・移転', '引越しに伴う他社乗り換え', '新居で新規申し込み'], true)) $errors[] = '希望する手続き';
     if (!$isCarrierInquiry && $currentLine === '') $errors[] = '現在利用中の回線';
     if ($name === '') $errors[] = 'お名前';
@@ -62,7 +76,7 @@ if (!$isCallback && !$isArea) {
     if ($address === '') $errors[] = '住所';
     if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'メールアドレス';
 }
-if (!preg_match('/^0\d{9,10}$/', $tel)) $errors[] = '電話番号';
+if (!validPhone($tel)) $errors[] = '電話番号';
 if ($errors) respond(422, false, implode('、', $errors) . 'をご確認ください。');
 
 $postalFormatted = substr($postal, 0, 3) . '-' . substr($postal, 3);
@@ -78,6 +92,9 @@ if (!$isCallback) {
 }
 if ($isCallback || ($isArea && $preferredTime !== '')) {
     $body .= "[ご案内希望時間帯] {$preferredTime}\n";
+} elseif ($isConsultation) {
+    $body .= "[お引越しのご予定] {$movingPlan}\n";
+    if ($preferredTime !== '') $body .= "[ご希望の連絡時間帯] {$preferredTime}\n";
 } elseif (!$isArea) {
     $body .= "[メールアドレス] {$email}\n\n";
     if ($isCarrierInquiry) {

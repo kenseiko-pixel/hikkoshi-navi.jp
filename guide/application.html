@@ -30,10 +30,10 @@
 <header class="application-header"><p class="application-header__brand">引越し・住所変更 受付窓口</p><span class="application-header__badge">WEBから24時間受付</span><h1>引越しのお申し込み</h1><p class="application-header__lead">新しい暮らしのネット手続きを、スムーズに。</p></header>
 <div class="application-support" id="applicationSupport" hidden>
   <p>すでに開通済みの方</p>
-  <a class="existing-support-link" href="support.html">契約内容の確認・解約のみのお問合せはこちら <span aria-hidden="true">›</span></a>
+  <a class="existing-support-link" href="support.html"><span class="existing-support-link__copy"><strong>契約内容の確認・解約のみの方はこちら</strong></span><span class="existing-support-link__arrow" aria-hidden="true">›</span></a>
 </div>
   <section class="section form-sec" id="entry">
-    <h2 class="application-heading"><span aria-hidden="true">01</span> お客様情報の入力</h2><p class="application-lead">専門スタッフよりお電話で、料金やお手続きの詳細をご案内します。</p>
+    <h2 class="application-heading">お客様情報の入力</h2><p class="application-lead">専門スタッフよりお電話で、料金やお手続きの詳細をご案内します。</p>
 
     <div class="form-card">
       <form id="entryForm" action="api/send.php" method="post" novalidate>
@@ -190,9 +190,22 @@
   setTrackingFields();
 
 
+  function normalizedPhone(value) {
+    return value.replace(/[０-９]/g, function(character) {
+      return String.fromCharCode(character.charCodeAt(0) - 65248);
+    }).replace(/\D/g, '');
+  }
+
+  function isValidPhone(value) {
+    var normalized = normalizedPhone(value);
+    return /^(070|080|090)/.test(normalized)
+      ? /^(070|080|090)\d{8}$/.test(normalized)
+      : /^0\d{9,10}$/.test(normalized);
+  }
+
   var rules = {
     name:  { test: function (v) { return v.trim().length > 0; },              error: 'name-error' },
-    tel:   { test: function (v) { return /^0\d{9,10}$/.test(v.replace(/[-\s]/g, '')); }, error: 'tel-error' },
+    tel:   { test: isValidPhone, error: 'tel-error' },
     postal:{ test: function (v) { return /^\d{3}-?\d{4}$/.test(v.trim()); }, error: 'postal-error' },
     address:{ test: function (v) { return v.trim().length > 0; }, error: 'address-error' },
     email: { test: function (v) { return v.trim() === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, error: 'email-error' },
@@ -210,7 +223,7 @@
     }).length;
     remainingBox.classList.toggle('is-complete', remaining === 0);
     if (remaining === 0) {
-      remainingBox.innerHTML = '入力完了';
+      remainingBox.innerHTML = '送信できます';
     } else {
       remainingBox.innerHTML = '<span>あと</span><strong id="remainingCount">' + remaining + '</strong><span>項目</span>';
       remainingCount = document.getElementById('remainingCount');
@@ -221,6 +234,11 @@
     var input = document.getElementById(id);
     var err = document.getElementById(rules[id].error);
     var ok = rules[id].test(input.value);
+    if (id === 'tel') {
+      err.textContent = /^(070|080|090)/.test(normalizedPhone(input.value)) && !ok
+        ? '携帯番号の桁数は11桁です。'
+        : '電話番号を正しく入力してください';
+    }
     input.setAttribute('aria-invalid', ok ? 'false' : 'true');
     err.classList.toggle('is-shown', !ok);
     return ok;
@@ -315,6 +333,9 @@
       })
       .then(function (data) {
         if (!data.ok) throw new Error(data.message || '送信に失敗しました。時間をおいて再度お試しください。');
+        try {
+          sessionStorage.setItem('internet-hikkoshi-entry:application-phone', normalizedPhone(document.getElementById('tel').value));
+        } catch (e) {}
         window.location.replace('thanks.html');
       })
       .catch(function (err) {

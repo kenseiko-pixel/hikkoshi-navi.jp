@@ -1,6 +1,8 @@
-function initAreaForm(collectAttribution) {
-  var form = document.getElementById('areaForm');
+function initConsultationForm(collectAttribution) {
+  var form = document.getElementById('consultationForm');
+  var preferredTime = document.getElementById('consultationTime');
   var postal = document.getElementById('areaPostal');
+  var postalLookupButton = document.getElementById('postalLookupButton');
   var address = document.getElementById('areaAddress');
   var name = document.getElementById('areaName');
   var tel = document.getElementById('areaTel');
@@ -8,7 +10,61 @@ function initAreaForm(collectAttribution) {
   var status = document.getElementById('areaPostalStatus');
   var error = document.getElementById('areaError');
   var submitButton = form.querySelector('button[type="submit"]');
+  var stickyCta = document.getElementById('stickyCta');
+  var consultation = document.getElementById('consultation');
   var busy = false, revision = 0;
+  var formControlFocused = false, consultationVisible = false, visibilityFrame = 0;
+
+  function syncSticky() {
+    if (!stickyCta) return;
+    var shouldHide = formControlFocused || consultationVisible;
+    stickyCta.classList.toggle('is-hidden', shouldHide);
+    if (shouldHide) stickyCta.setAttribute('aria-hidden', 'true');
+    else stickyCta.removeAttribute('aria-hidden');
+  }
+
+  function updateConsultationVisibility() {
+    visibilityFrame = 0;
+    if (!consultation) return;
+    var rect = consultation.getBoundingClientRect();
+    var viewport = window.visualViewport;
+    var viewportTop = viewport ? viewport.offsetTop : 0;
+    var viewportBottom = viewportTop + (viewport ? viewport.height : window.innerHeight);
+    consultationVisible = rect.bottom > viewportTop && rect.top < viewportBottom;
+    syncSticky();
+  }
+
+  function requestConsultationVisibilityUpdate() {
+    if (visibilityFrame) return;
+    visibilityFrame = window.requestAnimationFrame(updateConsultationVisibility);
+  }
+
+  form.addEventListener('focusin', function(event) {
+    if (!event.target.matches('input, select, textarea')) return;
+    formControlFocused = true;
+    syncSticky();
+  });
+
+  form.addEventListener('focusout', function() {
+    window.setTimeout(function() {
+      var active = document.activeElement;
+      formControlFocused = !!(active && form.contains(active) && active.matches('input, select, textarea'));
+      updateConsultationVisibility();
+    }, 0);
+  });
+
+  window.addEventListener('scroll', requestConsultationVisibilityUpdate, {passive:true});
+  window.addEventListener('resize', requestConsultationVisibilityUpdate, {passive:true});
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', requestConsultationVisibilityUpdate, {passive:true});
+    window.visualViewport.addEventListener('scroll', requestConsultationVisibilityUpdate, {passive:true});
+  }
+  document.querySelectorAll('a[href="#consultation"]').forEach(function(link) {
+    link.addEventListener('click', function() {
+      consultationVisible = true;
+      syncSticky();
+    });
+  });
 
   function digits(value) {
     return value.replace(/[０-９]/g, function(c) {
@@ -16,36 +72,59 @@ function initAreaForm(collectAttribution) {
     }).replace(/[-\s()]+/g, '');
   }
 
-  [postal, address, name].forEach(function(input) {
-    input.addEventListener('input', function() {
-      input.removeAttribute('aria-invalid');
-      error.textContent = '';
+  function phoneState() {
+    var normalized = digits(tel.value).replace(/\D/g, '');
+    var mobile = /^(070|080|090)/.test(normalized);
+    var valid = mobile ? /^(070|080|090)\d{8}$/.test(normalized) : /^0\d{9,10}$/.test(normalized);
+    return {
+      valid: valid,
+      value: normalized,
+      message: mobile && !valid ? '携帯番号の桁数は11桁です。' : '電話番号を正しく入力してください。'
+    };
+  }
+
+  var rules = [
+    {input:postal, error:document.getElementById('areaPostalError'), valid:function() { return /^\d{7}$/.test(digits(postal.value)); }, message:'郵便番号を7桁で入力してください。'},
+    {input:address, error:document.getElementById('areaAddressError'), valid:function() { return address.value.trim() !== ''; }, message:'住所を入力してください。'},
+    {input:name, error:document.getElementById('areaNameError'), valid:function() { return name.value.trim() !== ''; }, message:'お名前を入力してください。'},
+    {input:tel, error:telError, valid:function() { return phoneState().valid; }, message:function() { return phoneState().message; }},
+    {input:preferredTime, error:document.getElementById('consultationTimeError'), valid:function() { return preferredTime.value !== ''; }, message:'ご希望の連絡時間帯を選択してください。'}
+  ];
+
+  function setFieldError(rule, show) {
+    var message = typeof rule.message === 'function' ? rule.message() : rule.message;
+    rule.error.textContent = message;
+    rule.error.classList.toggle('is-shown', show);
+    if (show) rule.input.setAttribute('aria-invalid', 'true');
+    else rule.input.removeAttribute('aria-invalid');
+  }
+
+  rules.forEach(function(rule) {
+    var eventName = rule.input.tagName === 'SELECT' ? 'change' : 'input';
+    rule.input.addEventListener(eventName, function() {
+      if (rule.valid()) setFieldError(rule, false);
+      else if (rule.input.getAttribute('aria-invalid') === 'true') setFieldError(rule, true);
+      if (!busy) error.textContent = '';
     });
   });
 
-  function syncPhone(showError) {
-    var normalized = digits(tel.value).replace(/\D/g, '').slice(0, 11);
-    var valid = /^0\d{9,10}$/.test(normalized);
-    if (showError && !valid) tel.setAttribute('aria-invalid', 'true');
-    else tel.removeAttribute('aria-invalid');
-    var show = showError && !valid;
-    telError.classList.toggle('is-shown', show);
-    error.textContent = '';
-    return {valid: valid, value: normalized};
-  }
-
-  tel.addEventListener('input', function() {
-    tel.removeAttribute('aria-invalid');
-    telError.classList.remove('is-shown');
-    error.textContent = '';
+  preferredTime.addEventListener('change', function() { error.textContent = ''; });
+  tel.addEventListener('blur', function() {
+    if (tel.value !== '' && !phoneState().valid) setFieldError(rules[3], true);
   });
-  tel.addEventListener('blur', function() { syncPhone(true); });
 
   address.addEventListener('input', function() { revision++; });
-  postal.addEventListener('input', function() {
+  function lookupAddress(showPostalError) {
     var code = digits(postal.value), request = ++revision;
     status.textContent = '';
-    if (!/^\d{7}$/.test(code)) return;
+    if (!/^\d{7}$/.test(code)) {
+      if (showPostalError) {
+        setFieldError(rules[0], true);
+        postal.focus();
+      }
+      return;
+    }
+    setFieldError(rules[0], false);
     postal.value = code.slice(0, 3) + '-' + code.slice(3);
     status.textContent = '住所を検索しています…';
     fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + code)
@@ -55,45 +134,46 @@ function initAreaForm(collectAttribution) {
         if (!data.results || !data.results.length) throw Error();
         var found = data.results[0];
         address.value = found.address1 + found.address2 + found.address3;
+        setFieldError(rules[1], false);
         status.textContent = '番地・建物名を追記してください。';
       })
       .catch(function() {
         if (request === revision) status.textContent = '住所を手入力してください。';
       });
+  }
+
+  postal.addEventListener('input', function() {
+    if (/^\d{7}$/.test(digits(postal.value))) lookupAddress(false);
   });
+  postalLookupButton.addEventListener('click', function() { lookupAddress(true); });
+  function focusFirstInvalid(firstInvalid) {
+    firstInvalid.focus({preventScroll:false});
+  }
 
   form.addEventListener('submit', function(event) {
     event.preventDefault();
     if (busy) return;
-    var rules = [
-      [postal, function(value) { return /^\d{7}$/.test(digits(value)); }, '郵便番号を7桁で入力してください。'],
-      [address, function(value) { return value.trim() !== ''; }, '住所を入力してください。'],
-      [name, function(value) { return value.trim() !== ''; }, 'お名前を入力してください。'],
-      [tel, function() { return syncPhone(false).valid; }, '電話番号を正しく入力してください。']
-    ];
     error.textContent = '';
+    var firstInvalid = null;
     for (var i = 0; i < rules.length; i++) {
-      rules[i][0].removeAttribute('aria-invalid');
-      if (!rules[i][1](rules[i][0].value)) {
-        if (rules[i][0] === tel) {
-          syncPhone(true);
-          tel.focus();
-        } else {
-          rules[i][0].setAttribute('aria-invalid', 'true');
-          rules[i][0].focus();
-        }
-        error.textContent = rules[i][2];
-        return;
-      }
+      var valid = rules[i].valid();
+      setFieldError(rules[i], !valid);
+      if (!valid && !firstInvalid) firstInvalid = rules[i].input;
+    }
+    if (firstInvalid) {
+      error.textContent = '未入力または入力内容に誤りがある項目をご確認ください。';
+      focusFirstInvalid(firstInvalid);
+      return;
     }
 
     var payload = new FormData(form), tracking = collectAttribution();
     Object.keys(tracking).forEach(function(key) { payload.set(key, tracking[key]); });
     payload.set('form_type', 'area');
+    payload.set('preferred_time', preferredTime.value);
     payload.set('postal', digits(postal.value));
     payload.set('address', address.value.trim());
     payload.set('name', name.value.trim());
-    payload.set('tel', syncPhone(false).value);
+    payload.set('tel', phoneState().value);
 
     busy = true;
     submitButton.disabled = true;
@@ -104,15 +184,19 @@ function initAreaForm(collectAttribution) {
       .then(function(response) { if (!response.ok) throw Error(); return response.json(); })
       .then(function(data) {
         if (data.ok !== true) throw Error();
-        try { sessionStorage.setItem('internet-hikkoshi-entry:area-complete', '1'); } catch(e) {}
-        location.replace('area-thanks.html');
+        try {
+          sessionStorage.setItem('internet-hikkoshi-entry:application-phone', phoneState().value);
+        } catch(e) {}
+        location.replace('thanks.html');
       })
       .catch(function() {
         error.textContent = '送信を確認できませんでした。時間をおいて再度お試しください。';
         busy = false;
         submitButton.disabled = false;
-        submitButton.innerHTML = '<span class="area-check__free">無料</span><span>エリア確認を依頼する</span>';
+        submitButton.textContent = 'エリア確認を依頼';
       })
       .finally(function() { clearTimeout(timeout); });
   });
+
+  updateConsultationVisibility();
 }

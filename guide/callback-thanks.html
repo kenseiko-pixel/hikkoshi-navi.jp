@@ -19,6 +19,25 @@
     :root{--blue:#1a6fd4;--navy:#12275e;--orange:#ff6a13;--text:#3a4256;--sub:#6b7590;--line:#e2e8f2;--pale:#f4f9ff}
     *,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;background:#eef2f7;color:var(--text);font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased}.page{width:100%;max-width:420px;min-height:100vh;margin:0 auto;background:#fff}.agency{margin:0;padding:7px 5px;background:#e9f3fb;color:#1a63c0;font-size:clamp(6px,2.15vw,9.5px);font-weight:700;text-align:center;white-space:nowrap}.header{padding:12px 20px;border-bottom:1px solid var(--line)}.logo{display:flex;align-items:center;gap:8px;color:var(--blue);font-size:12px;font-weight:900;line-height:1.25;text-decoration:none}.mark{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#3c91e9,#0d53a8);color:#fff;font-size:19px}.main{min-height:calc(100vh - 136px);display:grid;place-items:center;padding:44px 20px 54px;background:linear-gradient(180deg,#f4f9ff 0,#fff 72%)}.card{width:100%;padding:36px 20px 26px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 10px 30px rgba(18,39,94,.09);text-align:center}.check{display:grid;place-items:center;width:70px;height:70px;margin:0 auto 20px;border-radius:50%;background:#e8f5ed;color:#1f9254;font-size:35px;font-weight:900;box-shadow:0 5px 14px rgba(31,146,84,.15)}h1{margin:0;color:var(--navy);font-size:23px;line-height:1.5}h1 em{color:var(--orange);font-style:normal}.lead{margin:14px 0 0;color:var(--sub);font-size:13px}.guide{margin:24px 0 0;padding:15px 14px;border-radius:13px;background:var(--pale);text-align:left}.guide b{display:block;color:var(--navy);font-size:13px}.guide p{margin:5px 0 0;color:var(--sub);font-size:11.5px}.back{display:inline-block;margin-top:20px;color:var(--blue);font-size:12px;font-weight:700;text-decoration:underline;text-underline-offset:3px}.foot{padding:20px;background:#0d3f80;color:rgba(255,255,255,.7);font-size:9px;text-align:center}@media(min-width:421px){body{padding:18px 0}.page{border-radius:9px;overflow:hidden;box-shadow:0 10px 35px rgba(30,50,75,.14)}}
     .hours{margin:14px 0 0;color:var(--sub);font-size:11px}
+    .phone-confirm{margin:12px 0 0;padding:10px 11px;border:1px solid #dbe6f2;border-radius:6px;background:#fbfdff}.phone-confirm__label{margin:0;color:var(--navy);font-size:11.5px;font-weight:700;line-height:1.5}.phone-confirm__number{display:block;margin:3px 0 0;color:var(--navy);font-size:24px;line-height:1.3;letter-spacing:.03em}.guide{padding:20px 18px;border-radius:8px}.guide b{font-size:14px}.guide__call{display:grid;grid-template-columns:56px 1fr;align-items:baseline;gap:12px;margin-top:16px;padding:11px 0;border-top:1px solid #d6e4f2;border-bottom:1px solid #d6e4f2}.guide__call-label{color:#6b7890;font-size:10px;font-weight:700}.guide .guide__phone{display:block;color:#0867c8;font-size:20px;font-weight:900;line-height:1.2;letter-spacing:.015em;white-space:nowrap}.guide>p{margin:12px 0 0;font-size:11.5px;line-height:1.75}.guide__bookmark{display:grid;grid-template-columns:22px 1fr;gap:11px;align-items:start;margin-top:16px;padding-top:14px;border-top:1px solid #d6e4f2}.guide__bookmark-icon{position:relative;display:block;width:17px;height:21px;margin-top:2px;border:2px solid #0867c8;border-bottom:0;border-radius:2px 2px 0 0}.guide__bookmark-icon::after{position:absolute;left:2px;bottom:-5px;width:9px;height:9px;background:var(--pale);border-right:2px solid #0867c8;border-bottom:2px solid #0867c8;content:"";transform:rotate(45deg)}.guide__bookmark strong{position:relative;display:block;color:var(--navy);font-size:13px;font-weight:800;line-height:1.45}.guide__bookmark small{display:block;margin-top:3px;color:#718096;font-size:10px;font-weight:500;line-height:1.55}
+  </style>
+  <style>
+    .campaign{position:relative;display:block;overflow:hidden;margin:24px 0 0;padding:0;background:#0758ad url("img/thanks-campaign-bg-v4.png") center/cover no-repeat;border:0;border-radius:10px;box-shadow:none;color:#fff;text-align:center}
+    .campaign::before,.campaign::after{display:none}
+    .campaign__body{position:relative;z-index:1;min-width:0;aspect-ratio:1561/1008;padding:clamp(14px,4.5vw,20px) 8px}
+    .campaign__eyebrow{display:table;margin:0 auto;padding:4px clamp(12px,4vw,20px);border-bottom:2px solid #d9b243;background:#fff;color:#084d96;font-size:clamp(11px,3.4vw,14px);font-weight:900;line-height:1.45;letter-spacing:.01em;white-space:nowrap}
+    .campaign__offer{display:flex;align-items:flex-end;justify-content:center;gap:clamp(3px,1.4vw,7px);margin-top:clamp(9px,3vw,14px);white-space:nowrap}
+    .campaign__max{margin:0 0 5px;color:#fff;font-size:clamp(10px,3.2vw,14px);font-weight:900;line-height:1;letter-spacing:.02em}
+    .campaign__amount{display:flex;align-items:flex-end;color:#f4d34f;font-family:"Arial Narrow","Aptos Display","Helvetica Neue",Arial,sans-serif;font-weight:800;line-height:.9;white-space:nowrap}
+    .campaign__digits{font-size:clamp(34px,11.5vw,50px);font-variant-numeric:lining-nums tabular-nums;letter-spacing:-.02em}
+    .campaign__comma{margin:0 2px 3px;color:#f4d34f;font-family:Arial,"Helvetica Neue",sans-serif;font-size:clamp(30px,9vw,38px);font-weight:700;line-height:.82;letter-spacing:0}
+    .campaign__amount small{margin:0 0 4px 3px;color:#f4d34f;font-family:"Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:clamp(15px,4.5vw,19px);font-weight:900}
+    .campaign__cashback-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:clamp(2px,.8vw,5px)}
+    .campaign__cashback{margin:0;color:#fff;font-size:clamp(14px,4.6vw,20px);font-weight:900;line-height:1.3;letter-spacing:.04em;text-align:center;white-space:nowrap}
+    .campaign__cashback-line{width:clamp(18px,6vw,30px);height:1px;background:#d9b243}
+    @media(max-width:350px){.campaign__body{padding-left:6px;padding-right:6px}.campaign__digits{font-size:clamp(38px,12vw,42px)}.campaign__max{font-size:11px}.campaign__amount small{font-size:16px}.campaign__cashback-row{gap:6px}.campaign__cashback{font-size:15px}.campaign__cashback-line{width:16px}.campaign__eyebrow{font-size:11px}}
+    /* 一時非表示。再開時は次の1行を削除してください。 */
+    .campaign{display:none}
   </style>
 </head>
 <body>
@@ -33,10 +52,23 @@
       <section class="card">
         <span class="check" aria-hidden="true">✓</span>
         <h1>電話相談のご予約を<br><em>受け付けました</em></h1>
+        <div class="phone-confirm" id="phoneConfirm" hidden>
+          <p class="phone-confirm__label">電話番号にお間違いがないか、ご確認ください。</p>
+          <strong class="phone-confirm__number" id="submittedPhone"></strong>
+        </div>
         <p class="lead">ご予約ありがとうございます。<br>担当スタッフからの電話をお待ちください。</p>
         <div class="guide">
           <b>担当スタッフよりご連絡します</b>
-          <p>ご入力いただいた電話番号へ、050-5291-8061よりご希望の時間帯にご連絡します。</p>
+          <div class="guide__call"><span class="guide__call-label">着信番号</span><strong class="guide__phone">050-5291-8061</strong></div>
+          <p>こちらの番号よりご希望の時間帯にご連絡します。しばらくお待ちください。</p>
+          <div class="guide__bookmark"><span class="guide__bookmark-icon" aria-hidden="true"></span><span><strong>このページをブックマーク</strong><small>ご案内窓口や着信番号をあとから確認できます</small></span></div>
+        </div>
+        <div class="campaign">
+          <div class="campaign__body">
+            <p class="campaign__eyebrow">引越し限定キャンペーン実施中！</p>
+            <div class="campaign__offer"><span class="campaign__max">最大</span><strong class="campaign__amount" aria-label="70,000円"><span class="campaign__digits">70</span><span class="campaign__comma">,</span><span class="campaign__digits">000</span><small>円</small></strong></div>
+            <div class="campaign__cashback-row"><span class="campaign__cashback-line" aria-hidden="true"></span><p class="campaign__cashback">キャッシュバック</p><span class="campaign__cashback-line" aria-hidden="true"></span></div>
+          </div>
         </div>
         <p class="hours">営業時間：10:00〜20:00（年中無休）</p>
         <a class="back" href="index.html">トップページへ戻る</a>
@@ -47,6 +79,25 @@
 
   <!-- Google広告・Google Analyticsなどのコンバージョンタグは、このページへ設置してください。 -->
   <script>
+    function formatSubmittedPhone(value) {
+      var phone = String(value || '').replace(/\D/g, '');
+      if (/^0{11}$/.test(phone)) return '000-0000-0000';
+      if (/^0800\d{7}$/.test(phone)) return phone.slice(0,4) + '-' + phone.slice(4,7) + '-' + phone.slice(7);
+      if (/^(050|070|080|090)\d{8}$/.test(phone)) return phone.slice(0,3) + '-' + phone.slice(3,7) + '-' + phone.slice(7);
+      if (/^(03|06)\d{8}$/.test(phone)) return phone.slice(0,2) + '-' + phone.slice(2,6) + '-' + phone.slice(6);
+      if (/^0120\d{6}$/.test(phone)) return phone.slice(0,4) + '-' + phone.slice(4,7) + '-' + phone.slice(7);
+      if (/^0\d{9}$/.test(phone)) return phone.slice(0,3) + '-' + phone.slice(3,6) + '-' + phone.slice(6);
+      return phone;
+    }
+    try {
+      var submittedPhone = sessionStorage.getItem('internet-hikkoshi-entry:callback-phone');
+      var localPreview = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+      if (!submittedPhone && localPreview) submittedPhone = '00000000000';
+      if (submittedPhone) {
+        document.getElementById('submittedPhone').textContent = formatSubmittedPhone(submittedPhone);
+        document.getElementById('phoneConfirm').hidden = false;
+      }
+    } catch (e) {}
     // 正常送信後のみ予約完了イベントを一度送る。電話番号は計測へ渡さない。
     try {
       var key = 'internet-hikkoshi-entry:callback-complete';
