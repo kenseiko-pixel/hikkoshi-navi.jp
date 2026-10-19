@@ -14,6 +14,7 @@ const ATTRIBUTION_STORE_KEY = LP_CONFIG.lpName + ':attribution';
 function storePhoneForThanks(key, value) {
   try {
     sessionStorage.setItem(key, value);
+    sessionStorage.setItem(key + ':complete', '1');
   } catch {
     // 一時保存を利用できない環境でも、送信処理は妨げない。
   }

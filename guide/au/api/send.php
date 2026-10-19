@@ -128,7 +128,8 @@ if (preg_match('/^(0[789]0)(\d{4})(\d{4})$/', $phone, $matches)) {
     $phoneFormatted = $matches[1] . '-' . $matches[2] . '-' . $matches[3];
 }
 
-$body = "au引越しサイトにお問い合わせがありました。\n";
+$inquiryType = $isArea ? 'エリア確認' : ($isCallback ? '電話予約' : ($isEstimate ? 'お見積り' : 'お申し込み'));
+$body = "au引越しサイトに" . $inquiryType . "のお問い合わせがありました。\n";
 $body .= "https://net.hikkoshi-navi.jp/guide/au/\n\n";
 $body .= "---\n\n";
 if (!$isQuickForm) {
