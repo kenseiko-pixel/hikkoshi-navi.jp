@@ -3,7 +3,7 @@ declare(strict_types=1);
 session_start();
 
 const MAIL_TO = 'hikaricenter@012grp.co.jp';
-const MAIL_FROM = 'website@012grp.co.jp';
+const MAIL_FROM = 'contact-net-hikkoshi-navi@net.hikkoshi-navi.jp';
 
 function redirect_error(string $code): never {
     header('Location: ../application/?send=error&reason=' . rawurlencode($code) . '#application', true, 303);
@@ -68,37 +68,39 @@ $isEstimate = $formType === 'estimate';
 $isQuickForm = $isArea || $isCallback || $isEstimate;
 
 $procedure = line('procedure');
-$currentLine = line('current_line');
-$moving = line('moving');
 $name = $isQuickForm ? line('name') : line('customer_name');
 $phone = preg_replace('/\D+/', '', line($isQuickForm ? 'tel' : 'phone')) ?? '';
+$email = $isQuickForm ? '' : line('email');
 $postal = preg_replace('/\D+/', '', line('postal')) ?? '';
 $address = line('address');
 $housingType = line('housing_type');
-$contactTime = line('contact_time') ?: 'いつでも可';
 $preferredTime = line('preferred_time');
 $privacyConsent = line('privacy_consent');
 
 $allowedProcedures = ['新規申し込み', '他社からの乗りかえ', '引越し・住所移転相談'];
-$allowedMoving = ['あり', 'なし', '未定'];
+$allowedTimes = ['いつでも', '10-12時頃', '12-15時頃', '15-18時頃', '18時以降'];
+$isValidPhone = preg_match('/^(070|080|090)/', $phone)
+    ? preg_match('/^(070|080|090)\d{8}$/', $phone)
+    : preg_match('/^0\d{9,10}$/', $phone);
 if ($isCallback) {
-    $allowedTimes = ['いつでも', '10-12時頃', '12-15時頃', '15-18時頃', '18時以降'];
-    if ($name === '' || !preg_match('/^0\d{9,10}$/', $phone)) fail_request('contact', 'お名前と電話番号をご確認ください。');
-    if (!in_array($preferredTime, $allowedTimes, true)) fail_request('preferred_time', 'ご案内希望時間帯をご確認ください。');
+    if ($name === '' || !$isValidPhone) fail_request('contact', 'お名前と電話番号をご確認ください。');
+    if (!in_array($preferredTime, $allowedTimes, true)) fail_request('preferred_time', 'ご希望の連絡時間帯をご確認ください。');
 } elseif ($isArea) {
-    if ($name === '' || !preg_match('/^0\d{9,10}$/', $phone)) fail_request('contact', 'お名前と電話番号をご確認ください。');
+    if ($name === '' || !$isValidPhone) fail_request('contact', 'お名前と電話番号をご確認ください。');
     if (!preg_match('/^\d{7}$/', $postal) || $address === '') fail_request('address', '郵便番号と住所をご確認ください。');
+    if (!in_array($preferredTime, $allowedTimes, true)) fail_request('preferred_time', 'ご希望の連絡時間帯をご確認ください。');
 } elseif ($isEstimate) {
     $allowedHousingTypes = ['戸建住宅', '集合住宅'];
-    $allowedEstimateLines = ['auひかり', 'フレッツ光・他社光コラボ', 'その他の固定回線', 'ホームルーター・モバイルWi-Fi', '利用していない・不明'];
-    if ($name === '' || !preg_match('/^0\d{9,10}$/', $phone)) fail_request('contact', 'お名前と電話番号をご確認ください。');
+    if ($name === '' || !$isValidPhone) fail_request('contact', 'お名前と電話番号をご確認ください。');
     if (!preg_match('/^\d{7}$/', $postal)) fail_request('postal', '郵便番号をご確認ください。');
     if (!in_array($housingType, $allowedHousingTypes, true)) fail_request('housing_type', '住居タイプをご確認ください。');
-    if (!in_array($currentLine, $allowedEstimateLines, true)) fail_request('current_line', '現在利用中の回線をご確認ください。');
+    if (!in_array($preferredTime, $allowedTimes, true)) fail_request('preferred_time', 'ご希望の連絡時間帯をご確認ください。');
 } else {
-    if (!in_array($procedure, $allowedProcedures, true) || $currentLine === '' || !in_array($moving, $allowedMoving, true)) redirect_error('step1');
-    if ($name === '' || !preg_match('/^0\d{9,10}$/', $phone)) redirect_error('contact');
+    if (!in_array($procedure, $allowedProcedures, true)) redirect_error('procedure');
+    if ($name === '' || !$isValidPhone) redirect_error('contact');
+    if ($email !== '' && (strlen($email) > 254 || !filter_var($email, FILTER_VALIDATE_EMAIL))) redirect_error('email');
     if (!preg_match('/^\d{7}$/', $postal) || $address === '') redirect_error('address');
+    if (!in_array($preferredTime, $allowedTimes, true)) redirect_error('preferred_time');
     if ($privacyConsent !== '同意する') redirect_error('privacy_consent');
 }
 
@@ -126,28 +128,26 @@ if (preg_match('/^(0[789]0)(\d{4})(\d{4})$/', $phone, $matches)) {
     $phoneFormatted = $matches[1] . '-' . $matches[2] . '-' . $matches[3];
 }
 
-$mailType = $isCallback ? '電話相談予約' : ($isArea ? 'エリア確認' : ($isEstimate ? '見積り相談' : '申し込み相談'));
-$body = $mailType . "のお知らせです。\n\n";
-$body .= "=== 受付内容 ===\n";
+$body = "au引越しサイトにお問い合わせがありました。\n";
+$body .= "https://net.hikkoshi-navi.jp/guide/au/\n\n";
+$body .= "---\n\n";
 if (!$isQuickForm) {
     $body .= "[希望する手続き] " . $procedure . "\n";
-    $body .= "[現在利用中の回線] " . $currentLine . "\n";
-    $body .= "[引越し予定] " . $moving . "\n";
 }
 $body .= "[お名前] " . $name . "\n";
 $body .= "[連絡先電話番号] " . $phoneFormatted . "\n";
+if (!$isQuickForm && $email !== '') {
+    $body .= "[メールアドレス] " . $email . "\n";
+}
 if ($isArea || !$isQuickForm) {
     $body .= "[郵便番号] " . $postalFormatted . "\n";
     $body .= "[利用予定住所] " . $address . "\n";
 } elseif ($isEstimate) {
     $body .= "[住居タイプ] " . $housingType . "\n";
-    $body .= "[現在利用中の回線] " . $currentLine . "\n";
     $body .= "[郵便番号] " . $postalFormatted . "\n";
 }
-if ($isCallback) {
-    $body .= "[ご案内希望時間帯] " . $preferredTime . "\n";
-} elseif (!$isArea && !$isEstimate) {
-    $body .= "[連絡希望時間帯] " . $contactTime . "\n";
+$body .= "[ご希望の連絡時間帯] " . $preferredTime . "\n";
+if (!$isQuickForm) {
     $body .= "[個人情報の取扱い] 同意済み\n";
 }
 $body .= "[受付日時] " . date('Y-m-d H:i:s') . "\n";
@@ -157,11 +157,10 @@ if ($otherQueryParams !== []) {
     $body .= "[その他のURLパラメータ]\n";
     foreach ($otherQueryParams as $key => $value) $body .= $key . ' = ' . $value . "\n";
 }
-$body .= "================\n";
 
-$subject = '【' . $mailType . '】auひかり引越し相談サイトから受付がありました';
+$subject = '新お申し込み【インターネット引越し受付.com】';
 $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-$encodedFromName = '=?UTF-8?B?' . base64_encode('auひかり 引越し相談窓口') . '?=';
+$encodedFromName = '=?UTF-8?B?' . base64_encode('インターネット引越し受付.com') . '?=';
 $headers = "From: " . $encodedFromName . " <" . MAIL_FROM . ">\r\n";
 $headers .= "Reply-To: " . MAIL_FROM . "\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
@@ -171,6 +170,36 @@ $headers .= "Content-Transfer-Encoding: base64\r\n";
 $encodedBody = chunk_split(base64_encode($body), 76, "\r\n");
 $sent = mail(MAIL_TO, $encodedSubject, $encodedBody, $headers);
 if (!$sent) fail_request('mail', '送信できませんでした。時間をおいて再度お試しください。', 500);
+
+// メールアドレスが入力されたお申し込みに限り、受付内容をお客様へ自動返信します。
+if (!$isQuickForm && $email !== '') {
+    $customerSubject = '【auひかり引越し受付】お問い合わせありがとうございます';
+    $customerBody = $name . " 様\n\n";
+    $customerBody .= "この度はお問い合わせいただき、ありがとうございます。\n\n";
+    $customerBody .= "ご入力いただいた内容で受付いたしました。\n";
+    $customerBody .= "専門スタッフより順次ご連絡いたします。\n\n";
+    $customerBody .= "【ご入力内容】\n";
+    $customerBody .= "希望する手続き：" . $procedure . "\n";
+    $customerBody .= "お名前：" . $name . "\n";
+    $customerBody .= "電話番号：" . $phoneFormatted . "\n";
+    $customerBody .= "メールアドレス：" . $email . "\n";
+    $customerBody .= "郵便番号：" . $postalFormatted . "\n";
+    $customerBody .= "利用予定住所：" . $address . "\n";
+    $customerBody .= "ご希望の連絡時間帯：" . $preferredTime . "\n\n";
+    $customerBody .= "※本メールは配信専用のメールアドレスから送信しています。\n";
+    $customerBody .= "こちらのメールにご返信いただいても、回答することができません。\n\n";
+    $customerBody .= "インターネット引越し窓口\n";
+    $customerBody .= "TEL：050-5291-8061\n";
+    $customerBody .= "URL：https://net.hikkoshi-navi.jp/guide/au\n";
+    $customerBody .= "営業時間：10:00〜20:00（年中無休）\n";
+
+    $customerEncodedSubject = '=?UTF-8?B?' . base64_encode($customerSubject) . '?=';
+    $customerEncodedBody = chunk_split(base64_encode($customerBody), 76, "\r\n");
+    if (!mail($email, $customerEncodedSubject, $customerEncodedBody, $headers)) {
+        // 管理メールは送信済みのため受付は成功扱いとし、個人情報を含めず失敗だけを記録します。
+        error_log('Customer acknowledgement mail failed.');
+    }
+}
 
 $_SESSION['last_form_submit'] = $now;
 if ($isQuickForm) respond_json(200, true);

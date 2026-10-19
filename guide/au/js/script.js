@@ -11,6 +11,14 @@ const TRACKING_KEYS = [
 const BLOCKED_QUERY_KEY = /(?:password|passwd|pwd|token|secret|email|mail|phone|tel|name|address|postal|zipcode|session|auth|cookie)/i;
 const ATTRIBUTION_STORE_KEY = LP_CONFIG.lpName + ':attribution';
 
+function storePhoneForThanks(key, value) {
+  try {
+    sessionStorage.setItem(key, value);
+  } catch {
+    // 一時保存を利用できない環境でも、送信処理は妨げない。
+  }
+}
+
 function safeUrl(value) {
   try {
     const url = new URL(value, location.href);
@@ -73,6 +81,13 @@ function digits(value) {
     .replace(/\D/g, '');
 }
 
+function phoneValidationMessage(value) {
+  if (/^(070|080|090)/.test(value)) {
+    return /^(070|080|090)\d{8}$/.test(value) ? '' : '070・080・090から始まる携帯電話番号は11桁で入力してください。';
+  }
+  return /^0\d{9,10}$/.test(value) ? '' : '電話番号を10〜11桁の数字で入力してください。';
+}
+
 function setError(control, message) {
   control.classList.toggle('invalid', Boolean(message));
   control.setAttribute('aria-invalid', message ? 'true' : 'false');
@@ -86,7 +101,7 @@ function setError(control, message) {
   return !message;
 }
 
-async function submitJsonForm(form, payload, button, errorElement, successUrl) {
+async function submitJsonForm(form, payload, button, errorElement, successUrl, onSuccess) {
   const originalHtml = button.innerHTML;
   button.disabled = true;
   button.textContent = '送信中…';
@@ -98,6 +113,7 @@ async function submitJsonForm(form, payload, button, errorElement, successUrl) {
     const response = await fetch(form.action, { method: 'POST', body: payload, signal: controller.signal });
     const data = await response.json().catch(() => ({}));
     if (!response.ok || data.ok !== true) throw new Error(data.message || '送信できませんでした。');
+    if (typeof onSuccess === 'function') onSuccess();
     location.replace(successUrl);
   } catch {
     errorElement.textContent = '送信を確認できませんでした。入力内容を残していますので、時間をおいて再度お試しください。';
@@ -112,33 +128,8 @@ async function submitJsonForm(form, payload, button, errorElement, successUrl) {
 const applicationForm = document.querySelector('#application-form');
 if (applicationForm) {
   const trackingFields = applicationForm.querySelector('#tracking-fields');
-  const panels = [...applicationForm.querySelectorAll('.form-panel')];
-  const progress = [...applicationForm.querySelectorAll('.form-progress span')];
   const valueOf = (name) => applicationForm.querySelector(`[name="${name}"]:checked`)?.value || '';
-  const show = (step) => {
-    panels.forEach((panel) => {
-      const active = panel.dataset.formStep === String(step);
-      panel.hidden = !active;
-      panel.classList.toggle('active', active);
-    });
-    const progressStep = step === 'review' ? 1 : step === 'complete' ? 2 : 0;
-    progress.forEach((item, index) => item.classList.toggle('active', index <= progressStep));
-    applicationForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
   const setGroupError = (name, message) => setError(applicationForm.querySelector(`[name="${name}"]`).closest('.segmented'), message);
-
-  applicationForm.querySelector('.next-step').addEventListener('click', () => {
-    const checks = [
-      setGroupError('procedure', valueOf('procedure') ? '' : '希望する手続きを選択してください。'),
-      setError(applicationForm.elements.current_line, applicationForm.elements.current_line.value ? '' : '現在利用中の回線を選択してください。'),
-      setGroupError('moving', valueOf('moving') ? '' : '引っ越し予定を選択してください。')
-    ];
-    const valid = checks.every(Boolean);
-    document.querySelector('#step1-error').textContent = valid ? '' : '赤く表示された項目をご確認ください。';
-    if (valid) show(2);
-  });
-  applicationForm.querySelector('.back-step').addEventListener('click', () => show(1));
-  applicationForm.querySelector('.back-to-edit').addEventListener('click', () => show(2));
 
   const postal = applicationForm.querySelector('#postal');
   const address = applicationForm.querySelector('#address');
@@ -147,7 +138,7 @@ if (applicationForm) {
   address.addEventListener('input', () => postalRequest++);
   postal.addEventListener('input', async (event) => {
     const code = digits(event.target.value).slice(0, 7);
-    event.target.value = code;
+    event.target.value = code.length > 3 ? `${code.slice(0, 3)}-${code.slice(3)}` : code;
     setError(postal, '');
     postalStatus.className = 'postal-status';
     postalStatus.textContent = '';
@@ -172,52 +163,33 @@ if (applicationForm) {
     }
   });
 
-  applicationForm.querySelector('.review-step').addEventListener('click', () => {
+  applicationForm.addEventListener('submit', (event) => {
     const name = applicationForm.elements.customer_name.value.trim();
     const phone = digits(applicationForm.elements.phone.value);
-    const time = applicationForm.elements.contact_time.value;
+    const email = applicationForm.elements.email.value.trim();
+    const time = applicationForm.elements.preferred_time.value;
     const postalValue = digits(postal.value);
     const addressValue = address.value.trim();
     const consent = applicationForm.elements.privacy_consent.checked;
     const checks = [
+      setGroupError('procedure', valueOf('procedure') ? '' : '希望する手続きを選択してください。'),
       setError(applicationForm.elements.customer_name, name ? '' : 'お名前を入力してください。'),
-      setError(applicationForm.elements.phone, /^0\d{9,10}$/.test(phone) ? '' : '電話番号を10〜11桁の数字で入力してください。'),
+      setError(applicationForm.elements.phone, phoneValidationMessage(phone)),
+      setError(applicationForm.elements.email, !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? '' : 'メールアドレスの形式をご確認ください。'),
       setError(postal, /^\d{7}$/.test(postalValue) ? '' : '郵便番号を7桁の数字で入力してください。'),
       setError(address, addressValue ? '' : '利用予定住所を入力してください。'),
+      setError(applicationForm.elements.preferred_time, time ? '' : 'ご希望の連絡時間帯を選択してください。'),
       setError(applicationForm.elements.privacy_consent.closest('.consent'), consent ? '' : '個人情報の取扱いへの同意が必要です。')
     ];
     const valid = checks.every(Boolean);
-    document.querySelector('#step2-error').textContent = valid ? '' : '赤く表示された項目をご確認ください。';
+    document.querySelector('#application-error').textContent = valid ? '' : '赤く表示された項目をご確認ください。';
     if (!valid) {
+      event.preventDefault();
       applicationForm.querySelector('.invalid')?.focus();
       return;
     }
-    const rows = [
-      ['希望する手続き', valueOf('procedure')],
-      ['現在利用中の回線', applicationForm.elements.current_line.value],
-      ['引っ越し予定', valueOf('moving')],
-      ['お名前', name],
-      ['電話番号', phone],
-      ['郵便番号', postalValue],
-      ['利用予定住所', addressValue],
-      ['希望連絡時間', time || '指定なし']
-    ];
-    const reviewList = document.querySelector('#review-list');
-    reviewList.replaceChildren(...rows.map(([term, description]) => {
-      const row = document.createElement('div');
-      const dt = document.createElement('dt');
-      const dd = document.createElement('dd');
-      dt.textContent = term;
-      dd.textContent = description;
-      row.append(dt, dd);
-      return row;
-    }));
     setTrackingFields(trackingFields);
-    show('review');
-  });
-
-  applicationForm.addEventListener('submit', () => {
-    setTrackingFields(trackingFields);
+    storePhoneForThanks('au_application_contact_phone', phone);
     const button = applicationForm.querySelector('button[type="submit"]');
     button.disabled = true;
     button.textContent = '送信しています…';
@@ -240,6 +212,7 @@ if (areaForm) {
   const areaAddress = document.querySelector('#area-address');
   const areaName = document.querySelector('#area-name');
   const areaTel = document.querySelector('#area-tel');
+  const areaContactTime = document.querySelector('#area-contact-time');
   const areaStatus = document.querySelector('#area-postal-status');
   const areaError = document.querySelector('#area-error');
   const areaSubmit = document.querySelector('#area-submit');
@@ -273,6 +246,13 @@ if (areaForm) {
     }
   });
 
+  [areaAddress, areaName, areaTel, areaContactTime].forEach((control) => {
+    control.addEventListener(control.tagName === 'SELECT' ? 'change' : 'input', () => {
+      if (control.value) setError(control, '');
+      areaError.textContent = '';
+    });
+  });
+
   areaForm.addEventListener('submit', (event) => {
     event.preventDefault();
     if (areaSubmit.disabled) return;
@@ -282,7 +262,8 @@ if (areaForm) {
       setError(areaPostal, /^\d{7}$/.test(postalValue) ? '' : '郵便番号を7桁で入力してください。'),
       setError(areaAddress, areaAddress.value.trim() ? '' : '住所を入力してください。'),
       setError(areaName, areaName.value.trim() ? '' : 'お名前を入力してください。'),
-      setError(areaTel, /^0\d{9,10}$/.test(telValue) ? '' : '電話番号を10〜11桁で入力してください。')
+      setError(areaTel, phoneValidationMessage(telValue)),
+      setError(areaContactTime, areaContactTime.value ? '' : 'ご希望の連絡時間帯を選択してください。')
     ];
     if (!checks.every(Boolean)) {
       areaError.textContent = '赤く表示された項目をご確認ください。';
@@ -295,24 +276,22 @@ if (areaForm) {
     payload.set('name', areaName.value.trim());
     payload.set('tel', telValue);
     appendAttribution(payload);
-    submitJsonForm(areaForm, payload, areaSubmit, areaError, 'area-thanks.html');
+    submitJsonForm(areaForm, payload, areaSubmit, areaError, 'area-thanks.html', () => {
+      storePhoneForThanks('au_area_contact_phone', telValue);
+    });
   });
 }
 
 const estimateForm = document.querySelector('#estimate-form');
 if (estimateForm) {
   const estimateHousing = document.querySelector('#estimate-housing');
-  const estimateCurrentLine = document.querySelector('#estimate-current-line');
   const estimatePostal = document.querySelector('#estimate-postal');
   const estimateName = document.querySelector('#estimate-name');
   const estimateTel = document.querySelector('#estimate-tel');
+  const estimateContactTime = document.querySelector('#estimate-contact-time');
   const estimateError = document.querySelector('#estimate-error');
   const estimateSubmit = document.querySelector('#estimate-submit');
   const housingOptions = ['戸建住宅', '集合住宅'];
-  const currentLineOptions = [
-    'auひかり', 'フレッツ光・他社光コラボ',
-    'その他の固定回線', 'ホームルーター・モバイルWi-Fi', '利用していない・不明'
-  ];
 
   estimatePostal.addEventListener('input', () => {
     const code = digits(estimatePostal.value).slice(0, 7);
@@ -328,10 +307,10 @@ if (estimateForm) {
     const tel = digits(estimateTel.value);
     const checks = [
       setError(estimateHousing, housingOptions.includes(estimateHousing.value) ? '' : '住居タイプを選択してください。'),
-      setError(estimateCurrentLine, currentLineOptions.includes(estimateCurrentLine.value) ? '' : '現在利用中の回線を選択してください。'),
       setError(estimatePostal, /^\d{7}$/.test(postal) ? '' : '郵便番号を7桁で入力してください。'),
       setError(estimateName, name ? '' : 'お名前を入力してください。'),
-      setError(estimateTel, /^0\d{9,10}$/.test(tel) ? '' : '電話番号を10〜11桁で入力してください。')
+      setError(estimateTel, phoneValidationMessage(tel)),
+      setError(estimateContactTime, estimateContactTime.value ? '' : 'ご希望の連絡時間帯を選択してください。')
     ];
     if (!checks.every(Boolean)) {
       estimateError.textContent = '赤く表示された項目をご確認ください。';
@@ -344,10 +323,12 @@ if (estimateForm) {
     payload.set('name', name);
     payload.set('tel', tel);
     appendAttribution(payload);
-    submitJsonForm(estimateForm, payload, estimateSubmit, estimateError, 'estimate-thanks.html');
+    submitJsonForm(estimateForm, payload, estimateSubmit, estimateError, 'estimate-thanks.html', () => {
+      storePhoneForThanks('au_estimate_contact_phone', tel);
+    });
   });
 
-  [estimateHousing, estimateCurrentLine, estimateName, estimateTel].forEach((control) => {
+  [estimateHousing, estimateName, estimateTel, estimateContactTime].forEach((control) => {
     control.addEventListener(control.tagName === 'SELECT' ? 'change' : 'input', () => {
       if (control.value) setError(control, '');
       estimateError.textContent = '';
@@ -394,8 +375,8 @@ if (callbackDialog && callbackForm) {
     const allowedTimes = ['いつでも', '10-12時頃', '12-15時頃', '15-18時頃', '18時以降'];
     const checks = [
       setError(callbackName, name ? '' : 'お名前を入力してください。'),
-      setError(callbackTel, /^0\d{9,10}$/.test(tel) ? '' : '電話番号を10〜11桁で入力してください。'),
-      setError(callbackTime, allowedTimes.includes(callbackTime.value) ? '' : 'ご案内希望時間帯を選択してください。')
+      setError(callbackTel, phoneValidationMessage(tel)),
+      setError(callbackTime, allowedTimes.includes(callbackTime.value) ? '' : 'ご希望の連絡時間帯を選択してください。')
     ];
     if (!checks.every(Boolean)) {
       callbackError.textContent = '赤く表示された項目をご確認ください。';
@@ -407,7 +388,9 @@ if (callbackDialog && callbackForm) {
     payload.set('tel', tel);
     payload.set('preferred_time', callbackTime.value);
     appendAttribution(payload);
-    submitJsonForm(callbackForm, payload, callbackSubmit, callbackError, 'callback-thanks.html');
+    submitJsonForm(callbackForm, payload, callbackSubmit, callbackError, 'callback-thanks.html', () => {
+      storePhoneForThanks('au_callback_contact_phone', tel);
+    });
   });
 }
 
@@ -424,16 +407,17 @@ document.querySelectorAll('a[href="#area-check"]').forEach((link) => {
 
 const sticky = document.querySelector('.sticky');
 if (sticky) {
-  const visible = { area: false, form: false, final: false, footer: false };
+  const visible = { areaForm: false, estimateForm: false, final: false, footer: false };
   let stickyReady = scrollY > 240;
-  const updateSticky = () => sticky.classList.toggle('hidden', !stickyReady || Object.values(visible).some(Boolean));
+  let fieldFocused = false;
+  const updateSticky = () => sticky.classList.toggle('hidden', !stickyReady || fieldFocused || Object.values(visible).some(Boolean));
   addEventListener('scroll', () => {
     stickyReady = scrollY > 240;
     updateSticky();
   }, { passive: true });
   [
-    ['area', '#area-check'],
-    ['form', '#application'],
+    ['areaForm', '#area-form'],
+    ['estimateForm', '#estimate-form'],
     ['final', '#final-cta'],
     ['footer', '#footer']
   ].forEach(([key, selector]) => {
@@ -443,6 +427,17 @@ if (sticky) {
       visible[key] = entry.isIntersecting;
       updateSticky();
     }, { threshold: 0.08 }).observe(target);
+  });
+  document.addEventListener('focusin', (event) => {
+    if (!event.target.matches('input, select, textarea')) return;
+    fieldFocused = true;
+    updateSticky();
+  });
+  document.addEventListener('focusout', () => {
+    setTimeout(() => {
+      fieldFocused = document.activeElement?.matches('input, select, textarea') ?? false;
+      updateSticky();
+    }, 0);
   });
   updateSticky();
 }
