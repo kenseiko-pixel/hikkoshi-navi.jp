@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="site.css">
 <script src="area-form.js"></script>
 </head>
-<body>
+<body class="home-page">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBGR5MP9" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
@@ -54,10 +54,21 @@
       </span>
       <span class="logo__text">インターネット<br>引越し受付<span class="dotcom">.com</span></span>
     </div>
-    <button class="header-tel" type="button" data-callback aria-haspopup="dialog" aria-controls="callbackDialog" aria-label="電話相談の折り返しを予約する">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/></svg>
-      <span>電話相談</span>
-    </button>
+    <div class="header-actions">
+      <a class="header-contract" href="support.html">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M7 3.5h8l3 3v14H7z"/><path d="M15 3.5v4h4M9.5 12h6M9.5 15.5h4.5"/></svg>
+        <span>契約内容の確認はこちら</span>
+      </a>
+      <button class="header-tel" type="button" data-callback aria-haspopup="dialog" aria-controls="callbackDialog" aria-label="電話相談の折り返しを予約する">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/></svg>
+        <span>電話相談</span>
+      </button>
+      <a class="header-apply" href="application/">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 19h14M6.5 16.5l1-4.5L16 3.5l4.5 4.5-8.5 8.5z"/></svg>
+        <span>かんたんお申し込み</span>
+        <span class="header-apply__arrow" aria-hidden="true">›</span>
+      </a>
+    </div>
   </header>
 
   <!-- ========== FV（画像） ========== -->
@@ -65,9 +76,12 @@
   <h1 class="visually-hidden">インターネット・Wi-Fiの引越し・住所変更。面倒な手続きも、カンタン受付。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。</h1>
   <a class="fv-link" href="#consultation" aria-label="引越し先のエリア確認フォームへ進む">
     <figure class="fv">
-      <img src="img/fv-cashback-v21.png"
-           alt="インターネット・Wi-Fiの引越し・住所変更。面倒な手続きも、カンタン受付。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。専門スタッフが必要な手続きをご案内。新規やお乗り換えもまとめてサポート。"
-           width="941" height="1672" loading="eager" fetchpriority="high">
+      <picture class="fv__picture">
+        <source media="(min-width: 900px)" srcset="img/fv-cashback-pc-v8.png" width="1993" height="789">
+        <img src="img/fv-cashback-v21.png"
+             alt="インターネット・Wi-Fiの引越し・住所変更。面倒な手続きも、カンタン受付。WEB受付 最短60秒。対象のお申し込みで最大70,000円キャッシュバック。専門スタッフが必要な手続きをご案内。新規やお乗り換えもまとめてサポート。"
+             width="941" height="1672" loading="eager" fetchpriority="high">
+      </picture>
     </figure>
   </a>
 
@@ -97,16 +111,16 @@
   </section>
 
   <section class="section area-check" id="consultation" aria-labelledby="consultationTitle">
-    <h2 class="section-title" id="consultationTitle">引越し先のエリアをチェック</h2>
+    <h2 class="section-title" id="consultationTitle">まずは新居のエリアをチェック</h2>
     <p class="section-lead">ご住所をもとに、利用可能な回線を<br>専門スタッフがお電話でご案内します。</p>
     <form id="consultationForm" action="api/send.php" method="post" novalidate>
       <input type="hidden" name="form_type" value="area">
       <div class="hp" aria-hidden="true"><label>会社名<input name="company" tabindex="-1" autocomplete="off"></label></div>
-      <div class="field"><label class="field__label" for="areaPostal">郵便番号 <span class="req">必須</span></label><div class="postal-entry"><input id="areaPostal" name="postal" inputmode="numeric" autocomplete="postal-code" placeholder="123-4567" maxlength="8" required aria-describedby="areaPostalStatus areaPostalError"><button class="postal-entry__button" id="postalLookupButton" type="button">住所を入力</button></div><p id="areaPostalStatus" class="postal-status" role="status"></p><p class="field__error" id="areaPostalError">郵便番号を7桁で入力してください。</p></div>
-      <div class="field"><label class="field__label" for="areaAddress">住所 <span class="req">必須</span></label><input id="areaAddress" name="address" autocomplete="street-address" placeholder="都道府県・市区町村・番地・建物名" maxlength="200" required aria-describedby="areaAddressError"><p class="field__error" id="areaAddressError">住所を入力してください。</p></div>
-      <div class="field"><label class="field__label" for="areaName">お名前 <span class="req">必須</span></label><input id="areaName" name="name" autocomplete="name" placeholder="山田 太郎" maxlength="50" required aria-describedby="areaNameError"><p class="field__error" id="areaNameError">お名前を入力してください。</p></div>
-      <div class="field"><label class="field__label" for="areaTel">電話番号 <span class="req">必須</span></label><input id="areaTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="09012345678" maxlength="20" required aria-describedby="areaTelError"><p class="field__error" id="areaTelError">電話番号を正しく入力してください。</p></div>
-      <div class="field"><label class="field__label" for="consultationTime">ご希望の連絡時間帯 <span class="req">必須</span></label><select id="consultationTime" name="preferred_time" required aria-describedby="consultationTimeError"><option value="">選択してください</option><option value="いつでも">いつでも</option><option value="10-12時頃">10-12時頃</option><option value="12-15時頃">12-15時頃</option><option value="15-18時頃">15-18時頃</option><option value="18時以降">18時以降</option></select><p class="field__error" id="consultationTimeError">ご希望の連絡時間帯を選択してください。</p></div>
+      <div class="field area-check__field area-check__field--postal"><label class="field__label" for="areaPostal">郵便番号 <span class="req">必須</span></label><div class="postal-entry"><input id="areaPostal" name="postal" inputmode="numeric" autocomplete="postal-code" placeholder="123-4567" maxlength="8" required aria-describedby="areaPostalStatus areaPostalError"><button class="postal-entry__button" id="postalLookupButton" type="button">住所を入力</button></div><p id="areaPostalStatus" class="postal-status" role="status"></p><p class="field__error" id="areaPostalError">郵便番号を7桁で入力してください。</p></div>
+      <div class="field area-check__field area-check__field--address"><label class="field__label" for="areaAddress">住所 <span class="req">必須</span></label><input id="areaAddress" name="address" autocomplete="street-address" placeholder="都道府県・市区町村・番地・建物名" maxlength="200" required aria-describedby="areaAddressError"><p class="field__error" id="areaAddressError">住所を入力してください。</p></div>
+      <div class="field area-check__field area-check__field--name"><label class="field__label" for="areaName">お名前 <span class="req">必須</span></label><input id="areaName" name="name" autocomplete="name" placeholder="山田 太郎" maxlength="50" required aria-describedby="areaNameError"><p class="field__error" id="areaNameError">お名前を入力してください。</p></div>
+      <div class="field area-check__field area-check__field--tel"><label class="field__label" for="areaTel">電話番号 <span class="req">必須</span></label><input id="areaTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="09012345678" maxlength="20" required aria-describedby="areaTelError"><p class="field__error" id="areaTelError">電話番号を正しく入力してください。</p></div>
+      <div class="field area-check__field area-check__field--time"><label class="field__label" for="consultationTime">ご希望の連絡時間帯 <span class="req">必須</span></label><select id="consultationTime" name="preferred_time" required aria-describedby="consultationTimeError"><option value="">選択してください</option><option value="いつでも">いつでも</option><option value="10-12時頃">10-12時頃</option><option value="12-15時頃">12-15時頃</option><option value="15-18時頃">15-18時頃</option><option value="18時以降">18時以降</option></select><p class="field__error" id="consultationTimeError">ご希望の連絡時間帯を選択してください。</p></div>
       <p id="areaError" class="callback-dialog__error" role="alert"></p>
       <button class="submit area-check__submit" type="submit">エリア確認を依頼</button>
     </form>
@@ -243,7 +257,7 @@
   </section>
 
   <!-- ========== 引越しの流れ ========== -->
-  <section class="section section--tint">
+  <section class="section section--tint flow-section">
     <h2 class="section-title" style="margin:4px 0 24px;">引越しの流れ</h2>
 
     <ol class="flow">
@@ -297,7 +311,7 @@
   </section>
 
   <!-- ========== STEP5 FAQ ========== -->
-  <section class="section">
+  <section class="section faq-section">
     <h2 class="section-title section-title--rule">よくあるご質問</h2>
 
     <div class="faq">
@@ -427,7 +441,7 @@
   </footer>
 
   <!-- ========== 追従CTA ========== -->
-  <div class="sticky" id="stickyCta">
+  <div class="sticky is-hidden" id="stickyCta" aria-hidden="true">
     <div class="sticky__row">
       <a class="sticky__choice sticky__choice--area" id="stickyAreaCheck" href="#consultation">エリア確認</a>
       <a class="sticky__choice sticky__choice--apply" href="application/">お申し込み</a>

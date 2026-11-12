@@ -37,6 +37,39 @@
     /* 一時非表示。再開時は次の1行を削除してください。 */
     .campaign{display:none}
   </style>
++  <style>
+    @media(min-width:900px){
+      body{padding:0;background:#f1f7fd}
+      .page{display:flex;flex-direction:column;max-width:none;min-height:100vh;border-radius:0;overflow:visible;box-shadow:none}
+      .agency{padding:8px 16px;font-size:11px}
+      .header{padding:14px clamp(32px,6vw,96px);background:#fff}
+      .logo{max-width:1180px;margin:0 auto;font-size:15px}
+      .mark{width:40px;height:40px;font-size:22px}
+      .main{position:relative;isolation:isolate;overflow:hidden;flex:1;min-height:auto;padding:48px 32px 64px;background:linear-gradient(145deg,rgba(74,174,235,.08) 0 11%,transparent 11.2%) left top/35% 100% no-repeat,linear-gradient(325deg,rgba(26,111,212,.06) 0 9%,transparent 9.2%) right bottom/33% 100% no-repeat,linear-gradient(180deg,#f4faff 0%,#eaf5ff 100%)}
+      .main::before,.main::after{position:absolute;z-index:0;width:150px;height:310px;pointer-events:none;content:""}
+      .main::before{left:12px;top:70px;background:linear-gradient(146deg,transparent 0 47.3%,rgba(26,111,212,.2) 47.7% 49.2%,transparent 49.6%) left top/150px 118px no-repeat,linear-gradient(154deg,transparent 0 47.2%,rgba(74,174,235,.14) 47.7% 49.4%,transparent 49.8%) left center/132px 110px no-repeat}
+      .main::after{right:12px;bottom:48px;background:linear-gradient(146deg,transparent 0 47.3%,rgba(26,111,212,.18) 47.7% 49.2%,transparent 49.6%) right top/150px 118px no-repeat,linear-gradient(154deg,transparent 0 47.2%,rgba(74,174,235,.13) 47.7% 49.4%,transparent 49.8%) right center/132px 110px no-repeat}
+      .card{position:relative;z-index:1;max-width:760px;padding:42px 54px 34px;border:2px solid #7fb2e3;border-radius:4px;box-shadow:none}
+      .check{width:82px;height:82px;margin-bottom:22px;font-size:40px}
+      h1{font-size:30px;line-height:1.45}
+      .lead{font-size:15px}
+      .phone-confirm{max-width:560px;margin:16px auto 0;padding:13px 16px}
+      .phone-confirm__label{font-size:13px}
+      .phone-confirm__number{font-size:28px}
+      .guide{max-width:560px;margin:28px auto 0;padding:24px 26px}
+      .guide b{font-size:16px}
+      .guide__call{grid-template-columns:90px 1fr;margin-top:18px;padding:13px 0}
+      .guide__call-label{font-size:12px}
+      .guide .guide__phone{font-size:26px}
+      .guide>p{font-size:13px}
+      .guide__bookmark{grid-template-columns:24px 1fr}
+      .guide__bookmark strong{font-size:15px}
+      .guide__bookmark small{font-size:11px}
+      .hours{font-size:12px}
+      .back{font-size:13px}
+      .foot{padding:24px;font-size:10px}
+    }
+  </style>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->

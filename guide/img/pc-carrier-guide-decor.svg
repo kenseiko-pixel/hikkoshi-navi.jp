@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 2200" preserveAspectRatio="none">
+  <path d="M0 0H104L58 72H0Z" fill="#edf4f9"/>
+  <path d="M1920 2200H1816L1862 2128H1920Z" fill="#edf4f9"/>
+  <g fill="none" stroke-linecap="square" vector-effect="non-scaling-stroke">
+    <path d="M58 260V620H126" stroke="#d6e5f0" stroke-width="1.5"/>
+    <path d="M1862 1580V1940H1794" stroke="#d6e5f0" stroke-width="1.5"/>
+  </g>
+</svg>

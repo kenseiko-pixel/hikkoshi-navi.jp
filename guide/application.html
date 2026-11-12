@@ -12,7 +12,7 @@
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<base href="/guide/">
+<base href="<?= htmlspecialchars($baseHref, ENT_QUOTES, 'UTF-8') ?>">
 <title>お申し込み｜引越し・住所変更 受付窓口</title>
 <meta name="description" content="引越しでネット回線をどうするか迷ったら。今の回線をそのまま移転するか、他社へ乗り換えるか。専門スタッフが無料で診断し、条件達成で最大70,000円キャッシュバック。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,19 @@
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 <div class="page">
-<header class="application-header"><p class="application-header__brand">引越し・住所変更 受付窓口</p><span class="application-header__badge">WEBから24時間受付</span><h1>引越しのお申し込み</h1><p class="application-header__lead">新しい暮らしのネット手続きを、スムーズに。</p></header>
+<header class="application-header">
+  <div class="application-header__inner">
+    <p class="application-header__brand">引越し・住所変更 受付窓口</p>
+    <div class="application-header__meta">
+      <span class="application-header__badge">WEBから24時間受付</span>
+      <span class="application-header__meta-note">専門スタッフがご案内</span>
+    </div>
+    <div class="application-header__title">
+      <h1>引越しのお申し込み</h1>
+      <p class="application-header__lead">新しい暮らしのネット手続きを、スムーズに。</p>
+    </div>
+  </div>
+</header>
 <div class="application-support" id="applicationSupport" hidden>
   <p>すでに開通済みの方</p>
   <a class="existing-support-link" href="support.html"><span class="existing-support-link__copy"><strong>契約内容の確認・解約のみの方はこちら</strong></span><span class="existing-support-link__arrow" aria-hidden="true">›</span></a>
@@ -43,14 +55,14 @@
         <div id="tracking-fields"></div>
         <input type="hidden" id="procedure" name="procedure" value="引越し・移転">
 
-        <div class="field">
+        <div class="field application-field--name">
           <label class="field__label" for="name">お名前 <span class="req">必須</span></label>
           <input type="text" id="name" name="name" autocomplete="name"
                  placeholder="山田 太郎" required aria-describedby="name-error">
           <p class="field__error" id="name-error">お名前を入力してください</p>
         </div>
 
-        <div class="field">
+        <div class="field application-field--postal">
           <label class="field__label" for="postal">郵便番号 <span class="req">必須</span></label>
           <input type="text" id="postal" name="postal" autocomplete="postal-code" inputmode="numeric"
                  maxlength="8" placeholder="450-0001" required aria-describedby="postal-status postal-error">
@@ -58,14 +70,14 @@
         </div>
         <p class="postal-status" id="postal-status" aria-live="polite"></p>
 
-        <div class="field">
+        <div class="field application-field--address">
           <label class="field__label" for="address">住所 <span class="req">必須</span></label>
           <input type="text" id="address" name="address" autocomplete="street-address"
                  placeholder="愛知県名古屋市中村区" required aria-describedby="address-error">
           <p class="field__error" id="address-error">住所を入力してください</p>
         </div>
 
-        <div class="field">
+        <div class="field application-field--tel">
           <label class="field__label" for="tel">電話番号 <span class="req">必須</span></label>
           <input type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel"
                  placeholder="09012345678" required aria-describedby="tel-hint tel-error">
@@ -73,14 +85,14 @@
           <p class="field__error" id="tel-error">電話番号を正しく入力してください</p>
         </div>
 
-        <div class="field">
+        <div class="field application-field--email">
           <label class="field__label" for="email">メールアドレス <span class="optional">任意</span></label>
           <input type="email" id="email" name="email" autocomplete="email" inputmode="email"
                  placeholder="example@mail.com" aria-describedby="email-error">
           <p class="field__error" id="email-error">メールアドレスを正しく入力してください</p>
         </div>
 
-        <div class="field" id="currentLineField">
+        <div class="field application-field--current-line" id="currentLineField">
           <label class="field__label" for="current-line">現在利用中の回線 <span class="req">必須</span></label>
           <select id="current-line" name="current_line" required aria-describedby="current-line-error"><option value="">選択してください</option><option>ドコモ光</option><option>SoftBank 光</option><option>auひかり</option><option>フレッツ光</option><option>その他の光回線</option><option>ホームルーター・WiMAX</option><option>利用していない</option><option>分からない</option></select>
           <p class="field__error" id="current-line-error">現在利用中の回線を選択してください</p>

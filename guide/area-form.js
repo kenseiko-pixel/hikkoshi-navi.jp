@@ -14,10 +14,12 @@ function initConsultationForm(collectAttribution) {
   var consultation = document.getElementById('consultation');
   var busy = false, revision = 0;
   var formControlFocused = false, consultationVisible = false, visibilityFrame = 0;
+  var stickyScrollReady = window.innerWidth < 900 || window.scrollY > 80;
 
   function syncSticky() {
     if (!stickyCta) return;
-    var shouldHide = formControlFocused || consultationVisible;
+    stickyScrollReady = window.innerWidth < 900 || window.scrollY > 80;
+    var shouldHide = !stickyScrollReady || formControlFocused || consultationVisible;
     stickyCta.classList.toggle('is-hidden', shouldHide);
     if (shouldHide) stickyCta.setAttribute('aria-hidden', 'true');
     else stickyCta.removeAttribute('aria-hidden');
