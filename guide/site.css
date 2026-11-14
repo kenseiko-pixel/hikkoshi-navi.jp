@@ -581,6 +581,7 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
 .area-check .field__error.is-shown{display:block;margin:6px 0 0;}
 .area-check .section-lead{margin-bottom:18px;}
 .cta,.header-tel,.sticky__choice,.submit,.callback-dialog .submit,.route-option,.faq__toggle{border-radius:4px;}
+.pc-route-guide,.pc-carriers{display:none;}
 
 /* ============================================================
    PC layout（SPの見た目は維持し、900px以上だけを最適化）
@@ -647,6 +648,70 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
     object-fit:cover;
     object-position:center bottom;
   }
+
+  .home-page .pc-route-guide{
+    position:relative;
+    z-index:2;
+    display:block;
+    padding:20px clamp(32px,5vw,72px) 18px;
+    border-top:1px solid #dce8f3;
+    border-bottom:1px solid #d4e2ef;
+    background:#fff;
+    text-align:center;
+  }
+  .home-page .pc-route-guide__title{
+    margin:0 0 12px;
+    color:#294d73;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:.04em;
+  }
+  .home-page .pc-route-guide__choices{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+    width:100%;
+    max-width:920px;
+    margin:0 auto;
+  }
+  .home-page .pc-route-guide__choice{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:72px;
+    padding:10px 42px 11px 18px;
+    border:2px solid currentColor;
+    border-radius:4px;
+    font-weight:900;
+    line-height:1.35;
+    box-shadow:0 4px 12px rgba(18,39,94,.08);
+    transition:transform .2s,filter .2s;
+  }
+  .home-page .pc-route-guide__choice:hover{transform:translateY(-1px);filter:brightness(.98);}
+  .home-page .pc-route-guide__choice span{font-size:12px;font-weight:700;opacity:.9;}
+  .home-page .pc-route-guide__choice strong{margin-top:3px;font-size:17px;}
+  .home-page .pc-route-guide__choice b{position:absolute;right:18px;font-size:26px;font-weight:500;line-height:1;}
+  .home-page .pc-route-guide__choice--area{background:#f5f9ff;color:#176dcc;}
+  .home-page .pc-route-guide__choice--apply{border-color:#f26608;background:#f56808;color:#fff;}
+  .home-page .pc-route-guide__phone{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    margin:11px auto 0;
+    padding:4px 10px;
+    border:0;
+    border-bottom:1px solid #8fb5d9;
+    background:transparent;
+    color:#315d87;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .home-page .pc-route-guide__phone:hover{color:var(--c-blue);}
+  .home-page .pc-route-guide__phone:focus-visible{outline:3px solid #ffd82e;outline-offset:3px;}
 
   /* 縦の短いPC画面では、ヘッダー分だけを除いた高さまでFVを拡大する */
   @media (max-height:760px){
@@ -782,37 +847,56 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
     align-self:end;
     margin:0;
   }
-
   .home-page .fv-carriers{
+    display:none;
+  }
+  .home-page .pc-carriers{
     position:relative;
-    isolation:isolate;
-    overflow:hidden;
     display:block;
-    padding:36px 56px 46px;
+    padding:26px 48px 30px;
     border-top:1px solid #dce8f3;
     border-bottom:1px solid #dce8f3;
     background:#fff;
+    text-align:center;
   }
-  .home-page .fv-carriers::before,
-  .home-page .fv-carriers::after{
-    display:none;
+  .home-page .pc-carriers h2{
+    margin:0 0 12px;
+    color:var(--c-navy);
+    font-size:20px;
+    font-weight:900;
   }
-  .home-page .fv-carriers > *{position:relative;z-index:1;}
-  .home-page .fv-carriers h2{
-    margin:0 0 16px;
-    font-size:22px;
-  }
-  .home-page .fv-carriers__logos{
+  .home-page .pc-carriers__logos{
+    position:relative;
+    overflow:hidden;
+    aspect-ratio:1024/320;
     width:100%;
-    max-width:960px;
+    max-width:760px;
     margin:0 auto;
   }
-  .home-page .fv-carriers p{
-    margin:12px 0 0;
+  .home-page .pc-carriers__logos img{
+    position:absolute;
+    left:0;
+    top:0;
+    display:block;
+    width:100%;
+    height:auto;
+    transform:translateY(-72.9166667%);
+  }
+  .home-page .pc-carriers__links{
+    position:absolute;
+    inset:1.5625% 3.90625%;
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-rows:repeat(2,minmax(0,1fr));
+    gap:2.5% 1%;
+  }
+  .home-page .pc-carriers__links a{display:block;min-width:0;}
+  .home-page .pc-carriers__links a:focus-visible{outline:3px solid var(--c-blue);outline-offset:-3px;}
+  .home-page .pc-carriers p{
+    margin:10px 0 0;
+    color:var(--c-text-sub);
     font-size:13px;
   }
-  .home-page .fv-carriers__apply,
-  .home-page .fv-carriers .existing-support-link{display:none;}
 
   .home-page .section{padding:72px 64px;}
   .home-page .section-title{font-size:28px;}
@@ -1041,7 +1125,7 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
   }
   .application-page .application-header{
     overflow:hidden;
-    padding:24px clamp(28px,4vw,72px);
+    padding:16px clamp(28px,4vw,72px);
     text-align:left;
   }
   .application-page .application-header::before,
@@ -1078,7 +1162,7 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
     align-items:center;
     column-gap:32px;
     max-width:760px;
-    min-height:170px;
+    min-height:126px;
     margin:0 auto;
   }
   .application-page .application-header__title{
@@ -1099,8 +1183,8 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
   .application-page .application-header__brand{
     grid-area:brand;
     align-self:end;
-    margin:0 0 8px;
-    font-size:16px;
+    margin:0 0 4px;
+    font-size:15px;
     letter-spacing:.055em;
   }
   .application-page .application-header__badge{
@@ -1120,8 +1204,8 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
     font-weight:700;
     text-align:center;
   }
-  .application-page .application-header h1{font-size:32px;line-height:1.35;}
-  .application-page .application-header__lead{margin-top:7px;font-size:14px;}
+  .application-page .application-header h1{font-size:30px;line-height:1.3;}
+  .application-page .application-header__lead{margin-top:5px;font-size:13px;}
   .application-page .application-support{
     display:grid;
     grid-template-columns:max-content minmax(0,1fr);
@@ -1157,7 +1241,7 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
     isolation:isolate;
     overflow:hidden;
     max-width:none;
-    padding:44px clamp(32px,6vw,80px) 68px;
+    padding:26px clamp(32px,6vw,80px) 54px;
     background:#eef4f9;
   }
   .application-page .form-sec::before{
@@ -1181,10 +1265,10 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
   .application-page .form-sec > *{position:relative;z-index:1;}
   .application-page .application-heading{
     justify-content:center;
-    font-size:25px;
+    font-size:23px;
   }
   .application-page .application-lead{
-    margin:10px auto 20px;
+    margin:8px auto 14px;
     max-width:720px;
     text-align:center;
   }

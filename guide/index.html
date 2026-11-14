@@ -85,6 +85,26 @@
     </figure>
   </a>
 
+  <section class="pc-route-guide" aria-label="お手続き方法を選択">
+    <p class="pc-route-guide__title">ご希望に合わせてお進みください</p>
+    <div class="pc-route-guide__choices">
+      <a class="pc-route-guide__choice pc-route-guide__choice--area" href="#consultation">
+        <span>回線がまだ決まっていない方</span>
+        <strong>引越し先で使える回線を確認</strong>
+        <b aria-hidden="true">›</b>
+      </a>
+      <a class="pc-route-guide__choice pc-route-guide__choice--apply" href="application/">
+        <span>申し込む回線が決まっている方</span>
+        <strong>お申し込みを進める</strong>
+        <b aria-hidden="true">›</b>
+      </a>
+    </div>
+    <button class="pc-route-guide__phone" type="button" data-callback aria-haspopup="dialog" aria-controls="callbackDialog">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/></svg>
+      電話で相談する
+    </button>
+  </section>
+
   <section class="fv-carriers" aria-labelledby="fvCarriersTitle">
     <h2 id="fvCarriersTitle">各種インターネット回線に対応</h2>
     <div class="fv-carriers__logos">
@@ -124,6 +144,24 @@
       <p id="areaError" class="callback-dialog__error" role="alert"></p>
       <button class="submit area-check__submit" type="submit">エリア確認を依頼</button>
     </form>
+  </section>
+
+  <section class="pc-carriers" aria-labelledby="pcCarriersTitle">
+    <h2 id="pcCarriersTitle">各種インターネット回線に対応</h2>
+    <div class="pc-carriers__logos">
+      <img src="img/hikkoshi_FV.png" width="1024" height="1536" alt="" loading="lazy">
+      <div class="pc-carriers__links">
+        <a href="application/softbank-air/" aria-label="SoftBank Airのお申し込みフォームへ"></a>
+        <a href="application/softbank-hikari/" aria-label="SoftBank 光のお申し込みフォームへ"></a>
+        <a href="application/flets/" aria-label="フレッツ光のお申し込みフォームへ"></a>
+        <a href="application/jcom/" aria-label="J:COMのお申し込みフォームへ"></a>
+        <a href="application/docomo-hikari/" aria-label="ドコモ光のお申し込みフォームへ"></a>
+        <a href="application/au-hikari/" aria-label="auひかりのお申し込みフォームへ"></a>
+        <a href="application/biglobe/" aria-label="BIGLOBEのお申し込みフォームへ"></a>
+        <a href="application/sonet/" aria-label="So-net 光のお申し込みフォームへ"></a>
+      </div>
+    </div>
+    <p>その他の回線もご相談ください</p>
   </section>
 
   <section class="section carrier-guide" aria-labelledby="carrierGuideTitle">
