@@ -20,27 +20,47 @@
 <link rel="stylesheet" href="site.css">
 <script src="area-form.js"></script>
 <style>
-  .start-gate{width:min(620px,calc(100% - 32px));max-height:calc(100dvh - 32px);margin:auto;padding:0;overflow:auto;border:0;border-radius:8px;background:#fff;color:#082b63;box-shadow:0 24px 70px rgba(0,24,62,.3);}
-  .start-gate::backdrop{background:rgba(16,24,34,.42);}
-  .start-gate__head{padding:25px 28px 11px;background:#fff;text-align:center;}
-  .start-gate h2{margin:0;color:#163b67;font-size:clamp(21px,3vw,25px);font-weight:800;line-height:1.5;letter-spacing:.02em;}
-  .start-gate__lead{margin:8px 0 0;color:#4f6985;font-size:14px;font-weight:500;line-height:1.75;}
-  .start-gate__body{padding:11px 28px 26px;}
-  .start-gate__choices{display:grid;gap:11px;}
-  .start-gate__choice{position:relative;display:flex;width:100%;min-height:66px;align-items:center;justify-content:center;padding:12px 44px 12px 20px;border:2px solid transparent;border-radius:5px;font:inherit;font-size:16px;font-weight:900;line-height:1.45;text-align:center;cursor:pointer;}
-  .start-gate__choice::after{content:"›";position:absolute;right:18px;top:50%;transform:translateY(-52%);font-size:27px;font-weight:500;line-height:1;}
-  .start-gate__choice--move{border-color:#f26608;background:#f56808;color:#fff;box-shadow:0 5px 12px rgba(230,91,0,.18);}
-  .start-gate__choice--new{border-color:#176dcc;background:#f3f8ff;color:#0b62bd;}
+  .start-gate{width:min(570px,calc(100% - 32px));max-height:calc(100dvh - 32px);margin:auto;padding:0;overflow:auto;border:0;border-radius:28px;background:#fff;color:#082b63;box-shadow:0 26px 70px rgba(0,24,62,.32);}
+  .start-gate::backdrop{background:rgba(13,40,79,.58);backdrop-filter:blur(4px);}
+  .start-gate__head{padding:27px 30px 12px;background:#fff;text-align:center;}
+  .start-gate__heading{display:inline-flex;align-items:center;justify-content:center;gap:10px;color:#1a6fd4;}
+  .start-gate__brand-mark{display:block;width:36px;height:36px;flex:0 0 auto;}
+  .start-gate__brand-mark svg{display:block;width:100%;height:100%;}
+  .start-gate__label{margin:0;color:inherit;font-size:17px;font-weight:900;line-height:1.4;letter-spacing:.03em;}
+  .start-gate__body{padding:12px 30px 32px;}
+  .start-gate__notice{margin:0 0 17px;color:#27384f;font-size:13px;font-weight:700;line-height:1.7;text-align:center;}
+  .start-gate__notice strong{color:#ef5a13;font-weight:900;}
+  .start-gate__choices{display:grid;gap:14px;}
+  .start-gate__choice{position:relative;display:grid;width:100%;min-height:100px;grid-template-columns:48px minmax(0,1fr) 18px;gap:14px;align-items:center;padding:15px 18px;border:2px solid #d2dfed;border-radius:11px;background:#f4f8fc;color:#0b326b;font:inherit;text-align:left;cursor:pointer;box-shadow:0 5px 0 #c5d2df;}
+  .start-gate__choice--primary{border-color:#ff9b62;background:#f66713;color:#fff;box-shadow:0 5px 0 #c94a00;}
+  .start-gate__icon{display:grid;width:46px;height:46px;place-items:center;border-radius:50%;background:#1a6fd4;color:#fff;}
+  .start-gate__choice--primary .start-gate__icon{background:#fff;color:#f26722;}
+  .start-gate__icon svg{display:block;width:29px;height:29px;}
+  .start-gate__copy{display:block;min-width:0;}
+  .start-gate__title{display:block;color:inherit;font-size:17px;font-weight:900;line-height:1.42;}
+  .start-gate__emphasis{font-size:24px;letter-spacing:.04em;}
+  .start-gate__title-small{font-size:13px;font-weight:700;}
+  .start-gate__description{display:block;margin-top:2px;color:#718197;font-size:11px;font-weight:500;line-height:1.45;}
+  .start-gate__choice--primary .start-gate__description{color:#fff;}
+  .start-gate__arrow{color:#1470d1;font-size:28px;font-weight:700;line-height:1;}
+  .start-gate__choice--primary .start-gate__arrow{color:#fff;}
   .start-gate__choice:hover{filter:brightness(.98);}
-  .start-gate__choice:focus-visible,.start-gate__support:focus-visible{outline:3px solid #ffd82e;outline-offset:3px;}
-  .start-gate__support{position:relative;display:flex;min-height:54px;align-items:center;justify-content:center;margin-top:13px;padding:10px 40px 10px 16px;border:1px solid #a9bfd5;border-radius:4px;background:#fff;color:#284f77;font-size:14px;font-weight:800;text-align:center;}
-  .start-gate__support::after{content:"›";position:absolute;right:17px;font-size:22px;line-height:1;}
+  .start-gate__choice:focus-visible{outline:3px solid #ffd82e;outline-offset:3px;}
   @media(max-width:480px){
     .start-gate{width:calc(100% - 24px);max-height:calc(100dvh - 24px);}
-    .start-gate__head{padding:20px 18px 9px;}
-    .start-gate__body{padding:10px 18px 21px;}
-    .start-gate__lead{font-size:12px;}
-    .start-gate__choice{min-height:62px;padding-left:12px;font-size:15px;}
+    .start-gate__head{padding:26px 22px 11px;}
+    .start-gate__brand-mark{width:31px;height:31px;}
+    .start-gate__label{font-size:16px;}
+    .start-gate__body{padding:11px 16px 27px;}
+    .start-gate__notice{margin-bottom:14px;font-size:12px;}
+    .start-gate__choices{gap:13px;}
+    .start-gate__choice{min-height:94px;grid-template-columns:44px minmax(0,1fr) 14px;gap:11px;padding:13px 14px;}
+    .start-gate__icon{width:42px;height:42px;}
+    .start-gate__icon svg{width:27px;height:27px;}
+    .start-gate__title{font-size:15px;}
+    .start-gate__emphasis{font-size:21px;}
+    .start-gate__title-small{font-size:12px;}
+    .start-gate__description{font-size:11px;}
   }
 </style>
 </head>
@@ -49,17 +69,37 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBGR5MP9" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-<dialog class="start-gate" id="startGate" aria-labelledby="startGateTitle" aria-describedby="startGateLead">
+<dialog class="start-gate" id="startGate" aria-labelledby="startGateTitle">
   <div class="start-gate__head">
-    <h2 id="startGateTitle">ご希望の内容に応じて最適な窓口へご案内します</h2>
-    <p class="start-gate__lead" id="startGateLead">該当する項目をお選びください</p>
+    <div class="start-gate__heading" id="startGateTitle">
+      <span class="start-gate__brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="21" fill="#1a6fd4"/>
+          <g stroke="#fff" stroke-width="1.6">
+            <circle cx="24" cy="24" r="21"/>
+            <ellipse cx="24" cy="24" rx="9" ry="21"/>
+            <ellipse cx="24" cy="24" rx="17" ry="21"/>
+            <path d="M3 24h42M6.4 13.5h35.2M6.4 34.5h35.2"/>
+          </g>
+        </svg>
+      </span>
+      <p class="start-gate__label">インターネット引越し受付</p>
+    </div>
   </div>
   <div class="start-gate__body">
+    <p class="start-gate__notice">こちらのサイトは、<strong>新規お申し込み</strong>または<br><strong>お引越し手続き専用</strong>の窓口となっております。</p>
     <div class="start-gate__choices">
-      <button class="start-gate__choice start-gate__choice--move" type="button" data-start-choice="move">引越し・住所変更をしたい</button>
-      <button class="start-gate__choice start-gate__choice--new" type="button" data-start-choice="new">新規契約・乗り換えを検討している</button>
+      <button class="start-gate__choice start-gate__choice--primary" type="button" data-start-choice="move">
+        <span class="start-gate__icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7h23v25H9z"/><path d="M14 13h13M14 18h10M14 23h7"/><path d="m24 34 2.1-7.2L38 14.9l5.1 5.1-11.9 11.9z"/><path d="m35.5 17.5 5 5M24 34l7.2-2.1"/></svg></span>
+        <span class="start-gate__copy"><strong class="start-gate__title"><span class="start-gate__emphasis">新規</span><span class="start-gate__title-small">の申し込み</span><br><span class="start-gate__emphasis">引越し</span><span class="start-gate__title-small">の手続き</span></strong></span>
+        <span class="start-gate__arrow" aria-hidden="true">›</span>
+      </button>
+      <a class="start-gate__choice" href="support.html" data-start-choice="support">
+        <span class="start-gate__icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 23v-4a9 9 0 0 1 18 0v4"/><path d="M12 23a4 4 0 0 1 4-4h1v10h-1a4 4 0 0 1-4-4zM36 23a4 4 0 0 0-4-4h-1v10h1a4 4 0 0 0 4-4z"/><path d="M20 29c1.5 2.5 6.5 2.5 8 0M35.5 27v3.5c0 3-2.5 5.5-5.5 5.5h-3"/><circle cx="25" cy="36" r="2"/><path d="M8 42c1.8-6.2 6.8-9.4 12-10M40 42c-1.5-5-5-8-9-9.5"/></svg></span>
+        <span class="start-gate__copy"><strong class="start-gate__title">契約内容の確認・解約手続き</strong><span class="start-gate__description">料金・プランの確認や解約をしたい方</span></span>
+        <span class="start-gate__arrow" aria-hidden="true">›</span>
+      </a>
     </div>
-    <a class="start-gate__support" href="support.html" data-start-choice="support">契約内容の確認・解約のみの方はこちら</a>
   </div>
 </dialog>
 <script>
@@ -88,10 +128,12 @@
       gate.close();
     });
   });
-  gate.querySelector('[data-start-choice="support"]').addEventListener('click', function () {
-    selected = 'support';
-    recordChoice(selected);
-    try { sessionStorage.setItem('internet-hikkoshi-entry:existing-user', '1'); } catch (e) {}
+  gate.querySelectorAll('a[data-start-choice]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      selected = link.getAttribute('data-start-choice') || 'support';
+      recordChoice(selected);
+      try { sessionStorage.setItem('internet-hikkoshi-entry:existing-user', '1'); } catch (e) {}
+    });
   });
   gate.addEventListener('cancel', function (event) { event.preventDefault(); });
   gate.addEventListener('close', function () { document.body.classList.remove('modal-open'); });
