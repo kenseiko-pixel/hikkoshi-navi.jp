@@ -38,6 +38,7 @@
   .start-gate__icon svg{display:block;width:29px;height:29px;}
   .start-gate__copy{display:block;min-width:0;}
   .start-gate__title{display:block;color:inherit;font-size:17px;font-weight:900;line-height:1.42;}
+  .start-gate__choice:not(.start-gate__choice--primary) .start-gate__title{white-space:nowrap;}
   .start-gate__emphasis{font-size:24px;letter-spacing:.04em;}
   .start-gate__title-small{font-size:13px;font-weight:700;}
   .start-gate__description{display:block;margin-top:2px;color:#718197;font-size:11px;font-weight:500;line-height:1.45;}
@@ -57,10 +58,13 @@
     .start-gate__choice{min-height:94px;grid-template-columns:44px minmax(0,1fr) 14px;gap:11px;padding:13px 14px;}
     .start-gate__icon{width:42px;height:42px;}
     .start-gate__icon svg{width:27px;height:27px;}
-    .start-gate__title{font-size:15px;}
+    .start-gate__choice:not(.start-gate__choice--primary) .start-gate__title{font-size:16px;}
     .start-gate__emphasis{font-size:21px;}
     .start-gate__title-small{font-size:12px;}
     .start-gate__description{font-size:11px;}
+  }
+  @media(max-width:340px){
+    .start-gate__choice:not(.start-gate__choice--primary) .start-gate__title{font-size:15px;letter-spacing:-.02em;}
   }
 </style>
 </head>
@@ -96,7 +100,7 @@
       </button>
       <a class="start-gate__choice" href="support.html" data-start-choice="support">
         <span class="start-gate__icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 23v-4a9 9 0 0 1 18 0v4"/><path d="M12 23a4 4 0 0 1 4-4h1v10h-1a4 4 0 0 1-4-4zM36 23a4 4 0 0 0-4-4h-1v10h1a4 4 0 0 0 4-4z"/><path d="M20 29c1.5 2.5 6.5 2.5 8 0M35.5 27v3.5c0 3-2.5 5.5-5.5 5.5h-3"/><circle cx="25" cy="36" r="2"/><path d="M8 42c1.8-6.2 6.8-9.4 12-10M40 42c-1.5-5-5-8-9-9.5"/></svg></span>
-        <span class="start-gate__copy"><strong class="start-gate__title">契約内容の確認・解約手続き</strong><span class="start-gate__description">料金・プランの確認や解約をしたい方</span></span>
+        <span class="start-gate__copy"><strong class="start-gate__title">契約内容の確認・解約</strong><span class="start-gate__description">料金・プランの確認や解約をしたい方</span></span>
         <span class="start-gate__arrow" aria-hidden="true">›</span>
       </a>
     </div>
