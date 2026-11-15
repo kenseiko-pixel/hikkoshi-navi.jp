@@ -187,7 +187,8 @@ function initConsultationForm(collectAttribution) {
       .then(function(data) {
         if (data.ok !== true) throw Error();
         try {
-          sessionStorage.setItem('internet-hikkoshi-entry:application-phone', phoneState().value);
+          sessionStorage.setItem('internet-hikkoshi-entry:area-phone', phoneState().value);
+          sessionStorage.setItem('internet-hikkoshi-entry:area-complete', '1');
         } catch(e) {}
         location.replace('area-thanks.html');
       })
