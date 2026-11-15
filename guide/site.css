@@ -555,7 +555,6 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
 .application-header[data-carrier="sonet"]{--header-start:#8b1856;--header-end:#aa256e;--header-accent:#edb0d0;}
 .application-header__brand{margin-bottom:18px;font-size:clamp(18px,5vw,22px);font-weight:900;letter-spacing:.025em;line-height:1.45;}
 .application-header__inner,.application-header__meta,.application-header__title{display:contents;}
-.application-header__meta-note{display:none;}
 .application-header__badge{display:inline-block;padding:4px 9px;margin-bottom:10px;border:1px solid currentColor;font-size:12px;letter-spacing:.05em;}
 .application-header h1{font-size:clamp(24px,6.2vw,30px);font-weight:900;letter-spacing:.03em;line-height:1.5;}
 .application-header__lead{margin-top:9px;font-size:13px;line-height:1.7;opacity:.95;}
@@ -1156,9 +1155,7 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
     z-index:1;
     display:grid;
     grid-template-columns:minmax(0,1fr) 220px;
-    grid-template-areas:
-      "brand meta"
-      "title meta";
+    grid-template-areas:"title meta";
     align-items:center;
     column-gap:32px;
     max-width:760px;
@@ -1168,8 +1165,14 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
   .application-page .application-header__title{
     grid-area:title;
     display:block;
-    align-self:start;
+    align-self:center;
   }
+  .application-page .application-header[data-carrier] .application-header__inner{
+    grid-template-areas:
+      "brand meta"
+      "title meta";
+  }
+  .application-page .application-header[data-carrier] .application-header__title{align-self:start;}
   .application-page .application-header__meta{
     grid-area:meta;
     display:flex;
@@ -1195,14 +1198,6 @@ body.existing-user a[href^="tel:"],body.existing-user [data-callback]{display:no
     text-align:center;
     font-size:13px;
     font-weight:700;
-  }
-  .application-page .application-header__meta-note{
-    display:block;
-    color:inherit;
-    opacity:.82;
-    font-size:12px;
-    font-weight:700;
-    text-align:center;
   }
   .application-page .application-header h1{font-size:30px;line-height:1.3;}
   .application-page .application-header__lead{margin-top:5px;font-size:13px;}

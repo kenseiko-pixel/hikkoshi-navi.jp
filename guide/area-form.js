@@ -189,7 +189,7 @@ function initConsultationForm(collectAttribution) {
         try {
           sessionStorage.setItem('internet-hikkoshi-entry:application-phone', phoneState().value);
         } catch(e) {}
-        location.replace('thanks.html');
+        location.replace('area-thanks.html');
       })
       .catch(function() {
         error.textContent = '送信を確認できませんでした。時間をおいて再度お試しください。';
