@@ -85,26 +85,6 @@
     </figure>
   </a>
 
-  <section class="pc-route-guide" aria-label="お手続き方法を選択">
-    <p class="pc-route-guide__title">ご希望に合わせてお進みください</p>
-    <div class="pc-route-guide__choices">
-      <a class="pc-route-guide__choice pc-route-guide__choice--area" href="#consultation">
-        <span>回線がまだ決まっていない方</span>
-        <strong>引越し先で使える回線を確認</strong>
-        <b aria-hidden="true">›</b>
-      </a>
-      <a class="pc-route-guide__choice pc-route-guide__choice--apply" href="application/">
-        <span>申し込む回線が決まっている方</span>
-        <strong>お申し込みを進める</strong>
-        <b aria-hidden="true">›</b>
-      </a>
-    </div>
-    <button class="pc-route-guide__phone" type="button" data-callback aria-haspopup="dialog" aria-controls="callbackDialog">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3h2.2c.5 0 .9.3 1 .8l.9 3.3c.1.4 0 .8-.4 1l-1.8 1.3a13 13 0 0 0 5.9 5.9l1.3-1.8c.2-.3.6-.5 1-.4l3.3.9c.5.1.8.5.8 1v2.2c0 1.5-1.2 2.8-2.8 2.8C10.7 20 4 13.3 4 5.8 4 4.2 5.2 3 6.6 3Z"/></svg>
-      電話で相談する
-    </button>
-  </section>
-
   <section class="fv-carriers" aria-labelledby="fvCarriersTitle">
     <h2 id="fvCarriersTitle">各種インターネット回線に対応</h2>
     <div class="fv-carriers__logos">
@@ -488,6 +468,32 @@
 
 </div>
 
+<dialog class="pc-offer-dialog" id="pcOfferDialog" aria-labelledby="pcOfferTitle" aria-describedby="pcOfferDescription">
+  <div class="pc-offer-dialog__brand">
+    <span class="pc-offer-dialog__brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" fill="#1a6fd4"/><g stroke="#fff" stroke-width="1.6"><circle cx="24" cy="24" r="21"/><ellipse cx="24" cy="24" rx="9" ry="21"/><ellipse cx="24" cy="24" rx="17" ry="21"/><path d="M3 24h42M6.4 13.5h35.2M6.4 34.5h35.2"/></g></svg>
+    </span>
+    <strong>インターネット引越し受付</strong>
+    <button class="pc-offer-dialog__close" type="button" aria-label="案内を閉じる">×</button>
+  </div>
+  <div class="pc-offer-dialog__hero">
+    <h2 id="pcOfferTitle">引越し・住所変更手続き</h2>
+    <span class="pc-offer-dialog__illustration" aria-hidden="true">
+      <svg viewBox="0 0 112 64" fill="none"><path d="M8 38h57v16H8z" fill="#fff" opacity=".95"/><path d="M14 25h36l12 13H14z" fill="#8ed2ff"/><path d="M18 29h27v9H18z" fill="#1a6fd4"/><circle cx="24" cy="55" r="7" fill="#fff"/><circle cx="52" cy="55" r="7" fill="#fff"/><rect x="55" y="7" width="42" height="32" rx="2" fill="#fff"/><path d="M51 41h50" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="76" cy="23" r="10" stroke="#1a6fd4" stroke-width="1.6"/><path d="M66 23h20M76 13c3 3 4.5 6.3 4.5 10S79 30 76 33M76 13c-3 3-4.5 6.3-4.5 10S73 30 76 33" stroke="#1a6fd4" stroke-width="1.2"/></svg>
+    </span>
+    <p id="pcOfferDescription"><strong>11月・12月</strong>のインターネット申込手続きは<br>工事が非常に混み合いますので、<br>引越し先が決まり次第、お手続きください。</p>
+  </div>
+  <div class="pc-offer-dialog__actions">
+    <p class="pc-offer-dialog__prompt"><span aria-hidden="true">＼</span> 最短でお手続き可能！ <span aria-hidden="true">／</span></p>
+    <a class="pc-offer-dialog__action pc-offer-dialog__action--web" href="application/" id="pcOfferWeb">
+      <strong>WEBで手続き</strong><small>24時間受付 最短60秒</small>
+    </a>
+    <button class="pc-offer-dialog__action pc-offer-dialog__action--phone" type="button" id="pcOfferPhone">
+      <strong>電話で手続き</strong><small>年中無休・通話無料</small>
+    </button>
+  </div>
+</dialog>
+
 <dialog class="callback-dialog" id="callbackDialog" aria-labelledby="callbackTitle" aria-describedby="callbackLead">
   <button class="callback-dialog__close" type="button" aria-label="電話予約を閉じる">×</button>
   <h2 id="callbackTitle">お電話でのご相談</h2>
@@ -647,6 +653,12 @@ document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(fun
   var callbackTime = document.getElementById('callbackTime');
   var callbackError = document.getElementById('callbackError');
   var callbackSubmit = document.getElementById('callbackSubmit');
+  var pcOfferDialog = document.getElementById('pcOfferDialog');
+  var pcOfferWeb = document.getElementById('pcOfferWeb');
+  var pcOfferPhone = document.getElementById('pcOfferPhone');
+  var pcOfferMedia = window.matchMedia('(min-width:900px)');
+  var pcOfferStorageKey = 'internet-hikkoshi-entry:pc-offer-seen';
+  var pcOfferTimer = 0;
   var callbackBusy = false;
   var callbackTrigger = null;
   // 将来、開通状況の確認ステップを戻す場合は true に変更する。
@@ -684,6 +696,45 @@ document.querySelectorAll('.carrier-guide__service[data-card-href]').forEach(fun
   document.querySelectorAll('[data-callback]').forEach(function (trigger) {
     trigger.addEventListener('click', function () { openCallback(trigger); });
   });
+  function hasSeenPcOffer() {
+    try { return sessionStorage.getItem(pcOfferStorageKey) === '1'; } catch (e) { return false; }
+  }
+  function markPcOfferSeen() {
+    try { sessionStorage.setItem(pcOfferStorageKey, '1'); } catch (e) {}
+  }
+  function schedulePcOffer() {
+    window.clearTimeout(pcOfferTimer);
+    if (!pcOfferDialog || !pcOfferMedia.matches || hasSeenPcOffer() || document.body.classList.contains('existing-user')) return;
+    pcOfferTimer = window.setTimeout(function () {
+      if (pcOfferDialog.open || callbackDialog.open || document.body.classList.contains('existing-user')) return;
+      pcOfferDialog.showModal();
+      document.body.classList.add('modal-open');
+      pcOfferWeb.focus();
+    }, 1000);
+  }
+  pcOfferDialog.querySelector('.pc-offer-dialog__close').addEventListener('click', function () { pcOfferDialog.close(); });
+  pcOfferDialog.addEventListener('click', function (event) {
+    if (event.target === pcOfferDialog) pcOfferDialog.close();
+  });
+  pcOfferDialog.addEventListener('close', function () {
+    markPcOfferSeen();
+    if (!callbackDialog.open) document.body.classList.remove('modal-open');
+  });
+  pcOfferWeb.addEventListener('click', markPcOfferSeen);
+  pcOfferPhone.addEventListener('click', function () {
+    markPcOfferSeen();
+    pcOfferDialog.close();
+    window.setTimeout(function () { openCallback(document.querySelector('.header-tel')); }, 0);
+  });
+  pcOfferMedia.addEventListener('change', function () {
+    if (!pcOfferMedia.matches) {
+      window.clearTimeout(pcOfferTimer);
+      if (pcOfferDialog.open) pcOfferDialog.close();
+      return;
+    }
+    schedulePcOffer();
+  });
+  schedulePcOffer();
   callbackDialog.querySelector('.callback-dialog__close').addEventListener('click', function () {
     if (!callbackBusy) callbackDialog.close();
   });
