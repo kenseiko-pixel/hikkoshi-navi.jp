@@ -1,0 +1,531 @@
+.application-page {
+  background: #eef0f2;
+  color: #292321;
+}
+
+.application-page .site-shell {
+  background: #fff;
+}
+
+.application-page .site-header {
+  height: 58px;
+  padding-inline: 16px;
+  border-bottom: 1px solid #e2e4e6;
+}
+
+.application-page .site-header .au-hikari-logo {
+  width: 128px;
+}
+
+.application-page .site-header .brand-sub {
+  min-width: 0;
+  padding-left: 11px;
+  border-left-width: 1px;
+}
+
+.application-page .site-header .brand-sub small {
+  font-size: 9px;
+}
+
+.application-page .site-header .brand-sub b {
+  font-size: 11px;
+}
+
+.application-page .section.application {
+  min-height: 0;
+  padding: 0;
+  background: #fff;
+}
+
+.application-page .application-heading {
+  min-height: 64px;
+  padding: 16px;
+  display: grid;
+  place-items: center;
+  background: #eb5505;
+  color: #fff;
+  text-align: center;
+}
+
+.application-page .application-heading__service {
+  margin: 0 0 4px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.application-page .application-heading h1 {
+  margin: 0;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: .02em;
+}
+
+.application-page .application-steps {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 10px;
+  padding: 16px;
+  background: #fff;
+}
+
+.application-page .application-steps__label {
+  margin: 0;
+  color: #505960;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.application-page .application-progress {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  background: #fff;
+}
+
+.application-page .application-progress li {
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: #72777b;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.application-page .application-progress li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 12px;
+  left: 50%;
+  width: 100%;
+  height: 1px;
+  background: #b9bfc4;
+}
+
+.application-page .application-progress li > span {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid #7b858e;
+  border-radius: 50%;
+  background: #fff;
+  color: #505960;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.application-page .application-progress li > b {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.application-page .application-progress li[aria-current="step"],
+.application-page .application-progress li.is-complete {
+  color: #292321;
+}
+
+.application-page .application-progress li[aria-current="step"] > span,
+.application-page .application-progress li.is-complete > span {
+  border-color: #eb5505;
+  background: #eb5505;
+  color: #fff;
+}
+
+.application-page .application-progress li[aria-current="step"] > b {
+  font-weight: 800;
+}
+
+.application-page .application-intro {
+  margin: 0;
+  padding: 0 16px 13px;
+  color: #606467;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.application-page #application-form {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #f3f4f5;
+  box-shadow: none;
+}
+
+.application-page #application-form .form-panel {
+  min-width: 0;
+}
+
+.application-page #application-form .form-panel[hidden],
+.application-page [data-application-panel][hidden] {
+  display: none !important;
+}
+
+.application-page .application-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.application-page .application-group > h2 {
+  margin: 0;
+  padding: 7px 16px;
+  border: 0;
+  background: #eb5505;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: .015em;
+}
+
+.application-page .application-group__body {
+  padding: 12px 16px;
+  background: #f3f4f5;
+}
+
+.application-page #application-form .field,
+.application-page #application-form .form-panel legend {
+  margin: 0 0 10px;
+  color: #292321;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.application-page #application-form .form-panel fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.application-page #application-form .form-panel legend {
+  margin-bottom: 8px;
+}
+
+.application-page #application-form .field > b,
+.application-page #application-form .form-panel legend > b,
+.application-page #application-form .consent b {
+  margin-left: 4px;
+  padding: 1px 4px;
+  border-radius: 1px;
+  background: #eb5505;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  vertical-align: 1px;
+}
+
+.application-page #application-form .field > span {
+  margin-left: 4px;
+  color: #777c80;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.application-page #application-form input:not([type="radio"]):not([type="checkbox"]):not([type="hidden"]),
+.application-page #application-form select {
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  padding: 0 10px;
+  border: 1px solid #bbc1c6;
+  border-radius: 2px;
+  background: #fff;
+  color: #292321;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  box-shadow: none;
+}
+
+.application-page #application-form .field > input {
+  display: block;
+  margin-top: 5px !important;
+}
+
+.application-page #application-form .field:last-child {
+  margin-bottom: 0;
+}
+
+.application-page #application-form input::placeholder {
+  color: #969da3;
+  font-size: 13px;
+}
+
+.application-page #application-form .segmented {
+  gap: 6px;
+  border-radius: 2px;
+}
+
+.application-page #application-form .segmented span {
+  min-height: 40px;
+  padding: 5px 2px;
+  border-color: #bbc1c6;
+  border-radius: 2px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.application-page #application-form .segmented input:checked + span {
+  border-color: #eb5505;
+  background: #fff3ec;
+  color: #ad3800;
+  box-shadow: inset 0 0 0 1px #eb5505;
+}
+
+.application-page #application-form .segmented input:focus-visible + span {
+  outline: 2px solid #292321;
+  outline-offset: 2px;
+}
+
+.application-page #application-form #postal-status {
+  margin: -3px 0 9px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.application-page #application-form #postal-status:empty {
+  display: none;
+}
+
+.application-page #application-form .field-error {
+  margin: 5px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.application-page #application-form .field-error:empty {
+  display: none;
+}
+
+.application-page #application-form .form-panel > .field-error {
+  margin-inline: 16px;
+}
+
+.application-page #application-form .consent {
+  margin: 13px 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+  background: transparent;
+}
+
+.application-page #application-form .form-panel > .consent {
+  margin-inline: 16px;
+}
+
+.application-page #application-form .consent input {
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  accent-color: #eb5505;
+}
+
+.application-page #application-form .consent > span {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.application-page #application-form .consent small {
+  margin-top: 4px;
+  color: #656c71;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.application-page #application-form .consent a {
+  color: #a63800;
+  font-size: 11px;
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+.application-page #application-form .application-next,
+.application-page #application-form .application-submit {
+  width: 100%;
+  min-height: 52px;
+  margin: 12px 0 0;
+  padding: 11px 34px 11px 16px;
+  border: 0;
+  border-radius: 3px;
+  background: #eb5505;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.35;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.application-page #application-form .form-panel > .application-next {
+  width: calc(100% - 32px);
+  margin: 14px 16px 18px;
+}
+
+.application-page #application-form .application-next:hover,
+.application-page #application-form .application-submit:hover {
+  background: #d64b00;
+}
+
+.application-page #application-form .application-next:focus-visible,
+.application-page #application-form .application-submit:focus-visible,
+.application-page #application-form .application-back:focus-visible {
+  outline: 2px solid #292321;
+  outline-offset: 3px;
+}
+
+.application-page #application-form .review-panel {
+  padding: 17px 16px 20px;
+  background: #f3f4f5;
+}
+
+.application-page #application-review-title {
+  margin: 0 0 8px;
+  color: #292321;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -.015em;
+}
+
+.application-page .review-panel .lead {
+  margin: 0;
+  color: #60676c;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.application-page .application-review-list {
+  margin: 15px 0 0;
+  background: #fff;
+}
+
+.application-page .review-panel .application-review-list > div {
+  padding: 12px 10px;
+  border-bottom: 1px solid #dce0e3;
+  display: grid;
+  grid-template-columns: 98px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+}
+
+.application-page .application-review-list dt {
+  color: #656c71;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.application-page .application-review-list dd {
+  margin: 0;
+  color: #292321;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.application-page .application-review-note {
+  margin: 12px 0 0;
+  color: #60676c;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.application-page #application-form .form-actions {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 8px;
+  align-items: stretch;
+}
+
+.application-page #application-form .form-actions .application-submit {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.application-page #application-form .application-back {
+  min-height: 52px;
+  padding: 10px 7px;
+  border: 1px solid #9fa8af;
+  border-radius: 3px;
+  background: #fff;
+  color: #40474c;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.application-page #application-error {
+  min-height: 0;
+  margin: 0;
+  padding: 0 16px 16px;
+  color: #bb2530;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.application-page #application-error:empty {
+  display: none;
+}
+
+.application-page footer {
+  padding: 22px 16px 24px;
+  background: #fff;
+  border-top: 1px solid #e1e4e6;
+}
+
+@media (max-width: 360px) {
+  .application-page .application-steps {
+    grid-template-columns: 62px minmax(0, 1fr);
+    column-gap: 8px;
+    padding-inline: 14px;
+  }
+
+  .application-page .site-header .brand {
+    gap: 8px;
+  }
+
+  .application-page .site-header .au-hikari-logo {
+    width: 120px;
+  }
+
+  .application-page .application-group__body {
+    padding-inline: 14px;
+  }
+
+  .application-page .review-panel .application-review-list > div {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+}

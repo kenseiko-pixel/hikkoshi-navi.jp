@@ -13,8 +13,9 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="auひかりの引越し・住所移転、新規・乗りかえのお申し込み相談フォームです。">
   <title>お申し込み相談フォーム｜auひかり 引越し相談窓口</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23eb5505'/%3E%3Cpath d='M17 38c0-10 6-18 15-18 10 0 15 8 15 18v7h-9v-7c0-5-2-9-6-9s-6 4-6 9v7h-9z' fill='white'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon.png">
   <link rel="stylesheet" href="../css/styles.css?v=20261018-21">
+  <link rel="stylesheet" href="../css/application.css">
 </head>
 <body class="application-page">
   <!-- Google Tag Manager (noscript) -->
@@ -22,39 +23,85 @@
   <!-- End Google Tag Manager (noscript) -->
   <div class="desktop-stage desktop-stage--application">
     <aside class="desktop-rail desktop-rail--left" aria-label="相談フォームのご案内">
-      <div class="rail-brand"><img class="rail-au-hikari-logo" src="../img/au-hikari-logo-hd.png" alt="auひかり" width="2092" height="471"><b>お申し込み窓口</b></div>
       <section class="rail-card rail-card--accent">
         <p class="rail-kicker">かんたん相談</p>
-        <h2>1ページで<br>かんたん入力</h2>
-        <ol class="rail-flow rail-flow--large"><li><span>1</span>希望する手続きを選択</li><li><span>2</span>連絡先・新居住所を入力</li><li><span>3</span>担当スタッフがご案内</li></ol>
+        <h2>入力内容を確認して<br>かんたんお申し込み</h2>
+        <ol class="rail-flow rail-flow--large"><li><span>1</span>必要な内容を入力</li><li><span>2</span>入力内容を確認</li><li><span>3</span>お申し込み完了</li></ol>
       </section>
-      <section class="rail-card rail-card--compact"><p class="rail-kicker">ご確認ください</p><p class="rail-copy">フォーム入力だけで契約は確定しません。内容を確認後、担当スタッフからご連絡します。</p></section>
     </aside>
 
     <div class="site-shell">
-    <header class="site-header"><a class="brand" href="../index.html"><img class="au-hikari-logo" src="../img/au-hikari-logo-hd.png" alt="auひかり" width="2092" height="471"><span class="brand-sub"><small>インターネット</small><b>引越し受付.com</b></span></a></header>
     <main id="top">
       <section class="section application application-page-section" id="application">
-        <p class="section-kicker">かんたんお申し込みフォーム</p>
-        <h1>必要な内容を<br>まとめて入力</h1>
-        <p class="lead">入力だけで契約が確定することはありません。内容を確認後、担当スタッフから提供状況や手続きをご案内します。</p>
-        <form id="application-form" action="../api/send.php" method="post" accept-charset="UTF-8" novalidate>
+        <div class="application-heading">
+          <h1 id="application-form-title">引越しご案内フォーム</h1>
+        </div>
+        <div class="application-steps">
+          <p class="application-steps__label">かんたん<br>3ステップ</p>
+          <ol class="application-progress" aria-label="お申し込みの3ステップ">
+            <li data-application-indicator="1" aria-current="step"><span aria-hidden="true">1</span><b>入力</b></li>
+            <li data-application-indicator="2"><span aria-hidden="true">2</span><b>確認</b></li>
+            <li data-application-indicator="3"><span aria-hidden="true">3</span><b>完了</b></li>
+          </ol>
+        </div>
+        <form id="application-form" action="../api/send.php" method="post" accept-charset="UTF-8" aria-labelledby="application-form-title" novalidate>
           <input type="hidden" name="form_type" value="application">
-          <div class="form-panel form-panel--single">
-            <p class="panel-count">お申し込み内容</p>
-            <fieldset><legend>希望する手続き <b>必須</b></legend><div class="segmented"><label><input type="radio" name="procedure" value="新規申し込み" required><span>新規</span></label><label><input type="radio" name="procedure" value="引越し・住所移転相談"><span>引越し</span></label><label><input type="radio" name="procedure" value="他社からの乗りかえ"><span>乗りかえ</span></label></div></fieldset>
-            <label class="field">お名前 <b>必須</b><input id="customer-name" name="customer_name" autocomplete="name" maxlength="50" placeholder="例）山田 太郎" required></label>
-            <label class="field">利用予定住所の郵便番号 <b>必須</b><input id="postal" name="postal" inputmode="numeric" autocomplete="postal-code" maxlength="8" placeholder="例）100-0001" required></label>
-            <p class="postal-status" id="postal-status" aria-live="polite"></p>
-            <label class="field">利用予定住所 <b>必須</b><input id="address" name="address" autocomplete="street-address" maxlength="200" placeholder="都道府県・市区町村・町域" required></label>
-            <label class="field">電話番号 <b>必須</b><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="例）09012345678" required></label>
-            <label class="field">メールアドレス <span>任意</span><input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="例）example@email.com"></label>
-            <label class="field" for="contact-time">ご希望の連絡時間帯 <b>必須</b></label>
-            <select id="contact-time" name="preferred_time" required><option value="">選択してください</option><option value="いつでも">いつでも</option><option value="10-12時頃">10-12時頃</option><option value="12-15時頃">12-15時頃</option><option value="15-18時頃">15-18時頃</option><option value="18時以降">18時以降</option></select>
-            <label class="consent"><input id="privacy-consent" name="privacy_consent" type="checkbox" value="同意する" required><span>個人情報の取扱いに同意する <b>必須</b><small><a href="https://shinseikatsu-portal.jp/privacy/" target="_blank" rel="noopener noreferrer">プライバシーポリシーを確認する</a></small></span></label>
-            <p class="error" id="application-error" role="alert"></p>
-            <button type="submit" class="cta primary application-submit">この内容でお申し込み <span aria-hidden="true">›</span></button>
+          <div class="form-panel" data-application-panel="input">
+            <section class="application-group" aria-labelledby="application-address-title">
+              <h2 id="application-address-title">お引越し先の情報</h2>
+              <div class="application-group__body">
+                <label class="field">郵便番号 <b>必須</b><input id="postal" name="postal" inputmode="numeric" autocomplete="postal-code" maxlength="8" placeholder="例）100-0001" required></label>
+                <p class="postal-status" id="postal-status" aria-live="polite"></p>
+                <label class="field">利用予定住所 <b>必須</b><input id="address" name="address" autocomplete="street-address" maxlength="200" placeholder="都道府県・市区町村・町域・番地・建物名" required></label>
+              </div>
+            </section>
+            <section class="application-group" aria-labelledby="application-customer-title">
+              <h2 id="application-customer-title">お客様情報</h2>
+              <div class="application-group__body">
+                <label class="field">お名前 <b>必須</b><input id="customer-name" name="customer_name" autocomplete="name" maxlength="50" placeholder="例）山田 太郎" required></label>
+                <label class="field">電話番号 <b>必須</b><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="例）09012345678" required></label>
+                <!-- 再表示する場合は、テンプレート内の項目をこの位置へ戻してください。 -->
+                <template id="application-paused-fields">
+                  <label class="field">メールアドレス <span>任意</span><input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="例）example@email.com"></label>
+                  <label class="field" for="contact-time">ご希望の連絡時間帯 <b>必須</b></label>
+                  <select id="contact-time" name="preferred_time" required><option value="">選択してください</option><option value="いつでも">いつでも</option><option value="10-12時頃">10-12時頃</option><option value="12-15時頃">12-15時頃</option><option value="15-18時頃">15-18時頃</option><option value="18時以降">18時以降</option></select>
+                </template>
+              </div>
+            </section>
+            <template id="application-paused-procedure">
+              <section class="application-group" aria-labelledby="application-procedure-title">
+                <h2 id="application-procedure-title">お手続きの内容</h2>
+                <div class="application-group__body">
+                  <fieldset><legend>希望する手続き <b>必須</b></legend><div class="segmented"><label><input type="radio" name="procedure" value="新規申し込み" required><span>新規</span></label><label><input type="radio" name="procedure" value="引越し・住所移転相談"><span>引越し</span></label><label><input type="radio" name="procedure" value="他社からの乗りかえ"><span>乗りかえ</span></label></div></fieldset>
+                </div>
+              </section>
+            </template>
+            <template id="application-paused-consent">
+              <label class="consent"><input id="privacy-consent" name="privacy_consent" type="checkbox" value="同意する" required><span>個人情報の取扱いに同意する <b>必須</b><small><a href="https://shinseikatsu-portal.jp/privacy/" target="_blank" rel="noopener noreferrer">プライバシーポリシーを確認する</a></small></span></label>
+            </template>
+            <button type="button" class="cta primary application-next" data-application-next>入力内容を確認する <span aria-hidden="true">›</span></button>
           </div>
+          <div class="form-panel review-panel" data-application-panel="review" hidden>
+            <h2 id="application-review-title" tabindex="-1">入力内容の確認</h2>
+            <p class="lead">内容をご確認のうえ、お申し込みください。</p>
+            <dl class="application-review-list">
+              <div><dt>郵便番号</dt><dd data-review-field="postal"></dd></div>
+              <div><dt>利用予定住所</dt><dd data-review-field="address"></dd></div>
+              <div><dt>お名前</dt><dd data-review-field="customer_name"></dd></div>
+              <div><dt>電話番号</dt><dd data-review-field="phone"></dd></div>
+              <template id="application-paused-review-fields">
+                <div><dt>メールアドレス</dt><dd data-review-field="email"></dd></div>
+                <div><dt>連絡時間帯</dt><dd data-review-field="preferred_time"></dd></div>
+                <div><dt>希望する手続き</dt><dd data-review-field="procedure"></dd></div>
+                <div><dt>個人情報の取扱い</dt><dd>同意済み</dd></div>
+              </template>
+            </dl>
+            <div class="form-actions">
+              <button type="button" class="application-back" data-application-back>戻る</button>
+              <button type="submit" class="cta primary application-submit">お申し込み <span aria-hidden="true">›</span></button>
+            </div>
+          </div>
+          <p class="error" id="application-error" role="alert"></p>
           <label class="hp-field" aria-hidden="true">この項目は入力しないでください<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
           <div id="tracking-fields"></div>
         </form>
@@ -67,7 +114,7 @@
       <section class="rail-card rail-card--hero">
         <p class="rail-kicker">ご用意いただくもの</p>
         <h2>新居の住所と<br>連絡先だけで相談</h2>
-        <ul class="rail-checks"><li>希望するお手続き</li><li>引越し先の郵便番号・住所</li><li>ご連絡しやすい時間帯</li></ul>
+        <ul class="rail-checks"><li>引越し先の郵便番号・住所</li><li>お名前</li><li>電話番号</li></ul>
         <a class="rail-cta rail-cta--secondary" href="../index.html#area-check">エリア確認へ戻る</a>
       </section>
     </aside>

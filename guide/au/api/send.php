@@ -96,12 +96,13 @@ if ($isCallback) {
     if (!in_array($housingType, $allowedHousingTypes, true)) fail_request('housing_type', '住居タイプをご確認ください。');
     if (!in_array($preferredTime, $allowedTimes, true)) fail_request('preferred_time', 'ご希望の連絡時間帯をご確認ください。');
 } else {
-    if (!in_array($procedure, $allowedProcedures, true)) redirect_error('procedure');
+    // 休止中の項目は未送信を許可し、送信された場合は従来どおり値を検証します。
+    if (array_key_exists('procedure', $_POST) && !in_array($procedure, $allowedProcedures, true)) redirect_error('procedure');
     if ($name === '' || !$isValidPhone) redirect_error('contact');
     if ($email !== '' && (strlen($email) > 254 || !filter_var($email, FILTER_VALIDATE_EMAIL))) redirect_error('email');
     if (!preg_match('/^\d{7}$/', $postal) || $address === '') redirect_error('address');
-    if (!in_array($preferredTime, $allowedTimes, true)) redirect_error('preferred_time');
-    if ($privacyConsent !== '同意する') redirect_error('privacy_consent');
+    if (array_key_exists('preferred_time', $_POST) && !in_array($preferredTime, $allowedTimes, true)) redirect_error('preferred_time');
+    if (array_key_exists('privacy_consent', $_POST) && $privacyConsent !== '同意する') redirect_error('privacy_consent');
 }
 
 $trackingKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gad_source','gad_campaignid','gclid','gbraid','wbraid','yclid','msclkid','fbclid','entry_url','submit_url','referrer','lp_name','carrier','device','entry_time'];
@@ -132,7 +133,7 @@ $inquiryType = $isArea ? 'エリア確認' : ($isCallback ? '電話予約' : ($i
 $body = "au引越しサイトに" . $inquiryType . "のお問い合わせがありました。\n";
 $body .= "https://net.hikkoshi-navi.jp/guide/au/\n\n";
 $body .= "---\n\n";
-if (!$isQuickForm) {
+if (!$isQuickForm && $procedure !== '') {
     $body .= "[希望する手続き] " . $procedure . "\n";
 }
 $body .= "[お名前] " . $name . "\n";
@@ -147,8 +148,10 @@ if ($isArea || !$isQuickForm) {
     $body .= "[住居タイプ] " . $housingType . "\n";
     $body .= "[郵便番号] " . $postalFormatted . "\n";
 }
-$body .= "[ご希望の連絡時間帯] " . $preferredTime . "\n";
-if (!$isQuickForm) {
+if ($preferredTime !== '') {
+    $body .= "[ご希望の連絡時間帯] " . $preferredTime . "\n";
+}
+if (!$isQuickForm && $privacyConsent === '同意する') {
     $body .= "[個人情報の取扱い] 同意済み\n";
 }
 $body .= "[受付日時] " . date('Y-m-d H:i:s') . "\n";
