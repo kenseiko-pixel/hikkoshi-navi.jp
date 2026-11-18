@@ -612,14 +612,15 @@ if (sticky) {
     });
   }
 
-  const visible = { areaForm: false, estimateForm: false, final: false, footer: false };
+  const visible = { estimateForm: false, final: false, footer: false };
+  const areaFormTarget = document.querySelector('#area-form');
   let fieldFocused = false;
   const updateSticky = () => {
-    sticky.classList.toggle('hidden', fieldFocused || document.body.classList.contains('modal-open') || Object.values(visible).some(Boolean));
+    const pastAreaForm = !areaFormTarget || areaFormTarget.getBoundingClientRect().bottom <= 0;
+    sticky.classList.toggle('hidden', !pastAreaForm || fieldFocused || document.body.classList.contains('modal-open') || Object.values(visible).some(Boolean));
     scheduleViewportUpdate();
   };
   [
-    ['areaForm', '#area-form'],
     ['estimateForm', '#estimate-form'],
     ['final', '#final-cta'],
     ['footer', '#footer']
@@ -630,6 +631,9 @@ if (sticky) {
       visible[key] = entry.isIntersecting;
       updateSticky();
     }, { threshold: 0.08 }).observe(target);
+  });
+  ['scroll', 'resize', 'pageshow', 'orientationchange'].forEach((eventName) => {
+    addEventListener(eventName, updateSticky, { passive: true });
   });
   document.addEventListener('focusin', (event) => {
     if (!event.target.matches('input, select, textarea')) return;
