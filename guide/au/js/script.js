@@ -566,9 +566,58 @@ document.querySelectorAll('a[href="#area-check"]').forEach((link) => {
 
 const sticky = document.querySelector('.sticky');
 if (sticky) {
+  const viewport = window.visualViewport;
+  // The untransformed anchor detects only the part of a fixed footer obscured
+  // by the browser UI. A browser that already moves fixed elements needs no inset.
+  const viewportAnchor = document.createElement('div');
+  viewportAnchor.className = 'sticky-viewport-anchor';
+  viewportAnchor.setAttribute('aria-hidden', 'true');
+  document.body.append(viewportAnchor);
+  let viewportFrame = 0;
+  let settleUntil = 0;
+  let lastViewportInset = -1;
+
+  const updateViewportInset = () => {
+    let inset = 0;
+    if (viewport && viewport.scale === 1) {
+      const fixedBottom = viewportAnchor.getBoundingClientRect().bottom;
+      const visibleBottom = viewport.offsetTop + viewport.height;
+      if (Number.isFinite(fixedBottom) && Number.isFinite(visibleBottom)) {
+        inset = Math.ceil(Math.max(0, fixedBottom - visibleBottom));
+      }
+    }
+    if (inset === lastViewportInset) return;
+    lastViewportInset = inset;
+    sticky.style.setProperty('--sticky-viewport-inset', String(inset) + 'px');
+  };
+
+  const tickViewport = (timestamp) => {
+    viewportFrame = 0;
+    updateViewportInset();
+    if (timestamp < settleUntil) {
+      viewportFrame = requestAnimationFrame(tickViewport);
+    }
+  };
+  const scheduleViewportUpdate = () => {
+    // Browser bars can finish moving just after the last viewport event.
+    settleUntil = performance.now() + 300;
+    if (!viewportFrame) viewportFrame = requestAnimationFrame(tickViewport);
+  };
+  ['resize', 'scroll', 'pageshow', 'orientationchange'].forEach((eventName) => {
+    addEventListener(eventName, scheduleViewportUpdate, { passive: true });
+  });
+  if (viewport) {
+    ['resize', 'scroll'].forEach((eventName) => {
+      viewport.addEventListener(eventName, scheduleViewportUpdate, { passive: true });
+    });
+  }
+
   const visible = { areaForm: false, estimateForm: false, final: false, footer: false };
   let fieldFocused = false;
-  const updateSticky = () => sticky.classList.toggle('hidden', fieldFocused || document.body.classList.contains('modal-open') || Object.values(visible).some(Boolean));
+  const updateSticky = () => {
+    sticky.classList.toggle('hidden', fieldFocused || document.body.classList.contains('modal-open') || Object.values(visible).some(Boolean));
+    scheduleViewportUpdate();
+  };
   [
     ['areaForm', '#area-form'],
     ['estimateForm', '#estimate-form'],

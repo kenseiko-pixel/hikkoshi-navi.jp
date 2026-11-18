@@ -38,8 +38,8 @@
 }
 
 .application-page .application-heading {
-  min-height: 64px;
-  padding: 16px;
+  min-height: 80px;
+  padding: 12px 16px;
   display: grid;
   place-items: center;
   background: #eb5505;
@@ -49,11 +49,14 @@
 
 .application-page .application-heading__service {
   margin: 0 0 4px;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 800;
   line-height: 1.15;
-  letter-spacing: 0;
+}
+
+.application-page .application-heading__service img {
+  display: block;
+  width: 112px;
+  height: auto;
+  filter: brightness(0) invert(1);
 }
 
 .application-page .application-heading h1 {
